@@ -1,0 +1,10 @@
+{
+  "port" : 8123,
+  "user" : {
+    "max_allowed_sessions" : 5,
+    "session_time_out" : -1
+  },
+  "db" : {
+    "access_file_location" : "db.accdb"
+  }
+}
