@@ -5,6 +5,6 @@
     "session_time_out" : -1
   },
   "db" : {
-    "access_file_location" : "db.accdb"
+    "access_file_location" : "DingoPro.accdb"
   }
 }
