@@ -2,9 +2,12 @@ package mobi.newsound.database;
 
 import mobi.newsound.models.*;
 
-import java.sql.Connection;
+import java.io.File;
+import java.sql.*;
+import java.util.*;
 import java.util.Date;
-import java.util.List;
+//import net.ucanaccess.jdbc.UcanaccessDriver;
+import static mobi.newsound.util.Config.config;
 
 class Database implements DataStore{
 
@@ -14,9 +17,18 @@ class Database implements DataStore{
     final static String JASPER_BIN = config.get("RF_REPORT_BINARY").getAsString();
     private Connection connection;
 
+    Database() throws SQLException {
+        connection = getUcanaccessConnection(new File(DB_LOCATION).getAbsolutePath());
+    }
+
+    private Connection getUcanaccessConnection(String pathNewDB) throws SQLException{
+  //      String url = UcanaccessDriver.URL_PREFIX + pathNewDB+";Columnorder=Display;Showschema=true";
+    //    return DriverManager.getConnection(url, null, null);
+    }
+
     @Override
     public void close() throws Exception {
-        
+        connection.close();
     }
 
     @Override

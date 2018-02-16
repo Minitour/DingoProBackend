@@ -257,4 +257,39 @@ public interface DataStore extends AutoCloseable,Serializable{
      * @throws DSException
      */
     default boolean submitAppeal(AuthContext context, Appeal appeal) throws DSException {throw new DSUnimplementedException();}
+
+    abstract class DSException extends RuntimeException {
+        DSException(){}
+        DSException(String message){
+            super(message);
+        }
+    }
+
+    class DSUnimplementedException extends DSException{
+        public DSUnimplementedException() {
+            super("Unimplemented");
+        }
+
+        DSUnimplementedException(String message) {
+            super(message);
+        }
+    }
+
+    class DSFormatException extends DSException {
+        public DSFormatException() {
+        }
+
+        DSFormatException(String message) {
+            super(message);
+        }
+    }
+
+    class DSAuthException extends DSException{
+        public DSAuthException() {
+        }
+
+        DSAuthException(String message) {
+            super(message);
+        }
+    }
 }
