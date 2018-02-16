@@ -1,6 +1,7 @@
 package mobi.newsound.database;
 
 import mobi.newsound.models.*;
+import net.ucanaccess.jdbc.UcanaccessDriver;
 
 import java.io.File;
 import java.sql.*;
@@ -22,10 +23,8 @@ class Database implements DataStore{
     }
 
     private Connection getUcanaccessConnection(String pathNewDB) throws SQLException{
-  //      String url = UcanaccessDriver.URL_PREFIX + pathNewDB+";Columnorder=Display;Showschema=true";
-    //    return DriverManager.getConnection(url, null, null);
-        //todo: returnc connection
-        return null;
+        String url = UcanaccessDriver.URL_PREFIX + pathNewDB+";Columnorder=Display;Showschema=true";
+        return DriverManager.getConnection(url, null, null);
     }
 
     @Override
