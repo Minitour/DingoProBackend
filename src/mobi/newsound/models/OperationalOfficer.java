@@ -4,6 +4,7 @@ import com.google.gson.annotations.Expose;
 import mobi.newsound.database.Column;
 import mobi.newsound.database.DBObject;
 
+import java.util.Date;
 import java.util.Optional;
 
 public class OperationalOfficer extends DBObject {
