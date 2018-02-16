@@ -13,8 +13,20 @@ public class AuthContext {
     @Expose
     public final String sessionToken;
 
+    private int role = -1;
+
     public AuthContext(String id, String sessionToken) {
         this.id = id;
         this.sessionToken = sessionToken;
     }
+
+    void setRole(int role) { this.role = role; }
+
+    public boolean isValid() {
+        return role != -1;
+    }
+
+    public int getRole() { return role; }
+
+
 }

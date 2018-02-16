@@ -86,4 +86,8 @@ public class DBObject implements Mappable{
     public boolean hasForeignKeys(){
         return getForeignKeys().size() > 0;
     }
+
+    public String db_table() {
+        return "Tbl" + getClass().getSimpleName() + "s";
+    }
 }
