@@ -261,7 +261,7 @@ class Database implements DataStore{
 
     @Override
     public List<Report> getAllReports(AuthContext context) throws DSException {
-        //get officer reports
+
 
             //get the foreignKeys using String fieldString = officerReport.getForeignKey("field")
 
@@ -272,6 +272,68 @@ class Database implements DataStore{
             //assign the objects to the officer report
 
         //get the volunteer reports
+
+        List<Report> reports = new ArrayList<>();
+        try {
+
+            //get officer reports
+            List<Map<String,Object>> dataFromOfficers = get("SELECT * FROM TblOfficerReport");
+            for (Map<String,Object> map: dataFromOfficers) {
+                OfficerReport officerReport  = new OfficerReport(map);
+
+                String vehicleString = officerReport.getForeignKey("vehicle");
+                String appealString = officerReport.getForeignKey("appeal");
+                String defendantString = officerReport.getForeignKey("defendant");
+                String partString = officerReport.getForeignKey("part");
+                String routeString = officerReport.getForeignKey("route");
+                officerReport.setRoute(new Route(Integer.valueOf(routeString)));
+                String orderNumString = officerReport.getForeignKey("orderNum");
+
+                //get the partnership
+                Partnership partnership = new Partnership(get("SELECT * FROM TblPartnerships WHERE ptshipNum = ?", partString).get(0));
+
+                //get the officers in the partnership and add them
+                List<Map<String,Object>> officersFromTbl = get("SELECT * FROM TblOperationalOfficers WHERE ptship = ?", partString);
+                for (Map<String,Object> mapOfficers: officersFromTbl) {
+                    partnership.addOfficerToPartnership(new OperationalOfficer(mapOfficers));
+                }
+                officerReport.setPart(partnership);
+
+                //get the landmark
+                Landmark landmark = new Landmark(get("SELECT * FROM TblLandmarks WHERE (route = ? AND orderNum = ?)", routeString, orderNumString).get(0));
+                officerReport.setOrderNum(landmark);
+
+                //get the defendant
+                Defendant defendant = new Defendant(get("SELECT * FROM TblDefendants WHERE ID = ?", defendantString).get(0));
+                officerReport.setDefendant(defendant);
+
+                //get the appeal
+                Appeal appeal = new Appeal(get("SELECT * FROM TblAppeals WHERE serialNum = ?", appealString).get(0));
+                officerReport.setAppeal(appeal);
+
+                //get the vehicle
+                Vehicle vehicle = new Vehicle(get("SELECT * FROM TblVehicles WHERE licensePlate = ?", vehicleString).get(0));
+                String modelString = vehicle.getForeignKey("model");
+                VehicleModel vehicleModel = new VehicleModel(get("SELECT * FROM TblVehicleModels WHERE modelNum = ?", modelString).get(0));
+                vehicle.setModel(vehicleModel);
+                officerReport.setVehicle(vehicle);
+
+                reports.add(officerReport);
+            }
+
+            //get the volunteer reports
+            List<Map<String,Object>> dataFromVolunteers = get("SELECT * FROM TblVolunteerReport");
+            for (Map<String,Object> map: dataFromVolunteers) {
+
+            }
+
+
+        } catch (SQLException e) {
+            throw new DSFormatException(e.getMessage());
+        }
+
+
+        return null;
     }
 
     @Override

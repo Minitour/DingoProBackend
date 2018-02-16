@@ -5,6 +5,7 @@ import mobi.newsound.database.Column;
 import mobi.newsound.database.DBObject;
 
 import java.util.Date;
+import java.util.Map;
 import java.util.Optional;
 
 public class OperationalOfficer extends DBObject {
@@ -30,6 +31,10 @@ public class OperationalOfficer extends DBObject {
         setPhoneExtension(phoneExtension);
         setPosition(position);
         setPtship(ptship);
+    }
+
+    public OperationalOfficer(Map<String,Object> map) {
+        super(map);
     }
 
     public void setPin(String pin) {

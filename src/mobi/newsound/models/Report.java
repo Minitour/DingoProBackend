@@ -5,6 +5,7 @@ import mobi.newsound.database.Column;
 import mobi.newsound.database.DBObject;
 
 import java.util.Date;
+import java.util.Map;
 import java.util.Optional;
 
 public abstract class Report extends DBObject {
@@ -42,6 +43,10 @@ public abstract class Report extends DBObject {
         setDefendant(defendant);
         setVehicle(vehicle);
         setAppeal(appeal);
+    }
+
+    public Report(Map<String, Object> map) {
+        super(map);
     }
 
     public void setAlphaNum(String alphaNum) {

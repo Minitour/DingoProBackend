@@ -4,6 +4,7 @@ import com.google.gson.annotations.Expose;
 import mobi.newsound.database.Column;
 
 import java.util.Date;
+import java.util.Map;
 import java.util.Optional;
 
 public class OfficerReport extends Report {
@@ -24,7 +25,9 @@ public class OfficerReport extends Report {
         setOrderNum(orderNum);
     }
 
-
+    public OfficerReport(Map<String,Object> map) {
+        super(map);
+    }
 
     public void setPart(Partnership part) {
         this.part = part;
