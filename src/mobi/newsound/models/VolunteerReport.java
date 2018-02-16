@@ -31,4 +31,9 @@ public class VolunteerReport extends Report {
                 new Column("evidenceLink",evidenceLink)
         };
     }
+
+    @Override
+    public String db_table() {
+        return "TblVolunteerReport";
+    }
 }

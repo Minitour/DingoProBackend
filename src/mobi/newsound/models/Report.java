@@ -7,7 +7,7 @@ import mobi.newsound.database.DBObject;
 import java.util.Date;
 import java.util.Optional;
 
-public class Report extends DBObject {
+public abstract class Report extends DBObject {
 
     @Expose
     private String alphaNum;

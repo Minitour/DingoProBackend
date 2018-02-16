@@ -129,51 +129,113 @@ class Database implements DataStore{
 
     @Override
     public boolean addAppealToReport(AuthContext context, Appeal appeal, Report report) throws DSException {
+        //context: 1
 
-        //Todo: check context
+        isContextValidFor(context, roleId -> { if(roleId == -1) throw new DSAuthException("Invalid Context"); }, 1);
+        try {
+            update(report.db_table(),
+                    new Where("alphaNum = ?", report.getAlphaNum()),
+                    new Column("appeal", appeal.getSerialNum()));
+            return true;
+        } catch (SQLException e) {
+            throw new DSFormatException(e.getMessage());
+        }
 
-        //Todo:
-
-        return false;
     }
 
     @Override
     public boolean addLandmarksToRoutes(AuthContext context, Landmark landmark, Route route) throws DSException {
-        return false;
+        //context: 1
+
+        isContextValidFor(context, roleId -> { if(roleId == -1) throw new DSAuthException("Invalid Context"); }, 1);
+        try {
+            update("TblLandmarks",
+                    new Where("latitude = ? AND longitude = ?", landmark.getLatitude(), landmark.getLongitude()),
+                    new Column("route", route.getSerialNum()));
+            return true;
+        } catch (SQLException e) {
+            throw new DSFormatException(e.getMessage());
+        }
     }
 
     @Override
-    public boolean assignOfficersToPartnerships(AuthContext context, List<OperationalOfficer> officers, List<Partnership> partnerships) throws DSException {
-        return false;
+    public boolean assignOfficersToPartnerships(AuthContext context, OperationalOfficer officer, Partnership partnership) throws DSException {
+        //context: 1
+
+        isContextValidFor(context, roleId -> { if(roleId == -1) throw new DSAuthException("Invalid Context"); }, 1);
+        try {
+            update("TblOperationalOfficers",
+                    new Where("pin = ?", officer.getPin()),
+                    new Column("ptship", partnership.getPtshipNum()));
+            return true;
+        }catch (SQLException e) {
+            throw new DSFormatException(e.getMessage());
+        }
     }
 
     @Override
     public boolean assignPartnershipToShift(AuthContext context, Partnership partnership, Shift shift) throws DSException {
-        return false;
+        //context: 1
+
+        isContextValidFor(context, roleId -> { if(roleId == -1) throw new DSAuthException("Invalid Context"); }, 1);
+        try {
+            update("TblShiftPartnerships",
+                    new Where("shift = ?", shift.getShiftCode()),
+                    new Column("ptship", partnership.getPtshipNum()));
+            return true;
+        }catch (SQLException e) {
+            throw new DSFormatException(e.getMessage());
+        }
     }
 
     @Override
     public boolean assignRouteToShift(AuthContext context, Route route, Shift shift) throws DSException {
-        return false;
+        //context: 1
+
+        isContextValidFor(context, roleId -> { if(roleId == -1) throw new DSAuthException("Invalid Context"); }, 1);
+        try {
+            update("TblShiftsPartnerships",
+                    new Where("shift = ?", shift.getShiftCode()),
+                    new Column("route", route.getSerialNum()));
+            return true;
+        }catch (SQLException e) {
+            throw new DSFormatException(e.getMessage());
+        }
     }
 
     @Override
-    public Defendant createDefendant(AuthContext context, Defendant defendant) throws DSException {
+    public boolean createDefendant(AuthContext context, Defendant defendant) throws DSException {
+        //context: operational officer  (assumption : operational officer roleId = 2)
+
+        isContextValidFor(context, roleId -> { if(roleId == -1) throw new DSAuthException("Invalid Context"); }, 2);
+        try {
+            insert("TblDefendants", defendant);
+            return true;
+        }catch (SQLException e) {
+            throw new DSFormatException(e.getMessage());
+        }
+    }
+
+    @Override
+    public Report createOfficerReport(AuthContext context, OfficerReport report) throws DSException {
         return null;
     }
 
     @Override
-    public OfficerReport createOfficerReport(AuthContext context, OfficerReport report) throws DSException {
-        return null;
+    public boolean createPartnership(AuthContext context, Partnership partnership) throws DSException {
+        //context: HighRankOfficer (assumption: HighRankOfficer roleId = 1)
+
+        isContextValidFor(context, roleId -> { if(roleId == -1) throw new DSAuthException("Invalid Context"); }, 1);
+        try {
+            insert("TblPartnerships", partnership);
+            return true;
+        } catch (SQLException e) {
+            throw new DSFormatException(e.getMessage());
+        }
     }
 
     @Override
-    public Partnership createPartnership(AuthContext context, Partnership partnership) throws DSException {
-        return null;
-    }
-
-    @Override
-    public VolunteerReport createVolunteerReport(AuthContext context, VolunteerReport report) throws DSException {
+    public Report createVolunteerReport(AuthContext context, VolunteerReport report) throws DSException {
         return null;
     }
 
@@ -209,7 +271,18 @@ class Database implements DataStore{
 
     @Override
     public List<Defendant> getAllDefendants(AuthContext context) throws DSException {
-        return null;
+        //context: HighRankOfficer (assumption: HighRankOfficer roleId = 1)
+
+        isContextValidFor(context, roleId -> { if(roleId == -1) throw new DSAuthException("Invalid Context"); }, 1);
+        List<Defendant> defendants = new ArrayList<>();
+        try {
+            List<Map<String,Object>> data = get("SELECT * FROM TblDefendants");
+            for(Map<String,Object> map: data)
+                defendants.add(new Defendant(map));
+            return defendants;
+        } catch (SQLException e) {
+            throw new DSFormatException(e.getMessage());
+        }
     }
 
     @Override
@@ -218,7 +291,7 @@ class Database implements DataStore{
     }
 
     @Override
-    public List<Partnership> getPartnetships(AuthContext context) throws DSException {
+    public List<Partnership> getPartnerships(AuthContext context) throws DSException {
         return null;
     }
 
@@ -563,3 +636,11 @@ class Database implements DataStore{
     }
 
 }
+
+/*
+Roles Ids:
+    1.HighRankOfficer
+    2.OperationalOfficer
+    3.OnCallOfficer
+    4.Defendant
+ */

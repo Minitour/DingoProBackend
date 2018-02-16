@@ -75,7 +75,7 @@ public interface DataStore extends AutoCloseable,Serializable{
      * @return
      * @throws DSException
      */
-    default boolean assignOfficersToPartnerships(AuthContext context, List<OperationalOfficer> officers, List<Partnership> partnerships) throws DSException {throw new DSUnimplementedException();}
+    default boolean assignOfficersToPartnerships(AuthContext context, OperationalOfficer officers, Partnership partnerships) throws DSException {throw new DSUnimplementedException();}
 
     /**
      *
@@ -104,7 +104,7 @@ public interface DataStore extends AutoCloseable,Serializable{
      * @return
      * @throws DSException
      */
-    default Defendant createDefendant(AuthContext context, Defendant defendant) throws DSException {throw new DSUnimplementedException();}
+    default boolean createDefendant(AuthContext context, Defendant defendant) throws DSException {throw new DSUnimplementedException();}
 
     /**
      *
@@ -113,7 +113,7 @@ public interface DataStore extends AutoCloseable,Serializable{
      * @return
      * @throws DSException
      */
-    default OfficerReport createOfficerReport(AuthContext context, OfficerReport report) throws DSException {throw new DSUnimplementedException();}
+    default Report createOfficerReport(AuthContext context, OfficerReport report) throws DSException {throw new DSUnimplementedException();}
 
     /**
      *
@@ -122,7 +122,7 @@ public interface DataStore extends AutoCloseable,Serializable{
      * @return
      * @throws DSException
      */
-    default Partnership createPartnership(AuthContext context, Partnership partnership) throws DSException {throw new DSUnimplementedException();}
+    default boolean createPartnership(AuthContext context, Partnership partnership) throws DSException {throw new DSUnimplementedException();}
 
     /**
      *
@@ -131,7 +131,7 @@ public interface DataStore extends AutoCloseable,Serializable{
      * @return
      * @throws DSException
      */
-    default VolunteerReport createVolunteerReport(AuthContext context, VolunteerReport report) throws DSException {throw new DSUnimplementedException();}
+    default Report createVolunteerReport(AuthContext context, VolunteerReport report) throws DSException {throw new DSUnimplementedException();}
 
     /**
      * either the volunteer report or officer report is NULL
@@ -164,7 +164,6 @@ public interface DataStore extends AutoCloseable,Serializable{
      *
      * @param context
      * @param officerReports
-     * @param volunteerReports
      * @throws DSException
      */
     default void getAllReportsExportToDingoReport(AuthContext context, List<OfficerReport> officerReports) throws DSException {throw new DSUnimplementedException();}
@@ -207,7 +206,7 @@ public interface DataStore extends AutoCloseable,Serializable{
      * @return
      * @throws DSException
      */
-    default List<Partnership> getPartnetships(AuthContext context) throws DSException {throw new DSUnimplementedException();}
+    default List<Partnership> getPartnerships(AuthContext context) throws DSException {throw new DSUnimplementedException();}
 
     /**
      *
@@ -257,6 +256,8 @@ public interface DataStore extends AutoCloseable,Serializable{
      * @throws DSException
      */
     default boolean submitAppeal(AuthContext context, Appeal appeal) throws DSException {throw new DSUnimplementedException();}
+
+
 
     abstract class DSException extends RuntimeException {
         DSException(){}

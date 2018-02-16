@@ -4,6 +4,8 @@ import com.google.gson.annotations.Expose;
 import mobi.newsound.database.Column;
 import mobi.newsound.database.DBObject;
 
+import java.util.Map;
+
 public class Defendant extends DBObject {
 
     @Expose
@@ -23,6 +25,10 @@ public class Defendant extends DBObject {
         setDrivingLicense(drivingLicense);
         setName(name);
         setAddress(address);
+    }
+
+    public Defendant(Map<String,Object> map) {
+        super(map);
     }
 
     public void setId(int id) {

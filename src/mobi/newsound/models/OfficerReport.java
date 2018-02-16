@@ -59,5 +59,10 @@ public class OfficerReport extends Report {
         };
     }
 
+    @Override
+    public String db_table() {
+        return "TblOfficerReport";
+    }
+
 
 }
