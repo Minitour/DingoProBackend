@@ -6,6 +6,7 @@ import mobi.newsound.database.DBObject;
 
 import java.util.Collection;
 import java.util.Collections;
+import java.util.Map;
 
 public class Partnership extends DBObject {
 
@@ -18,6 +19,10 @@ public class Partnership extends DBObject {
 
     public Partnership(int ptshipNum, OperationalOfficer officerABadge, OperationalOfficer officerBBadge) {
         setPtshipNum(ptshipNum);
+    }
+
+    public Partnership(Map<String,Object> map) {
+        super(map);
     }
 
     public void setPtshipNum(int ptshipNum) {

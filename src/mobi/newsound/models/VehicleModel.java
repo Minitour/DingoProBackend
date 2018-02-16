@@ -4,6 +4,8 @@ import com.google.gson.annotations.Expose;
 import mobi.newsound.database.Column;
 import mobi.newsound.database.DBObject;
 
+import java.util.Map;
+
 public class VehicleModel extends DBObject {
 
     @Expose
@@ -15,6 +17,10 @@ public class VehicleModel extends DBObject {
     public VehicleModel(String modelNum, String name) {
         setModelNum(modelNum);
         setName(name);
+    }
+
+    public VehicleModel(Map<String,Object> map) {
+        super(map);
     }
 
     public void setModelNum(String modelNum) {

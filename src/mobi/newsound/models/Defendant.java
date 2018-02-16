@@ -73,4 +73,9 @@ public class Defendant extends DBObject {
         };
     }
 
+    @Override
+    public String db_table() {
+        return "TblDefendants";
+    }
+
 }

@@ -4,6 +4,8 @@ import com.google.gson.annotations.Expose;
 import mobi.newsound.database.Column;
 import mobi.newsound.database.DBObject;
 
+import java.util.Map;
+
 public class Route extends DBObject {
 
     @Expose
@@ -11,6 +13,10 @@ public class Route extends DBObject {
 
     public Route(int serialNum) {
         setSerialNum(serialNum);
+    }
+
+    public Route(Map<String,Object> map) {
+        super(map);
     }
 
     public void setSerialNum(int serialNum) {

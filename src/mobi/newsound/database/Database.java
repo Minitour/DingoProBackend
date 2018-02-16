@@ -261,12 +261,33 @@ class Database implements DataStore{
 
     @Override
     public List<Report> getAllReports(AuthContext context) throws DSException {
-        return null;
+        //get officer reports
+
+            //get the foreignKeys using String fieldString = officerReport.getForeignKey("field")
+
+            //create lists for the foreign keys objects
+
+            //for every list do a loop and create an Object for it
+
+            //assign the objects to the officer report
+
+        //get the volunteer reports
     }
 
     @Override
     public List<Appeal> getAllAppeals(AuthContext context) throws DSException {
-        return null;
+        //context: HighRankOfficer (assumption: HighRankOfficer roleId = 1)
+
+        isContextValidFor(context, roleId -> { if(roleId == -1) throw new DSAuthException("Invalid Context"); }, 1);
+        List<Appeal> appeals = new ArrayList<>();
+        try {
+            List<Map<String,Object>> data = get("SELECT * FROM TblAppeals");
+            for(Map<String,Object> map: data)
+                appeals.add(new Appeal(map));
+            return appeals;
+        } catch (SQLException e) {
+            throw new DSFormatException(e.getMessage());
+        }
     }
 
     @Override
@@ -287,12 +308,34 @@ class Database implements DataStore{
 
     @Override
     public List<Landmark> getLandmarks(AuthContext context) throws DSException {
-        return null;
+        //context: HighRankOfficer (assumption: HighRankOfficer roleId = 1)
+
+        isContextValidFor(context, roleId -> { if(roleId == -1) throw new DSAuthException("Invalid Context"); }, 1);
+        List<Landmark> landmarks = new ArrayList<>();
+        try  {
+            List<Map<String,Object>> data = get("SELECT * FROM TblAppeals");
+            for(Map<String,Object> map: data)
+                landmarks.add(new Landmark(map));
+            return landmarks;
+        } catch (SQLException e) {
+            throw new DSFormatException(e.getMessage());
+        }
     }
 
     @Override
     public List<Partnership> getPartnerships(AuthContext context) throws DSException {
-        return null;
+        //context: HighRankOfficer (assumption: HighRankOfficer roleId = 1)
+
+        isContextValidFor(context, roleId -> { if(roleId == -1) throw new DSAuthException("Invalid Context"); }, 1);
+        List<Partnership> partnerships = new ArrayList<>();
+        try {
+            List<Map<String,Object>> data = get("SELECT * FROM TblPartnerships");
+            for(Map<String,Object> map: data)
+                partnerships.add(new Partnership(map));
+            return partnerships;
+        } catch (SQLException e) {
+            throw new DSFormatException(e.getMessage());
+        }
     }
 
     @Override
@@ -302,22 +345,82 @@ class Database implements DataStore{
 
     @Override
     public List<Route> getRoutes(AuthContext context) throws DSException {
-        return null;
+        //context: HighRankOfficer (assumption: HighRankOfficer roleId = 1)
+
+        isContextValidFor(context, roleId -> { if(roleId == -1) throw new DSAuthException("Invalid Context"); }, 1);
+        List<Route> routes = new ArrayList<>();
+        try {
+            List<Map<String,Object>> data = get("SELECT * FROM TblRoutes");
+            for(Map<String, Object> map: data)
+                routes.add(new Route(map));
+            return routes;
+        } catch (SQLException e) {
+            throw new DSFormatException(e.getMessage());
+        }
     }
 
     @Override
     public List<Shift> getShifts(AuthContext context) throws DSException {
-        return null;
+        //context: HighRankOfficer (assumption: HighRankOfficer roleId = 1)
+
+        isContextValidFor(context, roleId -> { if(roleId == -1) throw new DSAuthException("Invalid Context"); }, 1);
+        List<Shift> shifts = new ArrayList<>();
+        try {
+            List<Map<String,Object>> data = get("SELECT * FROM TblShifts");
+            for(Map<String,Object> map: data)
+                shifts.add(new Shift(map));
+            return shifts;
+        } catch (SQLException e) {
+            throw new DSFormatException(e.getMessage());
+        }
+
     }
 
     @Override
     public List<VehicleModel> getVehicleModels(AuthContext context) throws DSException {
-        return null;
+        //context: HighRankOfficer (assumption: HighRankOfficer roleId = 1)
+
+        isContextValidFor(context, roleId -> { if(roleId == -1) throw new DSAuthException("Invalid Context"); }, 1);
+        List<VehicleModel> vehicleModels = new ArrayList<>();
+        try {
+            List<Map<String, Object>> data = get("SELECT * FROM TblVehicleModel");
+            for(Map<String,Object> map: data)
+                vehicleModels.add(new VehicleModel(map));
+            return vehicleModels;
+        } catch (SQLException e) {
+            throw new DSFormatException(e.getMessage());
+        }
     }
 
     @Override
     public List<Vehicle> getVehicles(AuthContext context) throws DSException {
-        return null;
+        //context: HighRankOfficer (assumption: HighRankOfficer roleId = 1)
+
+        isContextValidFor(context, roleId -> { if(roleId == -1) throw new DSAuthException("Invalid Context"); }, 1);
+
+        //get the vehicles - > for each vehicle, with the vehicle model field (String model = vehicle.getForeignKey("model"))
+        List<Vehicle> vehicles = new ArrayList<>();
+        try {
+            List<Map<String,Object>> data = get("SELECT * FROM TblVehicles");
+            for(Map<String,Object> map: data) {
+                //create a vehicle
+                Vehicle vehicle = new Vehicle(map);
+
+                //get the model number
+                String model = vehicle.getForeignKey("model");
+
+                //get the model from Tbl
+                if (model != null) {
+                    VehicleModel vehicleModel = new VehicleModel(get("SELECT * FROM TblVehicleModel WHERE modelNum = ?", model).get(0));
+                    vehicle.setModel(vehicleModel);
+                }
+                //adding
+                vehicles.add(vehicle);
+            }
+            return vehicles;
+        }catch (SQLException e) {
+            throw new DSFormatException(e.getMessage());
+        }
     }
 
     @Override

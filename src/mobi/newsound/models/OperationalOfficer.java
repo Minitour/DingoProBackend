@@ -82,4 +82,9 @@ public class OperationalOfficer extends DBObject {
                 new Column<>("ptship", Optional.ofNullable(ptship), Partnership::getPtshipNum) //FK
         };
     }
+
+    @Override
+    public String db_table() {
+        return "TblOperationalOfficers";
+    }
 }

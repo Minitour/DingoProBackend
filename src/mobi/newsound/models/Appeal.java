@@ -5,6 +5,7 @@ import mobi.newsound.database.Column;
 import mobi.newsound.database.DBObject;
 
 import java.util.Date;
+import java.util.Map;
 
 public class Appeal extends DBObject {
 
@@ -21,6 +22,10 @@ public class Appeal extends DBObject {
         setSerialNum(serialNum);
         setReason(reason);
         setAppealDate(appealDate);
+    }
+
+    public Appeal(Map<String,Object> map) {
+        super(map);
     }
 
     public void setSerialNum(int serialNum) {
@@ -54,5 +59,10 @@ public class Appeal extends DBObject {
                 new Column("reason",reason),
                 new Column("appealDate",appealDate)
         };
+    }
+
+    @Override
+    public String db_table() {
+        return "TblAppeals";
     }
 }

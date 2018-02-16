@@ -5,6 +5,7 @@ import mobi.newsound.database.Column;
 import mobi.newsound.database.DBObject;
 
 import java.util.Date;
+import java.util.Map;
 
 public class Shift extends DBObject {
 
@@ -21,6 +22,10 @@ public class Shift extends DBObject {
         setShiftCode(shiftCode);
         setShiftDate(shiftDate);
         setType(type);
+    }
+
+    public Shift(Map<String, Object> map) {
+        super(map);
     }
 
     public void setShiftCode(int shiftCode) {

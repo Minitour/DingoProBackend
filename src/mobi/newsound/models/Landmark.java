@@ -4,6 +4,8 @@ import com.google.gson.annotations.Expose;
 import mobi.newsound.database.Column;
 import mobi.newsound.database.DBObject;
 
+import java.util.Map;
+
 public class Landmark extends DBObject {
 
     @Expose
@@ -27,6 +29,10 @@ public class Landmark extends DBObject {
         setPlannedArrivalTime(plannedArrivalTime);
         setLatitude(latitude);
         setLongitude(longitude);
+    }
+
+    public Landmark(Map<String,Object> map) {
+        super(map);
     }
 
     public void setRoute(int route) {

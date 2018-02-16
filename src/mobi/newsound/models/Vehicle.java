@@ -4,6 +4,7 @@ import com.google.gson.annotations.Expose;
 import mobi.newsound.database.Column;
 import mobi.newsound.database.DBObject;
 
+import java.util.Map;
 import java.util.Optional;
 
 public class Vehicle extends DBObject {
@@ -21,6 +22,10 @@ public class Vehicle extends DBObject {
         setLicensePlate(licensePlate);
         setColorHEX(colorHEX);
         setModel(model);
+    }
+
+    public Vehicle(Map<String,Object> map) {
+        super(map);
     }
 
     public void setLicensePlate(String licensePlate) {
