@@ -5,6 +5,7 @@ import mobi.newsound.database.Column;
 import mobi.newsound.database.DBObject;
 
 import java.util.Date;
+import java.util.Map;
 import java.util.Optional;
 
 public class VolunteerReport extends Report {
@@ -16,6 +17,11 @@ public class VolunteerReport extends Report {
         super(alphaNum,violationDate,description,status,violationType,defendant,vehicle,appeal);
         setEvidenceLink(evidenceLink);
     }
+
+    public VolunteerReport(Map<String,Object> map){
+        super(map);
+    }
+
 
     public void setEvidenceLink(String evidenceLink) {
         this.evidenceLink = evidenceLink;

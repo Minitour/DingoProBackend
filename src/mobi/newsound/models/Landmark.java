@@ -5,11 +5,12 @@ import mobi.newsound.database.Column;
 import mobi.newsound.database.DBObject;
 
 import java.util.Map;
+import java.util.Optional;
 
 public class Landmark extends DBObject {
 
     @Expose
-    private int route;
+    private Route route;
 
     @Expose
     private int orderNum;
@@ -23,7 +24,7 @@ public class Landmark extends DBObject {
     @Expose
     private String longitude;
 
-    public Landmark(int route, int orderNum, String plannedArrivalTime, String latitude, String longitude) {
+    public Landmark(Route route, int orderNum, String plannedArrivalTime, String latitude, String longitude) {
         setRoute(route);
         setOrderNum(orderNum);
         setPlannedArrivalTime(plannedArrivalTime);
@@ -35,7 +36,7 @@ public class Landmark extends DBObject {
         super(map);
     }
 
-    public void setRoute(int route) {
+    public void setRoute(Route route) {
         this.route = route;
     }
 
@@ -55,7 +56,7 @@ public class Landmark extends DBObject {
         this.longitude = longitude;
     }
 
-    public int getRoute() {
+    public Route getRoute() {
         return route;
     }
 
@@ -77,7 +78,7 @@ public class Landmark extends DBObject {
 
     public Column[] db_columns() {
         return new Column[]{
-                new Column("route",route),
+                new Column<>("route", Optional.ofNullable(route), Route::getSerialNum), //FK
                 new Column("orderNum",orderNum),
                 new Column("plannedArrivalTime",plannedArrivalTime),
                 new Column("latitude",latitude),

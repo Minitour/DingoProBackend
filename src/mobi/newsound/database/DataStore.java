@@ -113,7 +113,7 @@ public interface DataStore extends AutoCloseable,Serializable{
      * @return
      * @throws DSException
      */
-    default Report createOfficerReport(AuthContext context, OfficerReport report) throws DSException {throw new DSUnimplementedException();}
+    default boolean createOfficerReport(AuthContext context, OfficerReport report) throws DSException {throw new DSUnimplementedException();}
 
     /**
      *
@@ -131,17 +131,16 @@ public interface DataStore extends AutoCloseable,Serializable{
      * @return
      * @throws DSException
      */
-    default Report createVolunteerReport(AuthContext context, VolunteerReport report) throws DSException {throw new DSUnimplementedException();}
+    default boolean createVolunteerReport(AuthContext context, VolunteerReport report) throws DSException {throw new DSUnimplementedException();}
 
     /**
-     * either the volunteer report or officer report is NULL
+     *
      * @param context
-     * @param volunteerReport
-     * @param officerReport
+     * @param report
      * @return
      * @throws DSException
      */
-    default Report CreateReportFromExistReport(AuthContext context, VolunteerReport volunteerReport, OfficerReport officerReport) throws DSException {throw new DSUnimplementedException();}
+    default Report createGeneralReport(AuthContext context, Report report) throws DSException {throw new DSUnimplementedException();}
 
     /**
      *
@@ -255,7 +254,7 @@ public interface DataStore extends AutoCloseable,Serializable{
      * @return
      * @throws DSException
      */
-    default boolean submitAppeal(AuthContext context, Appeal appeal) throws DSException {throw new DSUnimplementedException();}
+    default boolean submitAppeal(AuthContext context, Appeal appeal, Report report) throws DSException {throw new DSUnimplementedException();}
 
 
 
