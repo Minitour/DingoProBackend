@@ -6,5 +6,7 @@
   },
   "db" : {
     "access_file_location" : "DingoPro.accdb"
-  }
+  },
+  "RF_REPORT_BINARY" : "supporting-files/report.jasper",
+  "RF_REPORT_SOURCE" : "supporting-files/report.jrxml"
 }
