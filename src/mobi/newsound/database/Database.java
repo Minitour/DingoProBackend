@@ -425,12 +425,12 @@ class Database implements DataStore{
     }
 
     @Override
-    public void getReportExportByDate(AuthContext context, Date from, Date to, List<Report> reports) throws DSException {
+    public void getReportsExportByDate(AuthContext context, Date from, Date to, List<Report> reports) throws DSException {
 
     }
 
     @Override
-    public void getAllReportsExportToDingoReport(AuthContext context, List<OfficerReport> officerReports) throws DSException {
+    public void getAllOfficerReportsExportToDingoReport(AuthContext context, List<OfficerReport> officerReports) throws DSException {
 
     }
 

@@ -157,7 +157,7 @@ public interface DataStore extends AutoCloseable,Serializable{
      * @param reports
      * @throws DSException
      */
-    default void getReportExportByDate(AuthContext context, Date from, Date to, List<Report> reports) throws DSException {throw new DSUnimplementedException();}
+    default void getReportsExportByDate(AuthContext context, Date from, Date to, List<Report> reports) throws DSException {throw new DSUnimplementedException();}
 
     /**
      *
@@ -165,7 +165,7 @@ public interface DataStore extends AutoCloseable,Serializable{
      * @param officerReports
      * @throws DSException
      */
-    default void getAllReportsExportToDingoReport(AuthContext context, List<OfficerReport> officerReports) throws DSException {throw new DSUnimplementedException();}
+    default void getAllOfficerReportsExportToDingoReport(AuthContext context, List<OfficerReport> officerReports) throws DSException {throw new DSUnimplementedException();}
 
     /**
      *
