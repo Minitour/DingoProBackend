@@ -2,16 +2,14 @@ package mobi.newsound.main;
 
 import mobi.newsound.database.AuthContext;
 import mobi.newsound.database.DataStore;
-import mobi.newsound.models.Appeal;
-import mobi.newsound.models.Defendant;
-import mobi.newsound.models.VolunteerReport;
+import mobi.newsound.model.Appeal;
+import mobi.newsound.model.Defendant;
+import mobi.newsound.model.Report;
 import mobi.newsound.util.JSONResponse;
 import mobi.newsound.util.JSONTransformer;
 import mobi.newsound.util.RESTRoute;
 import mobi.newsound.util.Stub;
 import org.apache.log4j.BasicConfigurator;
-
-import java.util.Date;
 
 import static spark.Spark.get;
 import static spark.Spark.port;
@@ -74,7 +72,7 @@ public class Main {
             try (DataStore db = DataStore.getInstance()) {
                 AuthContext context = db.signIn("root@system.net", "password");
                 Appeal appeal = new Appeal(1,  null, null);
-                VolunteerReport report = new VolunteerReport("1", null, null, null, null, null, null, null, null);
+                Report report = new Report("1", null, null, null, null, null, null, null);
                 return db.addAppealToReport(context, appeal, report);
             }catch (DataStore.DSException e) {
                 return JSONResponse.FAILURE().message(e.getMessage());

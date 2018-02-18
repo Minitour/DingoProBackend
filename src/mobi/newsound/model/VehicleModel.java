@@ -1,4 +1,4 @@
-package mobi.newsound.models;
+package mobi.newsound.model;
 
 import com.google.gson.annotations.Expose;
 import mobi.newsound.database.Column;

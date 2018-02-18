@@ -1,14 +1,13 @@
-package mobi.newsound.models;
+package mobi.newsound.model;
 
 import com.google.gson.annotations.Expose;
 import mobi.newsound.database.Column;
 import mobi.newsound.database.DBObject;
 
-import java.util.Date;
 import java.util.Map;
 import java.util.Optional;
 
-public class OperationalOfficer extends DBObject {
+public class OperationalOfficer extends Account {
 
     @Expose
     private String pin;
@@ -25,12 +24,13 @@ public class OperationalOfficer extends DBObject {
     @Expose
     private Partnership ptship;
 
-    public OperationalOfficer(String pin, String name, String phoneExtension, int position, Partnership ptship) {
-        setPin(pin);
-        setName(name);
-        setPhoneExtension(phoneExtension);
-        setPosition(position);
-        setPtship(ptship);
+    public OperationalOfficer(String ID, String EMAIL, Integer ROLE_ID, String pin, String name, String phoneExtension, int position, Partnership ptship) {
+        super(ID, EMAIL, ROLE_ID);
+        this.pin = pin;
+        this.name = name;
+        this.phoneExtension = phoneExtension;
+        this.position = position;
+        this.ptship = ptship;
     }
 
     public OperationalOfficer(Map<String,Object> map) {
@@ -84,6 +84,7 @@ public class OperationalOfficer extends DBObject {
                 new Column("name",name),
                 new Column("phoneExtension",phoneExtension),
                 new Column("position",position),
+                new Column("account_id",getID()),
                 new Column<>("ptship", Optional.ofNullable(ptship), Partnership::getPtshipNum) //FK
         };
     }

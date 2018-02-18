@@ -1,9 +1,7 @@
 package mobi.newsound.database;
 
-import jdk.management.resource.ResourceType;
-import mobi.newsound.models.*;
+import mobi.newsound.model.*;
 
-import java.io.OutputStream;
 import java.io.Serializable;
 import java.sql.SQLException;
 import java.util.Date;
@@ -113,7 +111,7 @@ public interface DataStore extends AutoCloseable,Serializable{
      * @return
      * @throws DSException
      */
-    default boolean createOfficerReport(AuthContext context, OfficerReport report) throws DSException {throw new DSUnimplementedException();}
+    default boolean createOfficerReport(AuthContext context, Report report) throws DSException {throw new DSUnimplementedException();}
 
     /**
      *
@@ -131,7 +129,7 @@ public interface DataStore extends AutoCloseable,Serializable{
      * @return
      * @throws DSException
      */
-    default boolean createVolunteerReport(AuthContext context, VolunteerReport report) throws DSException {throw new DSUnimplementedException();}
+    default boolean createVolunteerReport(AuthContext context, Report report) throws DSException {throw new DSUnimplementedException();}
 
     /**
      *
@@ -165,7 +163,7 @@ public interface DataStore extends AutoCloseable,Serializable{
      * @param officerReports
      * @throws DSException
      */
-    default void getAllOfficerReportsExportToDingoReport(AuthContext context, List<OfficerReport> officerReports) throws DSException {throw new DSUnimplementedException();}
+    default void getAllOfficerReportsExportToDingoReport(AuthContext context, List<Report> officerReports) throws DSException {throw new DSUnimplementedException();}
 
     /**
      *

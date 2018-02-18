@@ -1,4 +1,4 @@
-package mobi.newsound.models;
+package mobi.newsound.model;
 
 import com.google.gson.annotations.Expose;
 import mobi.newsound.database.Column;
@@ -17,6 +17,9 @@ public class Appeal extends DBObject {
 
     @Expose
     private Date appealDate;
+
+    @Expose
+    private Report report;
 
     public Appeal(int serialNum, String reason, Date appealDate) {
         setSerialNum(serialNum);

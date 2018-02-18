@@ -1,6 +1,6 @@
 package mobi.newsound.util;
 
-import mobi.newsound.models.*;
+import mobi.newsound.model.*;
 
 import java.util.*;
 
@@ -11,7 +11,7 @@ public final class Stub {
 
     //TODO: replace UUID.randomUUID().toString() with real stubs using a stub lib.
 
-    public static VolunteerReport getReportStub() {
+    public static Report getReportStub() {
         String alphaNum = UUID.randomUUID().toString();
         Date violationDate = new Date();
         String description = UUID.randomUUID().toString();
@@ -21,7 +21,10 @@ public final class Stub {
         Vehicle vehicle = getVehicleStub();
         Appeal appeal = getAppealStub();
         String evidenceLink = UUID.randomUUID().toString();;
-        return new VolunteerReport(alphaNum, violationDate, description, status, violationType, defendant, vehicle, appeal, evidenceLink);
+        Report report = new Report(alphaNum, violationDate, description, status, violationType, defendant, vehicle, appeal);
+        report.setReport_type(0);
+        report.setEvidenceLink(evidenceLink);
+        return report;
         //Report(alphaNum, violationDate, description, status, violationType, defendant, vehicle, appeal)
 
 

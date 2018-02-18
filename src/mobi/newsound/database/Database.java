@@ -1,6 +1,6 @@
 package mobi.newsound.database;
 
-import mobi.newsound.models.*;
+import mobi.newsound.model.*;
 import net.ucanaccess.jdbc.UcanaccessDriver;
 import org.mindrot.jbcrypt.BCrypt;
 
@@ -227,7 +227,7 @@ class Database implements DataStore{
     }
 
     @Override
-    public boolean createOfficerReport(AuthContext context, OfficerReport report) throws DSException {
+    public boolean createOfficerReport(AuthContext context, Report report) throws DSException {
 
         //check context
 
@@ -341,11 +341,7 @@ class Database implements DataStore{
                 insert(appeal);
 
             //insert to the right Tbl
-            if (report instanceof VolunteerReport)
-                insert("TblVolunteerReport", report);
-            else {
-                insert("TblOfficerReport", report);
-            }
+            insert(report);
 
             generalReport.setAlphaNum(report.getAlphaNum());
             generalReport.setViolationDate(report.getViolationDate());
@@ -369,7 +365,7 @@ class Database implements DataStore{
     }
 
     @Override
-    public boolean createVolunteerReport(AuthContext context, VolunteerReport report) throws DSException {
+    public boolean createVolunteerReport(AuthContext context, Report report) throws DSException {
 
         //check context
 
@@ -429,7 +425,7 @@ class Database implements DataStore{
     }
 
     @Override
-    public void getAllOfficerReportsExportToDingoReport(AuthContext context, List<OfficerReport> officerReports) throws DSException {
+    public void getAllOfficerReportsExportToDingoReport(AuthContext context, List<Report> officerReports) throws DSException {
 
     }
 
@@ -451,9 +447,9 @@ class Database implements DataStore{
         try {
 
             //get officer reports
-            List<Map<String,Object>> dataFromOfficers = get("SELECT * FROM TblOfficerReport");
+            List<Map<String,Object>> dataFromOfficers = get("SELECT * FROM TblOfficerReport WHERE report_type = ?",1);
             for (Map<String,Object> map: dataFromOfficers) {
-                OfficerReport officerReport  = new OfficerReport(map);
+                Report officerReport  = new Report(map);
 
                 String vehicleString = officerReport.getForeignKey("vehicle");
                 String appealString = officerReport.getForeignKey("appeal");
@@ -497,9 +493,9 @@ class Database implements DataStore{
             }
 
             //get the volunteer reports
-            List<Map<String,Object>> dataFromVolunteers = get("SELECT * FROM TblVolunteerReport");
+            List<Map<String,Object>> dataFromVolunteers = get("SELECT * FROM TblOfficerReport WHERE report_type = ?",0);
             for (Map<String,Object> map: dataFromVolunteers) {
-                VolunteerReport volunteerReport = new VolunteerReport(map);
+                Report volunteerReport = new Report(map);
 
                 String defendantString = volunteerReport.getForeignKey("defendant");
                 String vehicleString = volunteerReport.getForeignKey("vehicle");
