@@ -213,7 +213,7 @@ public interface DataStore extends AutoCloseable,Serializable{
      * @return
      * @throws DSException
      */
-    default List<Report> getReportsFromDingoReport(AuthContext context) throws DSException {throw new DSUnimplementedException();}
+    default List<Report> importReportsFromDingoReport(AuthContext context) throws DSException {throw new DSUnimplementedException();}
 
     /**
      *

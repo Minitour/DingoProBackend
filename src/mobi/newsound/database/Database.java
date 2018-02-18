@@ -290,8 +290,7 @@ class Database implements DataStore{
         }
     }
 
-    @Override
-    public Report createGeneralReport(AuthContext context, Report report) throws  DSException {
+    private Report createGeneralReport(Report report) throws  DSException {
         Report generalReport = null;
 
         Defendant defendant = report.getDefendant();
@@ -596,7 +595,7 @@ class Database implements DataStore{
     }
 
     @Override
-    public List<Report> getReportsFromDingoReport(AuthContext context) throws DSException {
+    public List<Report> importReportsFromDingoReport(AuthContext context) throws DSException {
         return null;
     }
 
