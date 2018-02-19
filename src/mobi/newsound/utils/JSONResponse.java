@@ -1,4 +1,4 @@
-package mobi.newsound.util;
+package mobi.newsound.utils;
 
 import com.google.gson.annotations.Expose;
 

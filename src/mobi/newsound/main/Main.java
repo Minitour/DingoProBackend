@@ -1,19 +1,20 @@
 package mobi.newsound.main;
 
+import mobi.newsound.controllers.*;
 import mobi.newsound.database.AuthContext;
 import mobi.newsound.database.DataStore;
 import mobi.newsound.model.Appeal;
 import mobi.newsound.model.Defendant;
 import mobi.newsound.model.Report;
-import mobi.newsound.util.JSONResponse;
-import mobi.newsound.util.JSONTransformer;
-import mobi.newsound.util.RESTRoute;
-import mobi.newsound.util.Stub;
+import mobi.newsound.utils.JSONResponse;
+import mobi.newsound.utils.JSONTransformer;
+import mobi.newsound.utils.RESTRoute;
+import mobi.newsound.utils.Stub;
 import org.apache.log4j.BasicConfigurator;
 
 import static spark.Spark.get;
 import static spark.Spark.port;
-import static mobi.newsound.util.Config.config;
+import static mobi.newsound.utils.Config.config;
 import static spark.Spark.post;
 
 public class Main {
@@ -24,10 +25,11 @@ public class Main {
 
         port(config.get("port").getAsInt());
 
+        make("/signin",new LoginController());
+        make("/updatePassword",new UpdatePasswordController());
+        make("/createUser",new CreateUserController());
+
         //TODO: remove this later
-
-
-
         initTests();
     }
 

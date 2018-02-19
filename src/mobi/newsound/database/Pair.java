@@ -2,7 +2,7 @@ package mobi.newsound.database;
 
 /**
  * Copied by Antonio Zaitoun on 12/02/2018.
- * com.sun.tools.javac.util.Pair
+ * com.sun.tools.javac.utils.Pair
  */
 import java.util.Objects;
 

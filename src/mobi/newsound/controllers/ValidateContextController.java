@@ -3,8 +3,8 @@ package mobi.newsound.controllers;
 import com.google.gson.JsonObject;
 import mobi.newsound.database.AuthContext;
 import mobi.newsound.database.DataStore;
-import mobi.newsound.util.JSONResponse;
-import mobi.newsound.util.RESTRoute;
+import mobi.newsound.utils.JSONResponse;
+import mobi.newsound.utils.RESTRoute;
 import spark.Request;
 import spark.Response;
 

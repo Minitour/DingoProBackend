@@ -9,7 +9,7 @@ import java.sql.*;
 import java.util.*;
 import java.util.Date;
 //import net.ucanaccess.jdbc.UcanaccessDriver;
-import static mobi.newsound.util.Config.config;
+import static mobi.newsound.utils.Config.config;
 
 class Database implements DataStore{
 
@@ -706,6 +706,33 @@ class Database implements DataStore{
             throw new DSFormatException(e.getMessage());
         }
         return false;
+    }
+
+    @Override
+    public void createUser(AuthContext context, Account account) throws DSException {
+        int role = isContextValidFor(context,roleId -> { if(roleId == -1) throw new DSAuthException("Invalid Context"); },1);
+
+        if(role == 1 && account.getROLE_ID() != 2)
+            throw new DSAuthException("Head Officer can only add an officer.");
+        try{
+            //create account
+            String id = ObjectId.generate();
+            account.setID(id);
+
+            //make copy
+            Account toInsert = new Account(id,account.getEMAIL(),account.getROLE_ID(),account.getPassword());
+            //insert copy
+            insert(toInsert);
+
+            if(account.getROLE_ID() == 2)
+                insert(account);
+
+
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+            throw new DSFormatException(e.getMessage());
+        }
     }
 
     /**

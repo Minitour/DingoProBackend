@@ -21,6 +21,14 @@ public interface DataStore extends AutoCloseable,Serializable{
     default boolean isValid(AuthContext context) throws DSException { throw new DSUnimplementedException();}
 
     /**
+     *
+     * @param context
+     * @param account
+     * @throws DSException
+     */
+    default void createUser(AuthContext context,Account account) throws DSException {throw new DSUnimplementedException();}
+
+    /**
      * Sign in with email and password
      *
      * @param email
