@@ -43,6 +43,7 @@ public class Main {
         make("/getRoutes",new GetRoutesController());
         make("/getShifts",new GetShiftsController());
         make("/getVehicleModels",new GetVehicleModelsController());
+        make("/getPartnerships",new GetPartnershipsController());
         make("/getVehicles",new GetVehiclesController());
         make("/submitAppeal",new SubmitAppealController());
 
