@@ -697,7 +697,8 @@ class Database implements DataAccess {
 
             //if the appeal does not exists -> insert to the right Tbl and update the report
             if (appealValidator) {
-                insert(appeal);
+                int key = insert(appeal);
+                appeal.setSerialNum(key);
 
                 //if we get false here -> means report does not exists -> delete appeal from Tbl (needs to be connected to report)
                 if (addAppealToReport(context, appeal, report))
