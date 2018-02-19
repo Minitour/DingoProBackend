@@ -19,7 +19,7 @@ public class AssignOfficersToPartnershipsController implements RESTRoute {
     public Object handle(Request request, Response response, JsonObject body) throws Exception {
 
         AuthContext context = extractFromBody(body);
-        OperationalOfficer operationalOfficer = gson.fromJson(body.get("offcier"), OperationalOfficer.class);
+        OperationalOfficer operationalOfficer = gson.fromJson(body.get("officer"), OperationalOfficer.class);
         Partnership partnership = gson.fromJson(body.get("partnership"), Partnership.class);
 
         try(DataAccess db = DataAccess.getInstance()) {
