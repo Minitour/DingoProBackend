@@ -533,9 +533,18 @@ class Database implements DataStore{
         isContextValidFor(context, roleId -> { if(roleId == -1) throw new DSAuthException("Invalid Context"); }, 1);
         List<Appeal> appeals = new ArrayList<>();
         try {
-            List<Map<String,Object>> data = get("SELECT * FROM TblAppeals");
-            for(Map<String,Object> map: data)
-                appeals.add(new Appeal(map));
+            List<Map<String,Object>> data = get("SELECT TblAppeals.*, TblDefendants.*, TblOfficerReport.* " +
+                    "FROM TblDefendants INNER JOIN (TblAppeals INNER JOIN TblOfficerReport ON TblAppeals.serialNum = TblOfficerReport.appeal) ON TblDefendants.ID = TblOfficerReport.defendant");
+            for(Map<String,Object> map: data) {
+                Appeal appeal = new Appeal(map);
+                Defendant defendant = new Defendant(map);
+                Report report = new Report(map);
+
+                appeal.setReport(report);
+                appeal.setDefendant(defendant);
+
+                appeals.add(appeal);
+            }
             return appeals;
         } catch (SQLException e) {
             throw new DSFormatException(e.getMessage());

@@ -29,17 +29,13 @@ public class Main {
         make("/updatePassword",new UpdatePasswordController());
         make("/createUser",new CreateUserController());
         make("/getAccounts",new GetAccountsController());
-
+        make("/getAppeals",new GetAppealsController());
         //TODO: remove this later
         initTests();
     }
 
     static void make(String route, RESTRoute controller){
         post(route, "application/json", controller,new JSONTransformer());
-
-
-
-
     }
 
     static void initTests() {

@@ -21,6 +21,9 @@ public class Appeal extends DBObject {
     @Expose
     private Report report;
 
+    @Expose
+    private Defendant defendant;
+
     public Appeal(int serialNum, String reason, Date appealDate) {
         setSerialNum(serialNum);
         setReason(reason);
@@ -53,6 +56,22 @@ public class Appeal extends DBObject {
 
     public Date getAppealDate() {
         return appealDate;
+    }
+
+    public Report getReport() {
+        return report;
+    }
+
+    public void setReport(Report report) {
+        this.report = report;
+    }
+
+    public Defendant getDefendant() {
+        return defendant;
+    }
+
+    public void setDefendant(Defendant defendant) {
+        this.defendant = defendant;
     }
 
     @Override
