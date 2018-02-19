@@ -7,9 +7,9 @@ import java.sql.SQLException;
 import java.util.Date;
 import java.util.List;
 
-public interface DataStore extends AutoCloseable,Serializable{
+public interface DataAccess extends AutoCloseable,Serializable{
 
-    static DataStore getInstance(){
+    static DataAccess getInstance(){
         try {
             return new Database();
         } catch (SQLException e) {

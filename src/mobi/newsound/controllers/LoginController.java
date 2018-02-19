@@ -2,7 +2,7 @@ package mobi.newsound.controllers;
 
 import com.google.gson.JsonObject;
 import mobi.newsound.database.AuthContext;
-import mobi.newsound.database.DataStore;
+import mobi.newsound.database.DataAccess;
 import mobi.newsound.utils.JSONResponse;
 import mobi.newsound.utils.RESTRoute;
 import spark.Request;
@@ -22,7 +22,7 @@ public class LoginController implements RESTRoute {
             String email = body.get("email").getAsString();
             String raw_password = body.get("password").getAsString();
             //check db and create context
-            try (DataStore db = DataStore.getInstance() ){
+            try (DataAccess db = DataAccess.getInstance() ){
                 assert db != null;
                 AuthContext context = db.signIn(email,raw_password);
 
@@ -30,7 +30,7 @@ public class LoginController implements RESTRoute {
                         .SUCCESS()
                         .data(context);
 
-            }catch (DataStore.DSException e){
+            }catch (DataAccess.DSException e){
                 return JSONResponse
                         .FAILURE()
                         .message("Error: "+e.getMessage());

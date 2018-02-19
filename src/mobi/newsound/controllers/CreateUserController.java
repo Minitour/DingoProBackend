@@ -3,7 +3,7 @@ package mobi.newsound.controllers;
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 import mobi.newsound.database.AuthContext;
-import mobi.newsound.database.DataStore;
+import mobi.newsound.database.DataAccess;
 import mobi.newsound.model.Account;
 import mobi.newsound.model.OperationalOfficer;
 import mobi.newsound.utils.EmailValidator;
@@ -12,9 +12,6 @@ import mobi.newsound.utils.RESTRoute;
 import org.mindrot.jbcrypt.BCrypt;
 import spark.Request;
 import spark.Response;
-
-import javax.mail.MessagingException;
-import java.io.UnsupportedEncodingException;
 
 /**
  * Created by Antonio Zaitoun on 15/02/2018.
@@ -57,7 +54,7 @@ public class CreateUserController implements RESTRoute {
 
             account.setPassword(BCrypt.hashpw(password,BCrypt.gensalt()));
 
-            try(DataStore db = DataStore.getInstance()){
+            try(DataAccess db = DataAccess.getInstance()){
                 assert db != null;
 
                 db.createUser(context,account);

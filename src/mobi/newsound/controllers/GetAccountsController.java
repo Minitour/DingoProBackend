@@ -2,7 +2,7 @@ package mobi.newsound.controllers;
 
 import com.google.gson.JsonObject;
 import mobi.newsound.database.AuthContext;
-import mobi.newsound.database.DataStore;
+import mobi.newsound.database.DataAccess;
 import mobi.newsound.model.Account;
 import mobi.newsound.utils.JSONResponse;
 import mobi.newsound.utils.RESTRoute;
@@ -19,7 +19,7 @@ public class GetAccountsController implements RESTRoute {
     public Object handle(Request request, Response response, JsonObject body) throws Exception {
         AuthContext context = extractFromBody(body);
 
-        try(DataStore db = DataStore.getInstance()){
+        try(DataAccess db = DataAccess.getInstance()){
             assert db != null;
 
             List<Account> accountList = db.getAccounts(context);

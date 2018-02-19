@@ -11,7 +11,7 @@ import java.util.Date;
 //import net.ucanaccess.jdbc.UcanaccessDriver;
 import static mobi.newsound.utils.Config.config;
 
-class Database implements DataStore{
+class Database implements DataAccess {
 
     final static int MAX_ALLOWED_SESSIONS = config.get("user").getAsJsonObject().get("max_allowed_sessions").getAsInt();
     final static long MAX_TIME_OUT = config.get("user").getAsJsonObject().get("session_time_out").getAsInt();

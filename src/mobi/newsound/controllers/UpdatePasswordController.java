@@ -2,7 +2,7 @@ package mobi.newsound.controllers;
 
 import com.google.gson.JsonObject;
 import mobi.newsound.database.AuthContext;
-import mobi.newsound.database.DataStore;
+import mobi.newsound.database.DataAccess;
 import mobi.newsound.utils.JSONResponse;
 import mobi.newsound.utils.RESTRoute;
 import spark.Request;
@@ -20,7 +20,7 @@ public class UpdatePasswordController implements RESTRoute {
             String newPassword = body.get("newPassword").getAsString();
 
             //check db and create context
-            try (DataStore db = DataStore.getInstance() ){
+            try (DataAccess db = DataAccess.getInstance() ){
                 assert db != null;
                 boolean didChange = db.updatePassword(context,currentPassword,newPassword);
                 if(didChange)
@@ -30,7 +30,7 @@ public class UpdatePasswordController implements RESTRoute {
                             .FAILURE()
                             .message("Error: Incorrect Password!");
 
-            }catch (DataStore.DSException e){
+            }catch (DataAccess.DSException e){
                 return JSONResponse
                         .FAILURE()
                         .message("Error: "+e.getMessage());

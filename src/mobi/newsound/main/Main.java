@@ -2,7 +2,7 @@ package mobi.newsound.main;
 
 import mobi.newsound.controllers.*;
 import mobi.newsound.database.AuthContext;
-import mobi.newsound.database.DataStore;
+import mobi.newsound.database.DataAccess;
 import mobi.newsound.model.Appeal;
 import mobi.newsound.model.Defendant;
 import mobi.newsound.model.Report;
@@ -43,9 +43,9 @@ public class Main {
         //test the sign in - OK!
         get("/test1", "application/json", (request, response) -> {
             response.header("Content-Type", "application/json");
-            try(DataStore db = DataStore.getInstance()) {
+            try(DataAccess db = DataAccess.getInstance()) {
                 return db.signIn("root@system.net", "password");
-            }catch (DataStore.DSException e) {
+            }catch (DataAccess.DSException e) {
                 return JSONResponse.FAILURE().message(e.getMessage());
             }
         },new JSONTransformer());
@@ -55,11 +55,11 @@ public class Main {
         //test  create defendant - OK!
         get("/test3", "application/json", (request, response) -> {
             response.header("Content-Type", "application/json");
-            try (DataStore db = DataStore.getInstance()){
+            try (DataAccess db = DataAccess.getInstance()){
                 AuthContext context = db.signIn("root@system.net", "password");
                 Defendant defendant = Stub.getDefendantStub();
                 return db.createDefendant(context, defendant);
-            }catch (DataStore.DSException e) {
+            }catch (DataAccess.DSException e) {
                 return JSONResponse.FAILURE().message(e.getMessage());
             }
         }, new JSONTransformer());
@@ -68,12 +68,12 @@ public class Main {
         //test add appeal to report - OK!
         get("/test4", "application/json", (request, response) -> {
             response.header("Content-Type", "application/json");
-            try (DataStore db = DataStore.getInstance()) {
+            try (DataAccess db = DataAccess.getInstance()) {
                 AuthContext context = db.signIn("root@system.net", "password");
                 Appeal appeal = new Appeal(1,  null, null);
                 Report report = new Report("1", null, null, null, null, null, null, null);
                 return db.addAppealToReport(context, appeal, report);
-            }catch (DataStore.DSException e) {
+            }catch (DataAccess.DSException e) {
                 return JSONResponse.FAILURE().message(e.getMessage());
             }
         });
