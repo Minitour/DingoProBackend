@@ -9,31 +9,23 @@ YFJlcG9ydFRibGAgLDE1LDI4LDI4ZTU1N2FhLTljNGYtNGEyMi04OTBkLWZhMzEwYjQxOWNhODs=]]>
 	<parameter name="fromDate" class="java.sql.Date"/>
 	<parameter name="toDate" class="java.sql.Date"/>
 	<queryString language="SQL">
-		<![CDATA[SELECT * FROM TblReports]]>
+		<![CDATA[SELECT * FROM TblOfficerReport ]]>
 	</queryString>
-	<field name="reportNum" class="java.lang.Integer">
-		<property name="com.jaspersoft.studio.field.label" value="ID"/>
-		<property name="com.jaspersoft.studio.field.tree.path" value="ReportTbl"/>
+	<field name="alphaNum" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="alphaNum"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="TblOfficerReport"/>
+	</field>
+	<field name="violationDate" class="java.sql.Timestamp">
+		<property name="com.jaspersoft.studio.field.label" value="violationDate"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="TblOfficerReport"/>
 	</field>
 	<field name="description" class="java.lang.String">
 		<property name="com.jaspersoft.studio.field.label" value="DESCRIPTION"/>
-		<property name="com.jaspersoft.studio.field.tree.path" value="ReportTbl"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="TblOfficerReport"/>
 	</field>
-	<field name="vehicle" class="java.lang.String">
-		<property name="com.jaspersoft.studio.field.label" value="VEHICLE_ID"/>
-		<property name="com.jaspersoft.studio.field.tree.path" value="ReportTbl"/>
-	</field>
-	<field name="volunteer" class="java.lang.String">
-		<property name="com.jaspersoft.studio.field.label" value="VOLUNTEER_ID"/>
-		<property name="com.jaspersoft.studio.field.tree.path" value="ReportTbl"/>
-	</field>
-	<field name="team" class="java.lang.Integer">
-		<property name="com.jaspersoft.studio.field.label" value="UNIT_ID"/>
-		<property name="com.jaspersoft.studio.field.tree.path" value="ReportTbl"/>
-	</field>
-	<field name="incidentDate" class="java.sql.Timestamp">
-		<property name="com.jaspersoft.studio.field.label" value="CREATION_DATE"/>
-		<property name="com.jaspersoft.studio.field.tree.path" value="ReportTbl"/>
+	<field name="defendant" class="java.lang.Integer">
+		<property name="com.jaspersoft.studio.field.label" value="defendant"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="TblOfficerReport"/>
 	</field>
 	<background>
 		<band/>
@@ -83,16 +75,16 @@ YFJlcG9ydFRibGAgLDE1LDI4LDI4ZTU1N2FhLTljNGYtNGEyMi04OTBkLWZhMzEwYjQxOWNhODs=]]>
 				<textElement textAlignment="Center" verticalAlignment="Top">
 					<font size="13" isBold="true"/>
 				</textElement>
-				<text><![CDATA[Description]]></text>
+				<text><![CDATA[Violation Date]]></text>
 			</staticText>
 			<staticText>
-				<reportElement mode="Opaque" x="184" y="0" width="92" height="20" forecolor="#000000" backcolor="#E6E6E6" uuid="5097a054-a5ee-41f4-8750-c6b701ceeb2b">
-					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="49e440d2-0210-4e0e-b39a-c2ee0a30ea5d"/>
+				<reportElement mode="Opaque" x="184" y="0" width="92" height="20" forecolor="#000000" backcolor="#E6E6E6" uuid="7009f690-480a-4302-80a0-30441f9d52e1">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="41af3fac-1344-44ff-9599-a68219d3880f"/>
 				</reportElement>
 				<textElement textAlignment="Center" verticalAlignment="Top">
 					<font size="13" isBold="true"/>
 				</textElement>
-				<text><![CDATA[Vehicle Plate]]></text>
+				<text><![CDATA[Description]]></text>
 			</staticText>
 			<staticText>
 				<reportElement mode="Opaque" x="276" y="0" width="92" height="20" forecolor="#000000" backcolor="#E6E6E6" uuid="f38f29d3-090b-433c-b97d-e6baf35e323c">
@@ -101,25 +93,7 @@ YFJlcG9ydFRibGAgLDE1LDI4LDI4ZTU1N2FhLTljNGYtNGEyMi04OTBkLWZhMzEwYjQxOWNhODs=]]>
 				<textElement textAlignment="Center" verticalAlignment="Top">
 					<font size="13" isBold="true"/>
 				</textElement>
-				<text><![CDATA[Volunteer ID]]></text>
-			</staticText>
-			<staticText>
-				<reportElement mode="Opaque" x="368" y="0" width="92" height="20" forecolor="#000000" backcolor="#E6E6E6" uuid="79f11104-e701-4358-9b84-89a5ffb47c51">
-					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="eb17aa50-ced8-4bd9-be82-c7be20550115"/>
-				</reportElement>
-				<textElement textAlignment="Center" verticalAlignment="Top">
-					<font size="13" isBold="true"/>
-				</textElement>
-				<text><![CDATA[Unit ID]]></text>
-			</staticText>
-			<staticText>
-				<reportElement mode="Opaque" x="460" y="0" width="92" height="20" forecolor="#000000" backcolor="#E6E6E6" uuid="76234897-82af-40e7-b2e9-98286844eb4b">
-					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="9aecf67a-d088-49f2-bfc3-1d02c805fdeb"/>
-				</reportElement>
-				<textElement textAlignment="Center" verticalAlignment="Top">
-					<font size="13" isBold="true"/>
-				</textElement>
-				<text><![CDATA[Created At]]></text>
+				<text><![CDATA[Defendant]]></text>
 			</staticText>
 		</band>
 	</columnHeader>
@@ -135,7 +109,7 @@ YFJlcG9ydFRibGAgLDE1LDI4LDI4ZTU1N2FhLTljNGYtNGEyMi04OTBkLWZhMzEwYjQxOWNhODs=]]>
 				<textElement>
 					<font size="14"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$F{reportNum}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{alphaNum}]]></textFieldExpression>
 			</textField>
 			<textField isStretchWithOverflow="true">
 				<reportElement x="92" y="0" width="92" height="20" uuid="e7857643-cf5e-4830-97f5-431bc52362a8">
@@ -144,7 +118,7 @@ YFJlcG9ydFRibGAgLDE1LDI4LDI4ZTU1N2FhLTljNGYtNGEyMi04OTBkLWZhMzEwYjQxOWNhODs=]]>
 				<textElement>
 					<font size="14"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$F{description}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{violationDate}]]></textFieldExpression>
 			</textField>
 			<textField isStretchWithOverflow="true">
 				<reportElement x="184" y="0" width="92" height="20" uuid="9e187108-1409-41ab-95e0-f07e45814946">
@@ -153,34 +127,16 @@ YFJlcG9ydFRibGAgLDE1LDI4LDI4ZTU1N2FhLTljNGYtNGEyMi04OTBkLWZhMzEwYjQxOWNhODs=]]>
 				<textElement>
 					<font size="14"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$F{vehicle}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{description}]]></textFieldExpression>
 			</textField>
 			<textField isStretchWithOverflow="true">
-				<reportElement x="276" y="0" width="92" height="20" uuid="896dc9bf-2913-4707-b7f5-310e537900ad">
-					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="97cc10e3-fa09-43a1-8c00-f73003296be1"/>
-				</reportElement>
-				<textElement>
-					<font size="14"/>
-				</textElement>
-				<textFieldExpression><![CDATA[$F{volunteer}]]></textFieldExpression>
-			</textField>
-			<textField isStretchWithOverflow="true">
-				<reportElement x="368" y="0" width="92" height="20" uuid="e0ace115-d247-4846-b066-de20c1e47156">
-					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="eb17aa50-ced8-4bd9-be82-c7be20550115"/>
-				</reportElement>
-				<textElement>
-					<font size="14"/>
-				</textElement>
-				<textFieldExpression><![CDATA[$F{team}]]></textFieldExpression>
-			</textField>
-			<textField isStretchWithOverflow="true">
-				<reportElement x="460" y="0" width="92" height="20" uuid="9fc0fd63-dcd6-40d8-9052-08a419303cfc">
+				<reportElement x="276" y="0" width="92" height="20" uuid="9fc0fd63-dcd6-40d8-9052-08a419303cfc">
 					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="9aecf67a-d088-49f2-bfc3-1d02c805fdeb"/>
 				</reportElement>
 				<textElement>
 					<font size="14"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$F{incidentDate}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{defendant}]]></textFieldExpression>
 			</textField>
 		</band>
 	</detail>

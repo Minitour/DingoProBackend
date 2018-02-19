@@ -1,12 +1,22 @@
 package mobi.newsound.database;
 
 import mobi.newsound.model.*;
+import net.sf.jasperreports.engine.JRException;
+import net.sf.jasperreports.engine.JasperExportManager;
+import net.sf.jasperreports.engine.JasperFillManager;
+import net.sf.jasperreports.engine.JasperPrint;
 
+import java.io.File;
+import java.io.IOException;
 import java.io.OutputStream;
 import java.io.Serializable;
 import java.sql.SQLException;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+
+import static mobi.newsound.database.Database.JASPER_BIN;
 
 public interface DataAccess extends AutoCloseable,Serializable{
 
@@ -174,7 +184,7 @@ public interface DataAccess extends AutoCloseable,Serializable{
      * @param officerReports
      * @throws DSException
      */
-    default void getAllOfficerReportsExportToDingoReport(AuthContext context, List<Report> officerReports) throws DSException {throw new DSUnimplementedException();}
+    default List<Report> getAllOfficerReportsExportToDingoReport(AuthContext context) throws DSException {throw new DSUnimplementedException();}
 
     /**
      *
@@ -273,6 +283,8 @@ public interface DataAccess extends AutoCloseable,Serializable{
      */
     default boolean submitAppeal(AuthContext context, Appeal appeal, Report report) throws DSException {throw new DSUnimplementedException();}
 
+
+    default void testJasper (Date from, Date to,OutputStream os) throws DSException {throw new DSUnimplementedException(); }
 
 
     abstract class DSException extends RuntimeException {

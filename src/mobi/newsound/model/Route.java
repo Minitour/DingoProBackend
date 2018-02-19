@@ -4,12 +4,16 @@ import com.google.gson.annotations.Expose;
 import mobi.newsound.database.Column;
 import mobi.newsound.database.DBObject;
 
+import java.util.Collection;
 import java.util.Map;
 
 public class Route extends DBObject {
 
     @Expose
     private Integer serialNum;
+
+    @Expose
+    private Collection<Landmark> landmarks;
 
     public Route(Integer serialNum) {
         setSerialNum(serialNum);

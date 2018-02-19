@@ -1,7 +1,9 @@
 package mobi.newsound.database;
 
+import com.google.gson.JsonObject;
 import mobi.newsound.model.*;
 import net.sf.jasperreports.engine.JRException;
+import net.sf.jasperreports.engine.JasperExportManager;
 import net.sf.jasperreports.engine.JasperFillManager;
 import net.sf.jasperreports.engine.JasperPrint;
 import net.ucanaccess.jdbc.UcanaccessDriver;
@@ -39,6 +41,24 @@ class Database implements DataAccess {
     @Override
     public boolean isValid(AuthContext context) throws DSException {
         return isContextValid(context) != -1;
+    }
+
+    @Override
+    public void testJasper (Date from, Date to,OutputStream os) {
+        java.sql.Date sqlFromDate = new java.sql.Date(from.getDate());
+        java.sql.Date sqlToDate = new java.sql.Date(to.getDate());
+        String jasperFilePath = new File(JASPER_BIN).getPath();
+
+        Map<String, Object> params = new HashMap<>();
+        params.put("fromDate", sqlFromDate);
+        params.put("toDate", sqlToDate);
+
+        try {
+            JasperPrint print = JasperFillManager.fillReport(jasperFilePath, params, connection);
+            JasperExportManager.exportReportToPdfStream(print, os);
+        } catch (JRException e) {
+            e.printStackTrace();
+        }
     }
 
     @Override
@@ -442,7 +462,22 @@ class Database implements DataAccess {
     }
 
     @Override
-    public void getAllOfficerReportsExportToDingoReport(AuthContext context, List<Report> officerReports) throws DSException {
+    public List<Report> getAllOfficerReportsExportToDingoReport(AuthContext context) throws DSException {
+        try {
+            List<Report> reports = new ArrayList<>();
+            List<Map<String, Object>> data = get("SELECT * FROM TblOfficerReport WHERE report_type = ?", 1);
+            for (Map<String,Object> map: data) {
+                Report report = new Report(map);
+                reports.add(report);
+            }
+
+            //add the entities : defendant and .... other in the report class
+
+
+            return reports;
+        } catch (SQLException e) {
+            throw new DSFormatException(e.getMessage());
+        }
 
     }
 

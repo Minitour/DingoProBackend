@@ -8,8 +8,10 @@ import mobi.newsound.utils.JSONResponse;
 import mobi.newsound.utils.JSONTransformer;
 import mobi.newsound.utils.RESTRoute;
 import mobi.newsound.utils.Stub;
+import net.sf.jasperreports.engine.JasperCompileManager;
 import org.apache.log4j.BasicConfigurator;
 
+import java.io.File;
 import java.util.Date;
 
 import static spark.Spark.get;
@@ -185,6 +187,16 @@ public class Main {
             }
         },new JSONTransformer());
 
+        get("/test11", (request, response) -> {
+            JasperCompileManager.compileReportToFile(new File(config.get("RF_REPORT_SOURCE").getAsString()).getPath(), new File(config.get("RF_REPORT_BINARY").getAsString()).getPath());
+            response.header("Content-Type", "application/pdf");
+            try(DataAccess db = DataAccess.getInstance()) {
+
+                db.testJasper(new Date(), new Date(), response.raw().getOutputStream());
+
+                return response.raw().getOutputStream();
+            }
+        });
 
     }
 }
