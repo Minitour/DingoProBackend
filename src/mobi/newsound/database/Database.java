@@ -140,7 +140,7 @@ class Database implements DataAccess {
             boolean checkReport = get(reportQuery, reportIdString).size() == 1;
 
             if (checkReport) {
-                update(report.db_table(),
+                update("TblOfficerReport",
                         new Where("alphaNum = ?", reportIdString),
                         new Column("appeal", appeal.getSerialNum()));
                 return true;

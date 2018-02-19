@@ -155,13 +155,15 @@ public class Main {
         //test get landmarks - OK!
         //test get vehicle models - OK!
         //test get vehicles - OK!
+
+        //test submit appeal - NOT working!
         get("/test8", "application/json", (request, response) -> {
             response.header("Content-Type", "application/json");
             try(DataAccess db = DataAccess.getInstance()) {
                 AuthContext context = db.signIn("root@system.net", "password");
-                //Appeal appeal = new Appeal(123, "reason2", new Date());
-                //Report report = new Report("42324234234", null, null, null, null, null, null, null);
-                return db.getAllAppeals(context);
+                Appeal appeal = new Appeal(124, "reason45", new Date());
+                Report report = new Report("42324234234", null, null, null, null, null, null, null);
+                return db.submitAppeal(context, appeal, report);
             }catch (DataAccess.DSException e) {
                 return JSONResponse.FAILURE().message(e.getMessage());
             }
