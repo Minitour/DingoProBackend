@@ -314,7 +314,7 @@ class Database implements DataAccess {
 
             //checking for the defendant
             String defendantQuery = "SELECT ID FROM TblDefendants WHERE ID = ?";
-            defendantExists = get(defendantQuery, defendant.getId()).size() == 1;
+            defendantExists = get(defendantQuery, defendant.getID()).size() == 1;
 
             //checking for the appeal
             String appealQuery = "SELECT serialNum FROM TblAppeals WHERE serialNum = ?";
@@ -355,7 +355,7 @@ class Database implements DataAccess {
             //rolling back
             try {
                 delete("TblVehicles", "licensePlate = ?", vehicle.getLicensePlate());
-                delete("TblDefendants", "ID = ?", defendant.getId());
+                delete("TblDefendants", "ID = ?", defendant.getID());
                 delete("TblAppeals", "serialNum = ?", appeal.getSerialNum());
             }catch (SQLException e1) {
                 throw new DSFormatException(e.getMessage());
@@ -533,9 +533,9 @@ class Database implements DataAccess {
         isContextValidFor(context, roleId -> { if(roleId == -1) throw new DSAuthException("Invalid Context"); }, 1);
         List<Appeal> appeals = new ArrayList<>();
         try {
-            List<Map<String,Object>> data = get("SELECT * FROM TblAppeals");
-            //List<Map<String,Object>> data = get("SELECT TblAppeals.*, TblDefendants.*, TblOfficerReport.* " +
-             //       "FROM TblDefendants INNER JOIN (TblAppeals INNER JOIN TblOfficerReport ON TblAppeals.serialNum = TblOfficerReport.appeal) ON TblDefendants.ID = TblOfficerReport.defendant");
+            //List<Map<String,Object>> data = get("SELECT * FROM TblAppeals");
+            List<Map<String,Object>> data = get("SELECT TblAppeals.*, TblDefendants.*, TblOfficerReport.* " +
+                    "FROM TblDefendants INNER JOIN (TblAppeals INNER JOIN TblOfficerReport ON TblAppeals.serialNum = TblOfficerReport.appeal) ON TblDefendants.ID = TblOfficerReport.defendant");
             for(Map<String,Object> map: data) {
                 Appeal appeal = new Appeal(map);
                 Defendant defendant = new Defendant(map);

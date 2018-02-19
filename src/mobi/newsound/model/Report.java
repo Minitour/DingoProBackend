@@ -176,7 +176,7 @@ public class Report extends DBObject {
                 new Column("description",description),
                 new Column("status",status),
                 new Column("violationType",violationType),
-                new Column<>("defendant", Optional.ofNullable(defendant), Defendant::getId), //FK
+                new Column<>("defendant", Optional.ofNullable(defendant), Defendant::getID), //FK
                 new Column<>("vehicle", Optional.ofNullable(vehicle), Vehicle::getLicensePlate), //FK
                 new Column<>("appeal", Optional.ofNullable(appeal), Appeal::getSerialNum), //FK
                 new Column<>("part",Optional.ofNullable(part),Partnership::getPtshipNum), //FK

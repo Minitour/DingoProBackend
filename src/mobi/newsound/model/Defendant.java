@@ -9,7 +9,7 @@ import java.util.Map;
 public class Defendant extends DBObject {
 
     @Expose
-    private int id;
+    private Integer ID;
 
     @Expose
     private String drivingLicense;
@@ -21,7 +21,7 @@ public class Defendant extends DBObject {
     private String address;
 
     public Defendant(int id, String drivingLicense, String name, String address) {
-        setId(id);
+        setID(id);
         setDrivingLicense(drivingLicense);
         setName(name);
         setAddress(address);
@@ -31,8 +31,8 @@ public class Defendant extends DBObject {
         super(map);
     }
 
-    public void setId(int id) {
-        this.id = id;
+    public void setID(int id) {
+        this.ID = id;
     }
 
     public void setDrivingLicense(String drivingLicense) {
@@ -47,8 +47,8 @@ public class Defendant extends DBObject {
         this.address = address;
     }
 
-    public int getId() {
-        return id;
+    public int getID() {
+        return ID;
     }
 
     public String getDrivingLicense() {
@@ -66,7 +66,7 @@ public class Defendant extends DBObject {
     @Override
     public Column[] db_columns() {
         return new Column[]{
-                new Column("id",id),
+                new Column("ID",ID),
                 new Column("drivingLicense",drivingLicense),
                 new Column("name",name),
                 new Column("address",address)
