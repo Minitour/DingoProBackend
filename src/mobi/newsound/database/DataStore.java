@@ -28,6 +28,8 @@ public interface DataStore extends AutoCloseable,Serializable{
      */
     default void createUser(AuthContext context,Account account) throws DSException {throw new DSUnimplementedException();}
 
+    default List<Account> getAccounts(AuthContext context) throws DSException {throw new DSUnimplementedException();}
+
     /**
      * Sign in with email and password
      *

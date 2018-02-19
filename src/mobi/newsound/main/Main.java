@@ -28,6 +28,7 @@ public class Main {
         make("/signin",new LoginController());
         make("/updatePassword",new UpdatePasswordController());
         make("/createUser",new CreateUserController());
+        make("/getAccounts",new GetAccountsController());
 
         //TODO: remove this later
         initTests();

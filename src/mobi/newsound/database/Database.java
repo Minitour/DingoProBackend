@@ -735,6 +735,20 @@ class Database implements DataStore{
         }
     }
 
+    @Override
+    public List<Account> getAccounts(AuthContext context) throws DSException {
+        isContextValidFor(context,roleId -> { if(roleId == -1) throw new DSAuthException("Invalid Context"); });
+        try{
+            List<Account> accounts = new ArrayList<>();
+            get("SELECT ID,EMAIL,ROLE_ID FROM Accounts").forEach(
+                    stringObjectMap -> accounts.add(new Account(stringObjectMap))
+            );
+            return accounts;
+        }catch (SQLException e){
+            throw new DSFormatException(e.getMessage());
+        }
+    }
+
     /**
      * This method checks if the given context is valid and returns the role id for that given context.
      * In other words, this method validates the session and then returns the role of the user.
