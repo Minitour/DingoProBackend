@@ -78,5 +78,7 @@ public final class Stub {
         return new VehicleModel(modelNum, name);
     }
 
+
+
     //TODO: add other data type stubs.
 }

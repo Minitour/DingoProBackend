@@ -134,14 +134,14 @@ class Database implements DataAccess {
         isContextValidFor(context, roleId -> { if(roleId == -1) throw new DSAuthException("Invalid Context"); }, 1);
 
         String reportIdString = report.getAlphaNum();
-        String reportQuery = "SELECT alphaNum FROM " + report.db_table()+ " WHERE alphaNum = ?";
+        String reportQuery = "SELECT alphaNum FROM " + report.db_table() + " WHERE alphaNum = ?";
 
         try {
             boolean checkReport = get(reportQuery, reportIdString).size() == 1;
 
             if (checkReport) {
                 update(report.db_table(),
-                        new Where("alphaNum = ?", report.getAlphaNum()),
+                        new Where("alphaNum = ?", reportIdString),
                         new Column("appeal", appeal.getSerialNum()));
                 return true;
             }
@@ -160,7 +160,7 @@ class Database implements DataAccess {
         isContextValidFor(context, roleId -> { if(roleId == -1) throw new DSAuthException("Invalid Context"); }, 1);
         try {
             update("TblLandmarks",
-                    new Where("latitude = ? AND longitude = ?", landmark.getLatitude(), landmark.getLongitude()),
+                    new Where("longitude = ? AND latitude = ?", landmark.getLongitude(), landmark.getLatitude()),
                     new Column("route", route.getSerialNum()));
             return true;
         } catch (SQLException e) {
@@ -189,7 +189,7 @@ class Database implements DataAccess {
 
         isContextValidFor(context, roleId -> { if(roleId == -1) throw new DSAuthException("Invalid Context"); }, 1);
         try {
-            update("TblShiftPartnerships",
+            update("TblShiftsPartnerships",
                     new Where("shift = ?", shift.getShiftCode()),
                     new Column("ptship", partnership.getPtshipNum()));
             return true;
@@ -452,12 +452,12 @@ class Database implements DataAccess {
                 Report officerReport  = new Report(map);
 
                 String vehicleString = officerReport.getForeignKey("vehicle");
-                String appealString = officerReport.getForeignKey("appeal");
-                String defendantString = officerReport.getForeignKey("defendant");
-                String partString = officerReport.getForeignKey("part");
-                String routeString = officerReport.getForeignKey("route");
-                officerReport.setRoute(new Route(Integer.valueOf(routeString)));
-                String orderNumString = officerReport.getForeignKey("orderNum");
+                String appealString = officerReport.getForeignKey("appeal").toString();
+                String defendantString = officerReport.getForeignKey("defendant").toString();
+                String partString = officerReport.getForeignKey("part").toString();
+                int routeString = officerReport.getForeignKey("route");
+                officerReport.setRoute(new Route(routeString));
+                String orderNumString = officerReport.getForeignKey("orderNum").toString();
 
                 //get the partnership
                 Partnership partnership = new Partnership(get("SELECT * FROM TblPartnerships WHERE ptshipNum = ?", partString).get(0));
@@ -470,7 +470,7 @@ class Database implements DataAccess {
                 officerReport.setPart(partnership);
 
                 //get the landmark
-                Landmark landmark = new Landmark(get("SELECT * FROM TblLandmarks WHERE (route = ? AND orderNum = ?)", routeString, orderNumString).get(0));
+                Landmark landmark = new Landmark(get("SELECT * FROM TblLandmarks WHERE (route = ? AND orderNum = ?)", String.valueOf(routeString), orderNumString).get(0));
                 officerReport.setOrderNum(landmark);
 
                 //get the defendant
@@ -485,7 +485,7 @@ class Database implements DataAccess {
                 Vehicle vehicle = new Vehicle(get("SELECT * FROM TblVehicles WHERE licensePlate = ?", vehicleString).get(0));
                     //getting the model for the car
                 String modelString = vehicle.getForeignKey("model");
-                VehicleModel vehicleModel = new VehicleModel(get("SELECT * FROM TblVehicleModels WHERE modelNum = ?", modelString).get(0));
+                VehicleModel vehicleModel = new VehicleModel(get("SELECT * FROM TblVehicleModel WHERE modelNum = ?", modelString).get(0));
                 vehicle.setModel(vehicleModel);
                 officerReport.setVehicle(vehicle);
 
@@ -509,7 +509,7 @@ class Database implements DataAccess {
                 Vehicle vehicle = new Vehicle(get("SELECT * FROM TblVehicles WHERE licensePlate = ?", vehicleString).get(0));
                     //getting the model for the car
                 String modelString = vehicle.getForeignKey("model");
-                VehicleModel vehicleModel = new VehicleModel(get("SELECT * FROM TblVehicleModels WHERE modelNum = ?", modelString).get(0));
+                VehicleModel vehicleModel = new VehicleModel(get("SELECT * FROM TblVehicleModel WHERE modelNum = ?", modelString).get(0));
                 vehicle.setModel(vehicleModel);
                 volunteerReport.setVehicle(vehicle);
 
@@ -533,8 +533,9 @@ class Database implements DataAccess {
         isContextValidFor(context, roleId -> { if(roleId == -1) throw new DSAuthException("Invalid Context"); }, 1);
         List<Appeal> appeals = new ArrayList<>();
         try {
-            List<Map<String,Object>> data = get("SELECT TblAppeals.*, TblDefendants.*, TblOfficerReport.* " +
-                    "FROM TblDefendants INNER JOIN (TblAppeals INNER JOIN TblOfficerReport ON TblAppeals.serialNum = TblOfficerReport.appeal) ON TblDefendants.ID = TblOfficerReport.defendant");
+            List<Map<String,Object>> data = get("SELECT * FROM TblAppeals");
+            //List<Map<String,Object>> data = get("SELECT TblAppeals.*, TblDefendants.*, TblOfficerReport.* " +
+             //       "FROM TblDefendants INNER JOIN (TblAppeals INNER JOIN TblOfficerReport ON TblAppeals.serialNum = TblOfficerReport.appeal) ON TblDefendants.ID = TblOfficerReport.defendant");
             for(Map<String,Object> map: data) {
                 Appeal appeal = new Appeal(map);
                 Defendant defendant = new Defendant(map);
@@ -691,7 +692,7 @@ class Database implements DataAccess {
         try {
             //checking for existence of appeal
             int appealSerialNumString = appeal.getSerialNum();
-            String appealQueryForVolunteersReports = "SELECT * FROM TblAppeals WHERE serialNum = ?";
+            String appealQueryForVolunteersReports = "SELECT serialNum FROM TblAppeals WHERE serialNum = ?";
             boolean appealValidator = get(appealQueryForVolunteersReports, String.valueOf(appealSerialNumString)).size() == 0;
 
             //if the appeal does not exists -> insert to the right Tbl and update the report
