@@ -24,7 +24,7 @@ public class AddLandmarksToRoutesController implements RESTRoute{
 
         try(DataAccess db = DataAccess.getInstance()) {
             assert db != null;
-            db.addLandmarksToRoutes(context, landmark, route);
+            db.addLandmarksToRoutes(context, landmark);
 
             return JSONResponse.SUCCESS();
         } catch (Exception e) {

@@ -13,7 +13,7 @@ public class Landmark extends DBObject {
     private Route route;
 
     @Expose
-    private int orderNum;
+    private Integer orderNum;
 
     @Expose
     private String plannedArrivalTime;
@@ -24,7 +24,7 @@ public class Landmark extends DBObject {
     @Expose
     private String longitude;
 
-    public Landmark(Route route, int orderNum, String plannedArrivalTime, String latitude, String longitude) {
+    public Landmark(Route route, Integer orderNum, String plannedArrivalTime, String latitude, String longitude) {
         setRoute(route);
         setOrderNum(orderNum);
         setPlannedArrivalTime(plannedArrivalTime);
@@ -40,7 +40,7 @@ public class Landmark extends DBObject {
         this.route = route;
     }
 
-    public void setOrderNum(int orderNum) {
+    public void setOrderNum(Integer orderNum) {
         this.orderNum = orderNum;
     }
 
@@ -60,7 +60,7 @@ public class Landmark extends DBObject {
         return route;
     }
 
-    public int getOrderNum() {
+    public Integer getOrderNum() {
         return orderNum;
     }
 

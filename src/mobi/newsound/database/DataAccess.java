@@ -74,7 +74,7 @@ public interface DataAccess extends AutoCloseable,Serializable{
      * @return
      * @throws DSException
      */
-    default boolean addLandmarksToRoutes(AuthContext context, Landmark landmark, Route route) throws DSException {throw new DSUnimplementedException();}
+    default boolean addLandmarksToRoutes(AuthContext context, Landmark landmark) throws DSException {throw new DSUnimplementedException();}
 
     /**
      *

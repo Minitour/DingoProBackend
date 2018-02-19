@@ -10,7 +10,7 @@ import java.util.Map;
 public class Appeal extends DBObject {
 
     @Expose
-    private int serialNum;
+    private Integer serialNum;
 
     @Expose
     private String reason;
@@ -24,7 +24,7 @@ public class Appeal extends DBObject {
     @Expose
     private Defendant defendant;
 
-    public Appeal(int serialNum, String reason, Date appealDate) {
+    public Appeal(Integer serialNum, String reason, Date appealDate) {
         setSerialNum(serialNum);
         setReason(reason);
         setAppealDate(appealDate);
@@ -34,7 +34,7 @@ public class Appeal extends DBObject {
         super(map);
     }
 
-    public void setSerialNum(int serialNum) {
+    public void setSerialNum(Integer serialNum) {
         this.serialNum = serialNum;
     }
 
@@ -46,7 +46,7 @@ public class Appeal extends DBObject {
         this.appealDate = appealDate;
     }
 
-    public int getSerialNum() {
+    public Integer getSerialNum() {
         return serialNum;
     }
 

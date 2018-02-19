@@ -30,6 +30,22 @@ public class Main {
         make("/createUser",new CreateUserController());
         make("/getAccounts",new GetAccountsController());
         make("/getAppeals",new GetAppealsController());
+        make("/assignOfficerToPartnership",new AssignOfficersToPartnershipsController());
+        make("/assignPartnershipToShift",new AssignPartnershipToShiftController());
+        make("/assignRouteToShift",new AssignRouteToShiftController());
+        make("/createDefendant",new CreateDefendantController());
+        make("/createPartnership",new CreatePartnershipController());
+        make("/getAllReports",new GetAllReportsController());
+        make("/exportReports",new ExportReportsByDateController());
+        make("/getDefendants",new GetDefendantsController());
+        make("/getLandmarks",new GetLandmarksController());
+        make("/getOfficers",new GetAllOfficersController());
+        make("/getRoutes",new GetRoutesController());
+        make("/getShifts",new GetShiftsController());
+        make("/getVehicleModels",new GetVehicleModelsController());
+        make("/getVehicles",new GetVehiclesController());
+        make("/submitAppeal",new SubmitAppealController());
+
         //TODO: remove this later
         initTests();
     }
@@ -71,7 +87,7 @@ public class Main {
                AuthContext context = db.signIn("root@system.net", "password");
                Route route = new Route(1);
                Landmark landmark = new Landmark(route, 1, null, "34", "34");
-               return db.addLandmarksToRoutes(context, landmark, route);
+               return db.addLandmarksToRoutes(context, landmark);
            } catch (DataAccess.DSException e) {
                return JSONResponse.FAILURE().message(e.getMessage());
            }

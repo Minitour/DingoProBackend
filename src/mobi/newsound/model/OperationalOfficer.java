@@ -19,12 +19,12 @@ public class OperationalOfficer extends Account {
     private String phoneExtension;
 
     @Expose
-    private int position;
+    private Integer position;
 
     @Expose
     private Partnership ptship;
 
-    public OperationalOfficer(String ID, String EMAIL, Integer ROLE_ID, String pin, String name, String phoneExtension, int position, Partnership ptship) {
+    public OperationalOfficer(String ID, String EMAIL, Integer ROLE_ID, String pin, String name, String phoneExtension, Integer position, Partnership ptship) {
         super(ID, EMAIL, ROLE_ID);
         this.pin = pin;
         this.name = name;
@@ -49,7 +49,7 @@ public class OperationalOfficer extends Account {
         this.phoneExtension = phoneExtension;
     }
 
-    public void setPosition(int position) {
+    public void setPosition(Integer position) {
         this.position = position;
     }
 
@@ -69,7 +69,7 @@ public class OperationalOfficer extends Account {
         return phoneExtension;
     }
 
-    public int getPosition() {
+    public Integer getPosition() {
         return position;
     }
 

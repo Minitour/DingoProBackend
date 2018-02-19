@@ -10,7 +10,7 @@ import java.util.Map;
 public class Shift extends DBObject {
 
     @Expose
-    private int shiftCode;
+    private Integer shiftCode;
 
     @Expose
     private Date shiftDate;
@@ -18,7 +18,7 @@ public class Shift extends DBObject {
     @Expose
     private String type;
 
-    public Shift(int shiftCode, Date shiftDate, String type) {
+    public Shift(Integer shiftCode, Date shiftDate, String type) {
         setShiftCode(shiftCode);
         setShiftDate(shiftDate);
         setType(type);
@@ -28,7 +28,7 @@ public class Shift extends DBObject {
         super(map);
     }
 
-    public void setShiftCode(int shiftCode) {
+    public void setShiftCode(Integer shiftCode) {
         this.shiftCode = shiftCode;
     }
 
@@ -40,7 +40,7 @@ public class Shift extends DBObject {
         this.type = type;
     }
 
-    public int getShiftCode() {
+    public Integer getShiftCode() {
         return shiftCode;
     }
 

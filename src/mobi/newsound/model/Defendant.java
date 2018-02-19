@@ -20,7 +20,7 @@ public class Defendant extends DBObject {
     @Expose
     private String address;
 
-    public Defendant(int id, String drivingLicense, String name, String address) {
+    public Defendant(Integer id, String drivingLicense, String name, String address) {
         setID(id);
         setDrivingLicense(drivingLicense);
         setName(name);
@@ -31,7 +31,7 @@ public class Defendant extends DBObject {
         super(map);
     }
 
-    public void setID(int id) {
+    public void setID(Integer id) {
         this.ID = id;
     }
 
@@ -47,7 +47,7 @@ public class Defendant extends DBObject {
         this.address = address;
     }
 
-    public int getID() {
+    public Integer getID() {
         return ID;
     }
 

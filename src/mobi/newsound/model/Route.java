@@ -9,9 +9,9 @@ import java.util.Map;
 public class Route extends DBObject {
 
     @Expose
-    private int serialNum;
+    private Integer serialNum;
 
-    public Route(int serialNum) {
+    public Route(Integer serialNum) {
         setSerialNum(serialNum);
     }
 
@@ -19,11 +19,11 @@ public class Route extends DBObject {
         super(map);
     }
 
-    public void setSerialNum(int serialNum) {
+    public void setSerialNum(Integer serialNum) {
         this.serialNum = serialNum;
     }
 
-    public int getSerialNum() {
+    public Integer getSerialNum() {
         return serialNum;
     }
 

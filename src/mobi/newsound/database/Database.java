@@ -157,14 +157,12 @@ class Database implements DataAccess {
     }
 
     @Override
-    public boolean addLandmarksToRoutes(AuthContext context, Landmark landmark, Route route) throws DSException {
+    public boolean addLandmarksToRoutes(AuthContext context, Landmark landmark) throws DSException {
         //context: 1
 
         isContextValidFor(context, roleId -> { if(roleId == -1) throw new DSAuthException("Invalid Context"); }, 1);
         try {
-            update("TblLandmarks",
-                    new Where("longitude = ? AND latitude = ?", landmark.getLongitude(), landmark.getLatitude()),
-                    new Column("route", route.getSerialNum()));
+            insert(landmark);
             return true;
         } catch (SQLException e) {
             throw new DSFormatException(e.getMessage());

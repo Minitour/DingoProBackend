@@ -11,13 +11,13 @@ import java.util.Map;
 public class Partnership extends DBObject {
 
     @Expose
-    private int ptshipNum;
+    private Integer ptshipNum;
 
     @Expose
     private Collection<OperationalOfficer> officers;
 
 
-    public Partnership(int ptshipNum, OperationalOfficer officerABadge, OperationalOfficer officerBBadge) {
+    public Partnership(Integer ptshipNum, OperationalOfficer officerABadge, OperationalOfficer officerBBadge) {
         setPtshipNum(ptshipNum);
     }
 
@@ -25,11 +25,11 @@ public class Partnership extends DBObject {
         super(map);
     }
 
-    public void setPtshipNum(int ptshipNum) {
+    public void setPtshipNum(Integer ptshipNum) {
         this.ptshipNum = ptshipNum;
     }
 
-    public int getPtshipNum() {
+    public Integer getPtshipNum() {
         return ptshipNum;
     }
 
