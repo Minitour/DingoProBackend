@@ -41,9 +41,12 @@ public class Partnership extends DBObject {
     }
 
     public Collection<OperationalOfficer> getOfficers() {
-        return Collections.unmodifiableCollection(officers);
+        return officers;
     }
 
+    public void setOfficers(Collection<OperationalOfficer> officers) {
+        this.officers = officers;
+    }
 
     @Override
     public Column[] db_columns() {

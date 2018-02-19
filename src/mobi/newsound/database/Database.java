@@ -661,8 +661,15 @@ class Database implements DataAccess {
         List<Partnership> partnerships = new ArrayList<>();
         try {
             List<Map<String,Object>> data = get("SELECT * FROM TblPartnerships");
-            for(Map<String,Object> map: data)
-                partnerships.add(new Partnership(map));
+            for(Map<String,Object> map: data) {
+                Partnership p = new Partnership(map);
+                List<OperationalOfficer> officers = new ArrayList<>();
+                get("SELECT * FROM TblOperationalOfficers WHERE ptship = ?",p.getPtshipNum()).forEach(
+                        stringObjectMap -> officers.add(new OperationalOfficer(stringObjectMap))
+                );
+                p.setOfficers(officers);
+                partnerships.add(p);
+            }
             return partnerships;
         } catch (SQLException e) {
             throw new DSFormatException(e.getMessage());
