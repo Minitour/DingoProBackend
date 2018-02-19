@@ -1,10 +1,13 @@
 package mobi.newsound.database;
 
 import mobi.newsound.model.*;
+import net.sf.jasperreports.engine.JRException;
+import net.sf.jasperreports.engine.JasperFillManager;
+import net.sf.jasperreports.engine.JasperPrint;
 import net.ucanaccess.jdbc.UcanaccessDriver;
 import org.mindrot.jbcrypt.BCrypt;
 
-import java.io.File;
+import java.io.*;
 import java.sql.*;
 import java.util.*;
 import java.util.Date;
@@ -420,8 +423,24 @@ class Database implements DataAccess {
     }
 
     @Override
-    public void getReportsExportByDate(AuthContext context, Date from, Date to, List<Report> reports) throws DSException {
+    public void getReportsExportByDate(AuthContext context, Date from, Date to, OutputStream os) throws DSException {
+        isContextValidFor(context,roleId -> { if(roleId == -1) throw new DSAuthException("Invalid Context"); },1);
 
+        java.sql.Date sqlFromDate = new java.sql.Date(from.getDate());
+        java.sql.Date sqlToDate = new java.sql.Date(to.getDate());
+        String jasperFilePath = new File(JASPER_BIN).getPath();
+
+        Map<String, Object> params = new HashMap<>();
+        params.put("fromDate", sqlFromDate);
+        params.put("toDate", sqlToDate);
+
+        try {
+            JasperPrint print = JasperFillManager.fillReport(jasperFilePath, params, connection);
+            byte[] arr = serialize(print);
+            os.write(arr);
+        } catch (JRException | IOException e) {
+            e.printStackTrace();
+        }
     }
 
     @Override
@@ -1068,6 +1087,18 @@ class Database implements DataAccess {
             this.syntax = syntax;
             this.values = values;
         }
+    }
+
+    public static byte[] serialize(Object obj) throws IOException {
+        ByteArrayOutputStream out = new ByteArrayOutputStream();
+        ObjectOutputStream os = new ObjectOutputStream(out);
+        os.writeObject(obj);
+        return out.toByteArray();
+    }
+    public static <T> T deserialize(byte[] data) throws IOException, ClassNotFoundException {
+        ByteArrayInputStream in = new ByteArrayInputStream(data);
+        ObjectInputStream is = new ObjectInputStream(in);
+        return (T)is.readObject();
     }
 
 }

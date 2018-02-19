@@ -155,8 +155,7 @@ public class Main {
         //test get landmarks - OK!
         //test get vehicle models - OK!
         //test get vehicles - OK!
-
-        //test submit appeal - NOT working!
+        //test submit appeal - OK!
         get("/test8", "application/json", (request, response) -> {
             response.header("Content-Type", "application/json");
             try(DataAccess db = DataAccess.getInstance()) {

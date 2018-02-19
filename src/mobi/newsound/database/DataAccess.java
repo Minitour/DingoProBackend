@@ -2,6 +2,7 @@ package mobi.newsound.database;
 
 import mobi.newsound.model.*;
 
+import java.io.OutputStream;
 import java.io.Serializable;
 import java.sql.SQLException;
 import java.util.Date;
@@ -162,10 +163,10 @@ public interface DataAccess extends AutoCloseable,Serializable{
      * @param from
      * @param to
      * @param context
-     * @param reports
+     * @param os - The reports to export
      * @throws DSException
      */
-    default void getReportsExportByDate(AuthContext context, Date from, Date to, List<Report> reports) throws DSException {throw new DSUnimplementedException();}
+    default void getReportsExportByDate(AuthContext context, Date from, Date to, OutputStream os) throws DSException {throw new DSUnimplementedException();}
 
     /**
      *
