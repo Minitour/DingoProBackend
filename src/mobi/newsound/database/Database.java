@@ -448,6 +448,23 @@ class Database implements DataAccess {
 
     }
 
+    public List<OperationalOfficer> getAllOfficers(AuthContext context) throws DSException {
+
+        isContextValidFor(context, roleId -> { if(roleId == -1) throw new DSAuthException("Invalid Context"); }, 1);
+
+        List<OperationalOfficer> officers = new ArrayList<>();
+        try {
+            List<Map<String,Object>> data = get("SELECT * FROM TblOperationalOfficers");
+            for (Map<String,Object> map: data) {
+                OperationalOfficer operationalOfficer = new OperationalOfficer(map);
+                officers.add(operationalOfficer);
+            }
+            return officers;
+        } catch (SQLException e) {
+            throw  new DSFormatException(e.getMessage());
+        }
+    }
+
     @Override
     public List<Report> getAllReports(AuthContext context) throws DSException {
 

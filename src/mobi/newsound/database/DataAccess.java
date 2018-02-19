@@ -182,6 +182,14 @@ public interface DataAccess extends AutoCloseable,Serializable{
      * @return
      * @throws DSException
      */
+    default List<OperationalOfficer> getAllOfficers(AuthContext context) throws DSException {throw new DSUnimplementedException();}
+
+    /**
+     *
+     * @param context
+     * @return
+     * @throws DSException
+     */
     default List<Report> getAllReports(AuthContext context) throws DSException {throw new DSUnimplementedException();}
 
     /**
