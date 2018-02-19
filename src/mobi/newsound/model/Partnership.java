@@ -4,6 +4,7 @@ import com.google.gson.annotations.Expose;
 import mobi.newsound.database.Column;
 import mobi.newsound.database.DBObject;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.Map;
@@ -35,6 +36,8 @@ public class Partnership extends DBObject {
 
     public boolean addOfficerToPartnership(OperationalOfficer officer) {
         if (officer != null) {
+            if(officers == null)
+                officers = new ArrayList<>();
             return officers.add(officer);
         }
         return false;

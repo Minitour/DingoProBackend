@@ -195,10 +195,15 @@ class Database implements DataAccess {
 
         isContextValidFor(context, roleId -> { if(roleId == -1) throw new DSAuthException("Invalid Context"); }, 1);
         try {
-            update("TblOperationalOfficers",
-                    new Where("pin = ?", officer.getPin()),
-                    new Column("ptship", partnership.getPtshipNum()));
-            return true;
+
+            if(get("SELECT pin FROM TblOperationalOfficers WHERE ptship = ?",partnership.getPtshipNum()).size() < 2){
+                update("TblOperationalOfficers",
+                        new Where("pin = ?", officer.getPin()),
+                        new Column("ptship", partnership.getPtshipNum()));
+                return true;
+            }else
+                throw new DSAuthException("Team is full!");
+
         }catch (SQLException e) {
             throw new DSFormatException(e.getMessage());
         }
