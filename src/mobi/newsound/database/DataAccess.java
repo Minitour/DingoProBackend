@@ -117,15 +117,6 @@ public interface DataAccess extends AutoCloseable,Serializable{
     /**
      *
      * @param context
-     * @param report
-     * @return
-     * @throws DSException
-     */
-    default boolean createOfficerReport(AuthContext context, Report report) throws DSException {throw new DSUnimplementedException();}
-
-    /**
-     *
-     * @param context
      * @param partnership
      * @return
      * @throws DSException
@@ -139,16 +130,7 @@ public interface DataAccess extends AutoCloseable,Serializable{
      * @return
      * @throws DSException
      */
-    default boolean createVolunteerReport(AuthContext context, Report report) throws DSException {throw new DSUnimplementedException();}
-
-    /**
-     *
-     * @param context
-     * @param report
-     * @return
-     * @throws DSException
-     */
-    default Report createGeneralReport(AuthContext context, Report report) throws DSException {throw new DSUnimplementedException();}
+    default Report createReport(AuthContext context, Report report) throws DSException {throw new DSUnimplementedException();}
 
     /**
      *

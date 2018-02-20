@@ -241,58 +241,6 @@ class Database implements DataAccess {
     }
 
     @Override
-    public boolean createOfficerReport(AuthContext context, Report report) throws DSException {
-
-        //check context
-        isContextValidFor(context, roleId -> { if(roleId == -1) throw new DSAuthException("Invalid Context"); }, 1,2);
-
-        try {
-            Report createGeneralReportValidator = createGeneralReport(context, report);
-
-            if (createGeneralReportValidator != null) {
-
-                //checking the partnership
-                String partnershipNumString = report.getForeignKey("part");
-                String partnershipQuery = "SELECT * FROM TblPartnerships WHERE ptshipNum = ?";
-                boolean partnershipExists = get(partnershipQuery, partnershipNumString).size() == 1;
-
-                //checking the route
-                String routeString = report.getForeignKey("route");
-                String routeQuery = "SELECT * FROM TblRoutes WHERE serialNum = ?";
-                boolean routeExists =  get(routeQuery, routeString).size() == 1;
-
-                //checking the orderNum in landmarks Tbl given route exists
-                boolean orderNumExists = false;
-                String orderNumString = null;
-                if (routeExists) {
-                    orderNumString = report.getForeignKey("orderNum");
-                    String orderNumQuery = "SELECT * FROM TblLandmarks WHERE (route = ? AND orderNum = ?)";
-                    orderNumExists = get(orderNumQuery, routeString, orderNumString).size() == 1;
-                }
-
-                if (partnershipExists && routeExists && orderNumExists) {
-                    update("TblOfficerReport",
-                            new Where("alphaNum = ?", report.getAlphaNum()),
-                            new Column("part", partnershipNumString));
-
-                    update("TblOfficerReport",
-                            new Where("alphaNum = ?", report.getAlphaNum()),
-                            new Column("route", routeString));
-
-                    update("TblOfficerReport",
-                            new Where("alphaNum = ?", report.getAlphaNum()),
-                            new Column("orderNum", orderNumString));
-
-                    return true;
-                }
-            }
-        } catch (SQLException e) {
-            throw new DSFormatException(e.getMessage());
-        }
-        return false;
-    }
-
-    @Override
     public boolean createPartnership(AuthContext context) throws DSException {
         //context: HighRankOfficer (assumption: HighRankOfficer roleId = 1)
 
@@ -305,128 +253,147 @@ class Database implements DataAccess {
         }
     }
 
-    private Report createGeneralReport(Report report) throws  DSException {
+    @Override
+    public Report createReport(AuthContext context, Report report) throws  DSException {
+        isContextValidFor(context, roleId -> { if(roleId == -1) throw new DSAuthException("Invalid Context"); }, 2);
+
         Report generalReport = null;
 
-        Defendant defendant = report.getDefendant();
-        generalReport.setDefendant(defendant);
+        generalReport.setAlphaNum(report.getAlphaNum());
+        generalReport.setViolationDate(report.getViolationDate());
+        generalReport.setDescription(report.getDescription());
+        generalReport.setStatus(report.getStatus());
+        generalReport.setViolationType(report.getViolationType());
+        generalReport.setReport_type(report.getReport_type());
 
-        Vehicle vehicle = report.getVehicle();
-        generalReport.setVehicle(vehicle);
-
-        Appeal appeal = report.getAppeal();
-        generalReport.setAppeal(appeal);
-
-        //checking for existing of the objects above -> not exist - > insert
-        boolean vehicleExists = false;
-        boolean defendantExists = false;
-        boolean appealExist = false;
+        Partnership partnership = null;
+        Landmark landmark = null;
+        Defendant defendant = null;
+        Appeal appeal = null;
+        Vehicle vehicle = null;
+        Route route = null;
 
         try {
-            //checking for the vehicle
-            String vehicleQuery = "SELECT licensePlate FROM TblVehicles WHERE licensePlate = ?";
-            vehicleExists = get(vehicleQuery, vehicle.getLicensePlate()).size() == 1;
+            //get the partnership
+            partnership = new Partnership(get("SELECT * FROM TblPartnerships WHERE ptshipNum = ?", String.valueOf(report.getPart().getPtshipNum())).get(0));
 
-            //checking for the defendant
-            String defendantQuery = "SELECT ID FROM TblDefendants WHERE ID = ?";
-            defendantExists = get(defendantQuery, defendant.getID()).size() == 1;
-
-            //checking for the appeal
-            String appealQuery = "SELECT serialNum FROM TblAppeals WHERE serialNum = ?";
-            appealExist = get(appealQuery, appeal.getSerialNum()).size() == 1;
-
-            //inserting the object if they don't exists in Tbl
-            if (!vehicleExists) {
-
-                //checking if the model exists -> else insert to Tbl
-                VehicleModel vehicleModel = vehicle.getForeignKey("model");
-                String vehicleModelQuery = "SELECT modelNum FROM TblVehicleModel WHERE modelNum = ?";
-                boolean vehicleModelExists = get(vehicleModelQuery, vehicleModel.getModelNum()).size() == 1;
-                if (!vehicleModelExists)
-                    insert(vehicleModel);
-
-                //insert the vehicle to Tbl
-                insert(vehicle);
+            //get the officers in the partnership and add them
+            List<Map<String,Object>> officersFromTbl = get("SELECT * FROM TblOperationalOfficers WHERE ptship = ?", String.valueOf(report.getPart().getPtshipNum()));
+            for (Map<String,Object> mapOfficers: officersFromTbl) {
+                partnership.addOfficerToPartnership(new OperationalOfficer(mapOfficers));
             }
 
-            if (!defendantExists)
-                insert(defendant);
+            //get the landmark
+            landmark = new Landmark(get("SELECT * FROM TblLandmarks WHERE (route = ? AND orderNum = ?)", String.valueOf(report.getRoute().getSerialNum()), String.valueOf(report.getOrderNum().getOrderNum())).get(0));
+            landmark.setRoute(new Route(landmark.getForeignKey("route"),null));
 
-            if (!appealExist)
-                insert(appeal);
+            //get the defendant
+            defendant = new Defendant(get("SELECT * FROM TblDefendants WHERE ID = ?", String.valueOf(report.getDefendant().getID())).get(0));
+
+            //get the appeal
+            appeal = new Appeal(get("SELECT * FROM TblAppeals WHERE serialNum = ?", String.valueOf(report.getAppeal().getSerialNum())).get(0));
+
+            //get the vehicle
+            vehicle = new Vehicle(get("SELECT * FROM TblVehicles WHERE licensePlate = ?", report.getVehicle().getLicensePlate()).get(0));
+
+            //getting the model for the car
+            String modelString = vehicle.getForeignKey("model");
+            VehicleModel vehicleModel = new VehicleModel(get("SELECT * FROM TblVehicleModel WHERE modelNum = ?", modelString).get(0));
+            vehicle.setModel(vehicleModel);
+
+            route = new Route(get("SELECT * FROM TblRoutes WHERE serialNum = ?", String.valueOf(report.getRoute().getSerialNum())).get(0));
+
+            if (partnership == null) {
+                insert(report.getPart());
+                generalReport.setPart(report.getPart());
+            } else {
+                generalReport.setPart(partnership);
+            }
+
+            if (landmark == null) {
+                insert(report.getOrderNum());
+                generalReport.setOrderNum(report.getOrderNum());
+            } else {
+                generalReport.setOrderNum(landmark);
+            }
+
+            if (defendant == null) {
+                insert(report.getDefendant());
+                generalReport.setDefendant(report.getDefendant());
+            } else {
+                generalReport.setDefendant(defendant);
+            }
+
+            if (appeal == null) {
+                insert(report.getAppeal());
+                generalReport.setAppeal(report.getAppeal());
+            } else {
+                generalReport.setAppeal(appeal);
+            }
+
+            if (vehicle == null) {
+                insert(report.getVehicle());
+                generalReport.setVehicle(report.getVehicle());
+                if (vehicleModel == null) {
+                    insert(report.getVehicle().getModel());
+                }
+            } else {
+                generalReport.setVehicle(vehicle);
+            }
+
+            if (route == null) {
+                insert(report.getRoute());
+                generalReport.setRoute(report.getRoute());
+            } else {
+                generalReport.setRoute(route);
+            }
+
+            //checking the url -> if the url is valid then insert to TblVolunteerReport.evidenceLink -> else return error message
+            String url = report.getEvidenceLink();
+            boolean validUrl;
+
+            //split to get the type of url
+            String[] args = url.split("\\.");
+            String urlType = args[args.length - 1];
+
+            //validate by the type of url
+            switch (urlType) {
+                case "mp4": {
+                    validUrl = validateFileUrl(url, context.id, false, urlType);
+                    break;
+                }
+                default: {
+                    validUrl = validateFileUrl(url, context.id, true, urlType);
+                    break;
+                }
+            }
+
+            if (validUrl) {
+                update("TblOfficerReport",
+                        new Where("alphaNum = ?", report.getAlphaNum()),
+                        new Column("evidenceLink", url));
+                generalReport.setEvidenceLink(url);
+            }
 
             //insert to the right Tbl
-            insert(report);
-
-            generalReport.setAlphaNum(report.getAlphaNum());
-            generalReport.setViolationDate(report.getViolationDate());
-            generalReport.setDescription(report.getDescription());
-            generalReport.setStatus(report.getStatus());
-            generalReport.setViolationType(report.getViolationType());
+            insert(generalReport);
 
             return generalReport;
 
         } catch (SQLException e) {
             //rolling back
             try {
-                delete("TblVehicles", "licensePlate = ?", vehicle.getLicensePlate());
-                delete("TblDefendants", "ID = ?", defendant.getID());
-                delete("TblAppeals", "serialNum = ?", appeal.getSerialNum());
+                delete("TblPartnerships", "SELECT * FROM TblPartnerships WHERE ptshipNum = ?", String.valueOf(report.getPart().getPtshipNum()));
+                delete("TblLandmarks", "SELECT * FROM TblLandmarks WHERE (route = ? AND orderNum = ?)", String.valueOf(report.getRoute().getSerialNum()), String.valueOf(report.getOrderNum().getOrderNum()));
+                delete("TblRoutes", "serialNum = ?", String.valueOf(report.getRoute().getSerialNum()));
+                delete("TblVehicles", "licensePlate = ?", report.getVehicle().getLicensePlate());
+                delete("TblDefendants", "ID = ?", String.valueOf(report.getDefendant().getID()));
+                delete("TblAppeals", "serialNum = ?", String.valueOf(report.getAppeal().getSerialNum()));
             }catch (SQLException e1) {
                 throw new DSFormatException(e.getMessage());
             }
             throw new DSFormatException(e.getMessage());
         }
-    }
-
-    @Override
-    public boolean createVolunteerReport(AuthContext context, Report report) throws DSException {
-
-        //check context
-
-        try {
-
-            Report createGeneralReportValidator = createGeneralReport(context, report);
-
-            if (createGeneralReportValidator != null) {
-
-                //checking the url -> if the url is valid then insert to TblVolunteerReport.evidenceLink -> else return error message
-                String url = report.getEvidenceLink();
-                boolean validUrl;
-
-                //split to get the type of url
-                String[] args = url.split("\\.");
-                String urlType = args[args.length - 1];
-
-                //validate by the type of url
-                switch (urlType) {
-                    case "mp4": {
-                        validUrl = validateFileUrl(url, context.id, false, urlType);
-                        break;
-                    }
-                    default: {
-                        validUrl = validateFileUrl(url, context.id, true, urlType);
-                        break;
-                    }
-                }
-
-                if (!validUrl) {
-                    System.out.println("Invalid url " + url);
-                    return false;
-                }
-                else {
-                    update("TblVolunteerReport",
-                            new Where("alphaNum = ?", report.getAlphaNum()),
-                            new Column("evidenceLink", url));
-                    return true;
-                }
-
-            }
-
-        } catch (SQLException e) {
-            throw new DSFormatException(e.getMessage());
-        }
-        return false;
     }
 
     @Override

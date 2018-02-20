@@ -21,7 +21,7 @@ public class CreateReportController implements RESTRoute {
         try(DataAccess db = DataAccess.getInstance()){
             assert db != null;
 
-            //db.createRport
+            db.createReport(context, report);
 
             return null;
 
