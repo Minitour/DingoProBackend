@@ -93,7 +93,7 @@ public interface DataAccess extends AutoCloseable,Serializable{
      * @return
      * @throws DSException
      */
-    default boolean assignPartnershipToShift(AuthContext context, Partnership partnership, Shift shift) throws DSException {throw new DSUnimplementedException();}
+    default boolean assignPartnershipToShift(AuthContext context, Partnership partnership, Shift shift,Route route) throws DSException {throw new DSUnimplementedException();}
 
     /**
      *

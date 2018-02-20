@@ -198,14 +198,15 @@ class Database implements DataAccess {
     }
 
     @Override
-    public boolean assignPartnershipToShift(AuthContext context, Partnership partnership, Shift shift) throws DSException {
+    public boolean assignPartnershipToShift(AuthContext context, Partnership partnership, Shift shift,Route route) throws DSException {
         //context: 1
 
         isContextValidFor(context, roleId -> { if(roleId == -1) throw new DSAuthException("Invalid Context"); }, 1,3);
         try {
-            update("TblShiftsPartnerships",
-                    new Where("shift = ?", shift.getShiftCode()),
-                    new Column("ptship", partnership.getPtshipNum()));
+            insert("TblShiftsPartnerships",
+                    new Column("ptship",partnership.getPtshipNum()),
+                    new Column("shift",shift.getShiftCode()),
+                    new Column("route",route.getSerialNum()));
             return true;
         }catch (SQLException e) {
             throw new DSFormatException(e.getMessage());
@@ -270,6 +271,7 @@ class Database implements DataAccess {
         generalReport.setViolationDate(report.getViolationDate());
         generalReport.setDescription(report.getDescription());
         generalReport.setViolationType(report.getViolationType());
+        generalReport.setReport_type(1); //officer report = 1, volunteer is 0
 
         try {
 
@@ -292,6 +294,13 @@ class Database implements DataAccess {
 
                 generalReport.setVehicle(vehicle);
             }
+
+            Integer ptship = (Integer)
+                    get("SELECT ptship FROM TblOperationalOfficers WHERE account_id = ?",context.id)
+                    .get(0)
+                    .get("ptship");
+
+            generalReport.setPart(new Partnership(ptship,null,null));
 
             //insert to the right Tbl
             insert(generalReport);
