@@ -256,43 +256,22 @@ class Database implements DataAccess {
     @Override
     public Report createReport(AuthContext context, Report report) throws  DSException {
         isContextValidFor(context, roleId -> { if(roleId == -1) throw new DSAuthException("Invalid Context"); }, 2);
-
-        Report generalReport = null;
+        String id = ObjectId.generate();
+        Report generalReport = new Report(id, report.getViolationDate(), report.getDescription(), null, report.getViolationType(), null, null, null);
 
         generalReport.setViolationDate(report.getViolationDate());
         generalReport.setDescription(report.getDescription());
         generalReport.setViolationType(report.getViolationType());
 
-        Defendant defendant = null;
-        Vehicle vehicle = null;
-
         try {
-            //get the defendant
-            defendant = new Defendant(get("SELECT * FROM TblDefendants WHERE ID = ?", String.valueOf(report.getDefendant().getID())).get(0));
 
-            //get the vehicle
-            vehicle = new Vehicle(get("SELECT * FROM TblVehicles WHERE licensePlate = ?", report.getVehicle().getLicensePlate()).get(0));
-
-            //getting the model for the car
-            String modelString = vehicle.getForeignKey("model");
-            VehicleModel vehicleModel = new VehicleModel(get("SELECT * FROM TblVehicleModel WHERE modelNum = ?", modelString).get(0));
-            vehicle.setModel(vehicleModel);
-
-            if (defendant == null) {
-                insert(report.getDefendant());
+            if (report.getDefendant() != null) {
                 generalReport.setDefendant(report.getDefendant());
-            } else {
-                generalReport.setDefendant(defendant);
             }
 
-            if (vehicle == null) {
-                insert(report.getVehicle());
-                generalReport.setVehicle(report.getVehicle());
-                if (vehicleModel == null) {
-                    insert(report.getVehicle().getModel());
-                }
-            } else {
-                vehicle.setModel(vehicleModel);
+            if (report.getVehicle() != null) {
+                VehicleModel vm = new VehicleModel(report.getVehicle().getModel().getModelNum(), report.getVehicle().getModel().getName());
+                Vehicle vehicle = new Vehicle(report.getVehicle().getLicensePlate(), report.getVehicle().getColorHEX(), vm);
                 generalReport.setVehicle(vehicle);
             }
 
@@ -302,13 +281,6 @@ class Database implements DataAccess {
             return generalReport;
 
         } catch (SQLException e) {
-            //rolling back
-            try {
-                delete("TblVehicles", "licensePlate = ?", report.getVehicle().getLicensePlate());
-                delete("TblDefendants", "ID = ?", String.valueOf(report.getDefendant().getID()));
-            }catch (SQLException e1) {
-                throw new DSFormatException(e.getMessage());
-            }
             throw new DSFormatException(e.getMessage());
         }
     }
