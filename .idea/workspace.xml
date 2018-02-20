@@ -138,13 +138,11 @@
         <option value="$PROJECT_DIR$/src/mobi/newsound/model/OperationalOfficer.java" />
         <option value="$PROJECT_DIR$/src/mobi/newsound/model/Shift.java" />
         <option value="$PROJECT_DIR$/src/mobi/newsound/model/Route.java" />
-        <option value="$PROJECT_DIR$/report.jrxml" />
         <option value="$PROJECT_DIR$/src/mobi/newsound/controllers/ExportReportsToDingoReportController.java" />
         <option value="$PROJECT_DIR$/src/mobi/newsound/controllers/AssignOfficersToPartnershipsController.java" />
         <option value="$PROJECT_DIR$/src/mobi/newsound/model/Partnership.java" />
         <option value="$PROJECT_DIR$/src/mobi/newsound/controllers/ExportAppealsForOfficersReportsController.java" />
         <option value="$PROJECT_DIR$/config.json" />
-        <option value="$PROJECT_DIR$/appeal.jrxml" />
         <option value="$PROJECT_DIR$/src/mobi/newsound/database/DataAccess.java" />
         <option value="$PROJECT_DIR$/src/mobi/newsound/controllers/CreateRouteController.java" />
         <option value="$PROJECT_DIR$/src/mobi/newsound/database/Database.java" />
@@ -610,14 +608,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/report.jrxml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="638">
-          <caret line="132" column="37" lean-forward="false" selection-start-line="132" selection-start-column="37" selection-end-line="132" selection-end-column="37" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/mobi/newsound/model/Route.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="150">
@@ -672,14 +662,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="195">
           <caret line="18" column="27" lean-forward="false" selection-start-line="18" selection-start-column="17" selection-end-line="18" selection-end-column="27" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/appeal.jrxml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1725">
-          <caret line="115" column="24" lean-forward="false" selection-start-line="115" selection-start-column="24" selection-end-line="115" selection-end-column="24" />
           <folding />
         </state>
       </provider>
@@ -789,6 +771,22 @@
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/appeal.jrxml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="201">
+          <caret line="108" column="37" lean-forward="false" selection-start-line="108" selection-start-column="37" selection-end-line="108" selection-end-column="37" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/report.jrxml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="185">
+          <caret line="132" column="37" lean-forward="false" selection-start-line="132" selection-start-column="37" selection-end-line="132" selection-end-column="37" />
+          <folding />
         </state>
       </provider>
     </entry>

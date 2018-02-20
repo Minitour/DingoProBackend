@@ -52,6 +52,7 @@ public class Main {
         make("/getPartnerships",new GetPartnershipsController());
         make("/getVehicles",new GetVehiclesController());
         make("/submitAppeal",new SubmitAppealController());
+        make("/exportReportToDingoReport", new ExportReportsToDingoReportController());
 
         //TODO: remove this later
         initTests();
