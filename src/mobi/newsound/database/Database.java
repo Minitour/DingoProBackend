@@ -547,11 +547,9 @@ class Database implements DataAccess {
 
     @Override
     public List<Report> getAllReports(AuthContext context) throws DSException {
-        //Todo: check context
-        isContextValidFor(context, roleId -> { if(roleId == -1) throw new DSAuthException("Invalid Context"); }, 1,3);
+        isContextValidFor(context, roleId -> { if(roleId == -1) throw new DSAuthException("Invalid Context"); }, 1,2,3);
         List<Report> reports = new ArrayList<>();
         try {
-
             //get officer reports
             List<Map<String,Object>> dataFromOfficers = get("SELECT * FROM TblOfficerReport WHERE report_type = ?",1);
             for (Map<String,Object> map: dataFromOfficers) {
@@ -577,6 +575,7 @@ class Database implements DataAccess {
 
                 //get the landmark
                 Landmark landmark = new Landmark(get("SELECT * FROM TblLandmarks WHERE (route = ? AND orderNum = ?)", String.valueOf(routeString), orderNumString).get(0));
+                landmark.setRoute(new Route(landmark.getForeignKey("route"),null));
                 officerReport.setOrderNum(landmark);
 
                 //get the defendant
@@ -678,12 +677,15 @@ class Database implements DataAccess {
     public List<Landmark> getLandmarks(AuthContext context) throws DSException {
         //context: HighRankOfficer (assumption: HighRankOfficer roleId = 1)
 
-        isContextValidFor(context, roleId -> { if(roleId == -1) throw new DSAuthException("Invalid Context"); }, 1,3);
+        isContextValidFor(context, roleId -> { if(roleId == -1) throw new DSAuthException("Invalid Context"); }, 1,2,3);
         List<Landmark> landmarks = new ArrayList<>();
         try  {
-            List<Map<String,Object>> data = get("SELECT * FROM TblAppeals");
-            for(Map<String,Object> map: data)
-                landmarks.add(new Landmark(map));
+            List<Map<String,Object>> data = get("SELECT * FROM TblLandmarks");
+            for(Map<String,Object> map: data){
+                Landmark landmark = new Landmark(map);
+                landmark.setRoute(new Route(landmark.getForeignKey("route"),null));
+                landmarks.add(landmark);
+            }
             return landmarks;
         } catch (SQLException e) {
             throw new DSFormatException(e.getMessage());
@@ -762,7 +764,7 @@ class Database implements DataAccess {
     public List<VehicleModel> getVehicleModels(AuthContext context) throws DSException {
         //context: HighRankOfficer (assumption: HighRankOfficer roleId = 1)
 
-        isContextValidFor(context, roleId -> { if(roleId == -1) throw new DSAuthException("Invalid Context"); }, 1,3);
+        isContextValidFor(context, roleId -> { if(roleId == -1) throw new DSAuthException("Invalid Context"); }, 1,2,3);
         List<VehicleModel> vehicleModels = new ArrayList<>();
         try {
             List<Map<String, Object>> data = get("SELECT * FROM TblVehicleModel");

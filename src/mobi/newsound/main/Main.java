@@ -40,6 +40,7 @@ public class Main {
         make("/createPartnership",new CreatePartnershipController());
         make("/createRoute",new CreateRouteController());
         make("/createShift",new CreateShiftController());
+        make("/createReport",new CreateReportController());
         make("/getAllReports",new GetAllReportsController());
         make("/exportReports",new ExportReportsByDateController());
         make("/getDefendants",new GetDefendantsController());
