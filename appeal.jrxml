@@ -1,0 +1,142 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.5.0.final using JasperReports Library version 6.5.0  -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="appeal" pageWidth="595" pageHeight="842" columnWidth="535" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="0a8fb54d-ec70-447c-b4bd-f7c95b194ef5">
+	<property name="com.jaspersoft.studio.data.sql.tables">
+		<![CDATA[YFZpb2xhdGlvbmAgLDEwNSwxNSxiNmMxOGFmNS1jN2ZjLTQzODgtYTgxNy0xNWEwMjhhMGRjYzQ7
+YFJlcG9ydFRibGAgLDE1LDI4LDI4ZTU1N2FhLTljNGYtNGEyMi04OTBkLWZhMzEwYjQxOWNhODs=]]>
+	</property>
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="MSAccess.xml"/>
+	<queryString language="SQL">
+		<![CDATA[SELECT * FROM TblAppeals ]]>
+	</queryString>
+	<field name="serialNum" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="serialNum"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="TblAppeals"/>
+	</field>
+	<field name="reason" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="reason"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="TblAppeals"/>
+	</field>
+	<field name="appealDate" class="java.sql.Timestamp">
+		<property name="com.jaspersoft.studio.field.label" value="appealDate"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="TblAppeals"/>
+	</field>
+	<background>
+		<band/>
+	</background>
+	<title>
+		<band height="72">
+			<frame>
+				<reportElement mode="Opaque" x="-20" y="-20" width="595" height="92" backcolor="#2ECC71" uuid="7c6511c6-5419-44ec-b4e5-de708d51fe5d"/>
+				<staticText>
+					<reportElement x="20" y="20" width="234" height="43" forecolor="#FFFFFF" uuid="4002c207-ab40-40d1-8619-f3fbb97e46dd"/>
+					<textElement textAlignment="Left" verticalAlignment="Middle">
+						<font size="24" isBold="true"/>
+					</textElement>
+					<text><![CDATA[Dingo Appeals]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="380" y="26" width="200" height="37" forecolor="#FFFFFF" uuid="fccec515-63ec-4cba-b0f9-b493761e1126"/>
+					<textElement textAlignment="Left">
+						<font size="14" isBold="false"/>
+					</textElement>
+					<text><![CDATA[All Appeals from Officers Reports]]></text>
+				</staticText>
+			</frame>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="13"/>
+	</pageHeader>
+	<columnHeader>
+		<band height="21">
+			<line>
+				<reportElement x="-20" y="20" width="595" height="1" forecolor="#666666" uuid="f7aed9df-368c-4b43-a0d3-182d82542490"/>
+			</line>
+			<staticText>
+				<reportElement mode="Opaque" x="0" y="0" width="92" height="20" forecolor="#000000" backcolor="#E6E6E6" uuid="934ae908-0bc0-406c-bc6a-fd884a4c68a0">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="f4e7f61a-7dd7-4ab5-95cd-6a9b1195bdb3"/>
+				</reportElement>
+				<textElement textAlignment="Center" verticalAlignment="Top">
+					<font size="13" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Appeal ID]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="92" y="0" width="92" height="20" forecolor="#000000" backcolor="#E6E6E6" uuid="7009f690-480a-4302-80a0-30441f9d52e1">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="41af3fac-1344-44ff-9599-a68219d3880f"/>
+				</reportElement>
+				<textElement textAlignment="Center" verticalAlignment="Top">
+					<font size="13" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Appeal Reason]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="184" y="0" width="92" height="20" forecolor="#000000" backcolor="#E6E6E6" uuid="7009f690-480a-4302-80a0-30441f9d52e1">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="41af3fac-1344-44ff-9599-a68219d3880f"/>
+				</reportElement>
+				<textElement textAlignment="Center" verticalAlignment="Top">
+					<font size="13" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Appeal Date]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="20">
+			<line>
+				<reportElement positionType="FixRelativeToBottom" x="0" y="19" width="555" height="1" uuid="d16a687e-38bd-41f8-a366-fcb59ab4215d"/>
+			</line>
+			<textField isStretchWithOverflow="true">
+				<reportElement x="0" y="0" width="92" height="20" uuid="df954f97-816f-4e40-8a7e-3237ed1f8bf3">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="f4e7f61a-7dd7-4ab5-95cd-6a9b1195bdb3"/>
+				</reportElement>
+				<textElement>
+					<font size="14"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{serialNum}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true">
+				<reportElement x="92" y="0" width="92" height="20" uuid="e7857643-cf5e-4830-97f5-431bc52362a8">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="41af3fac-1344-44ff-9599-a68219d3880f"/>
+				</reportElement>
+				<textElement>
+					<font size="14"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{reason}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true">
+				<reportElement x="184" y="0" width="92" height="20" uuid="9e187108-1409-41ab-95e0-f07e45814946">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="49e440d2-0210-4e0e-b39a-c2ee0a30ea5d"/>
+				</reportElement>
+				<textElement>
+					<font size="14"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{appealDate}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band/>
+	</columnFooter>
+	<pageFooter>
+		<band height="17">
+			<textField>
+				<reportElement mode="Opaque" x="0" y="4" width="515" height="13" backcolor="#E6E6E6" uuid="6007acd0-acb0-49fa-9c20-e330e91d195f"/>
+				<textElement textAlignment="Right"/>
+				<textFieldExpression><![CDATA["Page "+$V{PAGE_NUMBER}+" of"]]></textFieldExpression>
+			</textField>
+			<textField evaluationTime="Report">
+				<reportElement mode="Opaque" x="515" y="4" width="40" height="13" backcolor="#E6E6E6" uuid="a238768e-bb0e-4c7d-8edd-da730a3cdf12"/>
+				<textFieldExpression><![CDATA[" " + $V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+			<textField pattern="EEEEE dd MMMMM yyyy">
+				<reportElement x="0" y="4" width="100" height="13" uuid="0ea6d424-f37e-4f3b-ae3e-08430ab0115e"/>
+				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageFooter>
+	<summary>
+		<band/>
+	</summary>
+</jasperReport>

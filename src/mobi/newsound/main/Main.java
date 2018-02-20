@@ -198,6 +198,17 @@ public class Main {
             }
         });
 
+        get("/test12", (request, response) -> {
+            JasperCompileManager.compileReportToFile(new File(config.get("RF_APPEAL_SOURCE").getAsString()).getPath(), new File(config.get("RF_APPEAL_BINARY").getAsString()).getPath());
+            response.header("Content-Type", "application/pdf");
+            try(DataAccess db = DataAccess.getInstance()) {
+
+                db.testJasperAppeal(response.raw().getOutputStream());
+
+                return response.raw().getOutputStream();
+            }
+        });
+
     }
 }
 

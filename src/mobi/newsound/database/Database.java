@@ -22,6 +22,7 @@ class Database implements DataAccess {
     final static long MAX_TIME_OUT = config.get("user").getAsJsonObject().get("session_time_out").getAsInt();
     final static String DB_LOCATION = config.get("db").getAsJsonObject().get("access_file_location").getAsString();
     final static String JASPER_BIN = config.get("RF_REPORT_BINARY").getAsString();
+    final static String JASPER_APPEAL_BIN = config.get("RF_APPEAL_BINARY").getAsString();
     private Connection connection;
 
     Database() throws SQLException {
@@ -55,6 +56,19 @@ class Database implements DataAccess {
 
         try {
             JasperPrint print = JasperFillManager.fillReport(jasperFilePath, params, connection);
+            JasperExportManager.exportReportToPdfStream(print, os);
+        } catch (JRException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Override
+    public void testJasperAppeal (OutputStream os) {
+
+        String jasperFilePath = new File(JASPER_APPEAL_BIN).getPath();
+
+        try {
+            JasperPrint print = JasperFillManager.fillReport(jasperFilePath, null, connection);
             JasperExportManager.exportReportToPdfStream(print, os);
         } catch (JRException e) {
             e.printStackTrace();
@@ -441,7 +455,19 @@ class Database implements DataAccess {
     }
 
     @Override
-    public void getAppealExport(AuthContext context, List<Report> reports) throws DSException {
+    public void getAppealExport(AuthContext context, OutputStream os) throws DSException {
+        isContextValidFor(context,roleId -> { if(roleId == -1) throw new DSAuthException("Invalid Context"); },1);
+        String jasperFilePath = new File(JASPER_APPEAL_BIN).getPath();
+
+        try {
+
+            JasperPrint print = JasperFillManager.fillReport(jasperFilePath, null,connection);
+            byte[] arr = serialize(print);
+            os.write(arr);
+
+        } catch (JRException | IOException e) {
+            e.printStackTrace();
+        }
 
     }
 
@@ -546,17 +572,7 @@ class Database implements DataAccess {
 
     @Override
     public List<Report> getAllReports(AuthContext context) throws DSException {
-
-
-            //get the foreignKeys using String fieldString = officerReport.getForeignKey("field")
-
-            //create lists (if needed) for the foreign keys objects
-
-            //for every list do a loop and create an Object for it
-
-            //assign the objects to the officer report
-
-        //get the volunteer reports
+        //Todo: check context
 
         List<Report> reports = new ArrayList<>();
         try {

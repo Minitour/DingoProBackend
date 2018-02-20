@@ -164,10 +164,10 @@ public interface DataAccess extends AutoCloseable,Serializable{
     /**
      *
      * @param context
-     * @param reports
+     * @param os
      * @throws DSException
      */
-    default void getAppealExport(AuthContext context, List<Report> reports) throws DSException {throw new DSUnimplementedException();}
+    default void getAppealExport(AuthContext context, OutputStream os) throws DSException {throw new DSUnimplementedException();}
 
     /**
      * @param from
@@ -181,7 +181,6 @@ public interface DataAccess extends AutoCloseable,Serializable{
     /**
      *
      * @param context
-     * @param officerReports
      * @throws DSException
      */
     default List<Report> getAllOfficerReportsExportToDingoReport(AuthContext context) throws DSException {throw new DSUnimplementedException();}
@@ -286,6 +285,7 @@ public interface DataAccess extends AutoCloseable,Serializable{
 
     default void testJasper (Date from, Date to,OutputStream os) throws DSException {throw new DSUnimplementedException(); }
 
+    default void testJasperAppeal (OutputStream os) throws DSException {throw new DSUnimplementedException(); }
 
     abstract class DSException extends RuntimeException {
         DSException(){}
