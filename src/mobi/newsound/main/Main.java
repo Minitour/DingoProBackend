@@ -39,6 +39,7 @@ public class Main {
         make("/createDefendant",new CreateDefendantController());
         make("/createPartnership",new CreatePartnershipController());
         make("/createRoute",new CreateRouteController());
+        make("/createShift",new CreateShiftController());
         make("/getAllReports",new GetAllReportsController());
         make("/exportReports",new ExportReportsByDateController());
         make("/getDefendants",new GetDefendantsController());

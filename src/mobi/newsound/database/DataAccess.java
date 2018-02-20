@@ -277,6 +277,8 @@ public interface DataAccess extends AutoCloseable,Serializable{
     default void createRoute(AuthContext context) throws DSException {throw new DSUnimplementedException();}
     default void testJasperAppeal (OutputStream os) throws DSException {throw new DSUnimplementedException(); }
 
+    default void createShift(AuthContext context, Shift shift) throws DSException {throw new DSUnimplementedException();}
+
 
     abstract class DSException extends RuntimeException {
         DSException(){}
