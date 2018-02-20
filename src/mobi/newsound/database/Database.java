@@ -735,8 +735,15 @@ class Database implements DataAccess {
         List<Route> routes = new ArrayList<>();
         try {
             List<Map<String,Object>> data = get("SELECT * FROM TblRoutes");
-            for(Map<String, Object> map: data)
-                routes.add(new Route(map));
+            for(Map<String, Object> map: data) {
+                Route r = new Route(map);
+                List<Landmark> landmarks = new ArrayList<>();
+                get("SELECT * FROM TblLandmarks WHERE route = ?",r.getSerialNum()).forEach(
+                        stringObjectMap -> landmarks.add(new Landmark(stringObjectMap))
+                );
+                r.setLandmarks(landmarks);
+                routes.add(r);
+            }
             return routes;
         } catch (SQLException e) {
             throw new DSFormatException(e.getMessage());

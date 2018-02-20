@@ -31,6 +31,14 @@ public class Route extends DBObject {
         return serialNum;
     }
 
+    public Collection<Landmark> getLandmarks() {
+        return landmarks;
+    }
+
+    public void setLandmarks(Collection<Landmark> landmarks) {
+        this.landmarks = landmarks;
+    }
+
     @Override
     public Column[] db_columns() {
         return new Column[]{

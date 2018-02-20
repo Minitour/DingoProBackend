@@ -35,6 +35,7 @@ public class Main {
         make("/assignOfficerToPartnership",new AssignOfficersToPartnershipsController());
         make("/assignPartnershipToShift",new AssignPartnershipToShiftController());
         make("/assignRouteToShift",new AssignRouteToShiftController());
+        make("/addLandmarkToRoute",new AddLandmarksToRoutesController());
         make("/createDefendant",new CreateDefendantController());
         make("/createPartnership",new CreatePartnershipController());
         make("/getAllReports",new GetAllReportsController());
