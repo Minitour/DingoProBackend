@@ -7,8 +7,8 @@
   "db" : {
     "access_file_location" : "DingoPro.accdb"
   },
-  "RF_REPORT_BINARY" : "report.jasper",
-  "RF_REPORT_SOURCE" : "report.jrxml",
-  "RF_APPEAL_BINARY" : "appeal.jasper",
-  "RF_APPEAL_SOURCE" : "appeal.jrxml"
+  "RF_REPORT_BINARY" : "supporting-files/report.jasper",
+  "RF_REPORT_SOURCE" : "supporting-files/report.jrxml",
+  "RF_APPEAL_BINARY" : "supporting-files/appeal.jasper",
+  "RF_APPEAL_SOURCE" : "supporting-files/appeal.jrxml"
 }
