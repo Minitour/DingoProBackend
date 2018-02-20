@@ -259,39 +259,16 @@ class Database implements DataAccess {
 
         Report generalReport = null;
 
-        generalReport.setAlphaNum(report.getAlphaNum());
         generalReport.setViolationDate(report.getViolationDate());
         generalReport.setDescription(report.getDescription());
-        generalReport.setStatus(report.getStatus());
         generalReport.setViolationType(report.getViolationType());
-        generalReport.setReport_type(report.getReport_type());
 
-        Partnership partnership = null;
-        Landmark landmark = null;
         Defendant defendant = null;
-        Appeal appeal = null;
         Vehicle vehicle = null;
-        Route route = null;
 
         try {
-            //get the partnership
-            partnership = new Partnership(get("SELECT * FROM TblPartnerships WHERE ptshipNum = ?", String.valueOf(report.getPart().getPtshipNum())).get(0));
-
-            //get the officers in the partnership and add them
-            List<Map<String,Object>> officersFromTbl = get("SELECT * FROM TblOperationalOfficers WHERE ptship = ?", String.valueOf(report.getPart().getPtshipNum()));
-            for (Map<String,Object> mapOfficers: officersFromTbl) {
-                partnership.addOfficerToPartnership(new OperationalOfficer(mapOfficers));
-            }
-
-            //get the landmark
-            landmark = new Landmark(get("SELECT * FROM TblLandmarks WHERE (route = ? AND orderNum = ?)", String.valueOf(report.getRoute().getSerialNum()), String.valueOf(report.getOrderNum().getOrderNum())).get(0));
-            landmark.setRoute(new Route(landmark.getForeignKey("route"),null));
-
             //get the defendant
             defendant = new Defendant(get("SELECT * FROM TblDefendants WHERE ID = ?", String.valueOf(report.getDefendant().getID())).get(0));
-
-            //get the appeal
-            appeal = new Appeal(get("SELECT * FROM TblAppeals WHERE serialNum = ?", String.valueOf(report.getAppeal().getSerialNum())).get(0));
 
             //get the vehicle
             vehicle = new Vehicle(get("SELECT * FROM TblVehicles WHERE licensePlate = ?", report.getVehicle().getLicensePlate()).get(0));
@@ -301,34 +278,11 @@ class Database implements DataAccess {
             VehicleModel vehicleModel = new VehicleModel(get("SELECT * FROM TblVehicleModel WHERE modelNum = ?", modelString).get(0));
             vehicle.setModel(vehicleModel);
 
-            route = new Route(get("SELECT * FROM TblRoutes WHERE serialNum = ?", String.valueOf(report.getRoute().getSerialNum())).get(0));
-
-            if (partnership == null) {
-                insert(report.getPart());
-                generalReport.setPart(report.getPart());
-            } else {
-                generalReport.setPart(partnership);
-            }
-
-            if (landmark == null) {
-                insert(report.getOrderNum());
-                generalReport.setOrderNum(report.getOrderNum());
-            } else {
-                generalReport.setOrderNum(landmark);
-            }
-
             if (defendant == null) {
                 insert(report.getDefendant());
                 generalReport.setDefendant(report.getDefendant());
             } else {
                 generalReport.setDefendant(defendant);
-            }
-
-            if (appeal == null) {
-                insert(report.getAppeal());
-                generalReport.setAppeal(report.getAppeal());
-            } else {
-                generalReport.setAppeal(appeal);
             }
 
             if (vehicle == null) {
@@ -338,41 +292,8 @@ class Database implements DataAccess {
                     insert(report.getVehicle().getModel());
                 }
             } else {
+                vehicle.setModel(vehicleModel);
                 generalReport.setVehicle(vehicle);
-            }
-
-            if (route == null) {
-                insert(report.getRoute());
-                generalReport.setRoute(report.getRoute());
-            } else {
-                generalReport.setRoute(route);
-            }
-
-            //checking the url -> if the url is valid then insert to TblVolunteerReport.evidenceLink -> else return error message
-            String url = report.getEvidenceLink();
-            boolean validUrl;
-
-            //split to get the type of url
-            String[] args = url.split("\\.");
-            String urlType = args[args.length - 1];
-
-            //validate by the type of url
-            switch (urlType) {
-                case "mp4": {
-                    validUrl = validateFileUrl(url, context.id, false, urlType);
-                    break;
-                }
-                default: {
-                    validUrl = validateFileUrl(url, context.id, true, urlType);
-                    break;
-                }
-            }
-
-            if (validUrl) {
-                update("TblOfficerReport",
-                        new Where("alphaNum = ?", report.getAlphaNum()),
-                        new Column("evidenceLink", url));
-                generalReport.setEvidenceLink(url);
             }
 
             //insert to the right Tbl
@@ -383,12 +304,8 @@ class Database implements DataAccess {
         } catch (SQLException e) {
             //rolling back
             try {
-                delete("TblPartnerships", "SELECT * FROM TblPartnerships WHERE ptshipNum = ?", String.valueOf(report.getPart().getPtshipNum()));
-                delete("TblLandmarks", "SELECT * FROM TblLandmarks WHERE (route = ? AND orderNum = ?)", String.valueOf(report.getRoute().getSerialNum()), String.valueOf(report.getOrderNum().getOrderNum()));
-                delete("TblRoutes", "serialNum = ?", String.valueOf(report.getRoute().getSerialNum()));
                 delete("TblVehicles", "licensePlate = ?", report.getVehicle().getLicensePlate());
                 delete("TblDefendants", "ID = ?", String.valueOf(report.getDefendant().getID()));
-                delete("TblAppeals", "serialNum = ?", String.valueOf(report.getAppeal().getSerialNum()));
             }catch (SQLException e1) {
                 throw new DSFormatException(e.getMessage());
             }
