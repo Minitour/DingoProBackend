@@ -23,7 +23,8 @@ public class CreateReportController implements RESTRoute {
 
             db.createReport(context, report);
 
-            return null;
+            return JSONResponse
+                    .SUCCESS();
 
         }catch (Exception e){
             return JSONResponse

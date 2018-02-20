@@ -277,11 +277,9 @@ class Database implements DataAccess {
 
             if (defendant != null) {
 
-                if(get("SELECT ID FROM TblDefendants WHERE ID = ?",defendant.getID()).size()==0){
-                    defendant.setID(null);
-                    int key = insert(defendant);
-                    defendant.setID(key);
-                }
+                if(get("SELECT ID FROM TblDefendants WHERE ID = ?",defendant.getID()).size()==0)
+                    insert(defendant);
+
                 generalReport.setDefendant(defendant);
             }
 
@@ -289,9 +287,9 @@ class Database implements DataAccess {
 
             if (vehicle != null) {
 
-                if(get("SELECT licensePlate FROM TblVehicles WHERE licensePlate = ?",vehicle.getLicensePlate()).size()==0){
+                if(get("SELECT licensePlate FROM TblVehicles WHERE licensePlate = ?", vehicle.getLicensePlate()).size()==0)
                     insert(vehicle);
-                }
+
                 generalReport.setVehicle(vehicle);
             }
 
