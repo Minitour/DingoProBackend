@@ -28,8 +28,8 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="CreateUserController.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/mobi/newsound/controllers/CreateUserController.java">
+      <file leaf-file-name="config.json" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/config.json">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="119">
               <caret line="18" column="13" lean-forward="false" selection-start-line="18" selection-start-column="13" selection-end-line="18" selection-end-column="13" />
@@ -630,14 +630,6 @@
           <folding>
             <element signature="e#906#907#0" expanded="false" />
           </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/mobi/newsound/model/Route.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="150">
-          <caret line="15" column="43" lean-forward="false" selection-start-line="15" selection-start-column="43" selection-end-line="15" selection-end-column="43" />
-          <folding />
         </state>
       </provider>
     </entry>
