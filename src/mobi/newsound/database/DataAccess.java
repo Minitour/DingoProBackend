@@ -69,18 +69,7 @@ public interface DataAccess extends AutoCloseable,Serializable{
     /**
      *
      * @param context
-     * @param appeal
-     * @param report
-     * @return
-     * @throws DSException
-     */
-    default boolean addAppealToReport(AuthContext context, Appeal appeal, Report report) throws DSException {throw new DSUnimplementedException();}
-
-    /**
-     *
-     * @param context
      * @param landmark
-     * @param route
      * @return
      * @throws DSException
      */

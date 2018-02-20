@@ -165,32 +165,6 @@ class Database implements DataAccess {
     }
 
     @Override
-    public boolean addAppealToReport(AuthContext context, Appeal appeal, Report report) throws DSException {
-        //context: 1
-
-        isContextValidFor(context, roleId -> { if(roleId == -1) throw new DSAuthException("Invalid Context"); }, 1);
-
-        String reportIdString = report.getAlphaNum();
-        String reportQuery = "SELECT alphaNum FROM " + report.db_table() + " WHERE alphaNum = ?";
-
-        try {
-            boolean checkReport = get(reportQuery, reportIdString).size() == 1;
-
-            if (checkReport) {
-                update("TblOfficerReport",
-                        new Where("alphaNum = ?", reportIdString),
-                        new Column("appeal", appeal.getSerialNum()));
-                return true;
-            }
-            else
-                return false;
-
-        } catch (SQLException e) {
-            throw new DSFormatException(e.getMessage());
-        }
-    }
-
-    @Override
     public boolean addLandmarksToRoutes(AuthContext context, Landmark landmark) throws DSException {
         //context: 1
 
@@ -840,24 +814,21 @@ class Database implements DataAccess {
             String appealQueryForVolunteersReports = "SELECT serialNum FROM TblAppeals WHERE serialNum = ?";
             boolean appealValidator = get(appealQueryForVolunteersReports, String.valueOf(appealSerialNumString)).size() == 0;
 
+            //checking for existence of report
+            String reportIdString = report.getAlphaNum();
+            String reportQuery = "SELECT alphaNum FROM " + report.db_table() + " WHERE alphaNum = ?";
+            boolean checkReport = get(reportQuery, reportIdString).size() == 1;
+
             //if the appeal does not exists -> insert to the right Tbl and update the report
-            if (appealValidator) {
+            if (appealValidator && checkReport) {
                 int key = insert(appeal);
                 appeal.setSerialNum(key);
 
-                //if we get false here -> means report does not exists -> delete appeal from Tbl (needs to be connected to report)
-                if (addAppealToReport(context, appeal, report))
-                    return true;
-                else {
-                    try {
-                        delete("TblAppeals", "serialNum = ?", String.valueOf(appealSerialNumString));
-                        return false;
-                    } catch (SQLException e1) {
-                        throw new DSFormatException(e1.getMessage());
-                    }
-                }
+                update("TblOfficerReport",
+                        new Where("alphaNum = ?", reportIdString),
+                        new Column("appeal", appeal.getSerialNum()));
+                return true;
             }
-
         }catch (SQLException e) {
             throw new DSFormatException(e.getMessage());
         }
