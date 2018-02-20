@@ -4,13 +4,15 @@ import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 import mobi.newsound.database.AuthContext;
 import mobi.newsound.database.DataAccess;
-import mobi.newsound.model.Partnership;
 import mobi.newsound.utils.JSONResponse;
 import mobi.newsound.utils.RESTRoute;
 import spark.Request;
 import spark.Response;
 
-public class CreatePartnershipController implements RESTRoute{
+/**
+ * Created By Tony on 20/02/2018
+ */
+public class CreateRouteController implements RESTRoute {
 
     private static final Gson gson = new Gson();
 
@@ -24,7 +26,7 @@ public class CreatePartnershipController implements RESTRoute{
 
             assert db != null;
 
-            db.createPartnership(context);
+            db.createRoute(context);
 
             return JSONResponse.SUCCESS();
         } catch (Exception e) {

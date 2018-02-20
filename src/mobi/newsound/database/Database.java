@@ -318,12 +318,12 @@ class Database implements DataAccess {
     }
 
     @Override
-    public boolean createPartnership(AuthContext context, Partnership partnership) throws DSException {
+    public boolean createPartnership(AuthContext context) throws DSException {
         //context: HighRankOfficer (assumption: HighRankOfficer roleId = 1)
 
         isContextValidFor(context, roleId -> { if(roleId == -1) throw new DSAuthException("Invalid Context"); }, 1);
         try {
-            insert("TblPartnerships", partnership);
+            insert("TblPartnerships", new Partnership(null,new Date()));
             return true;
         } catch (SQLException e) {
             throw new DSFormatException(e.getMessage());
@@ -587,7 +587,7 @@ class Database implements DataAccess {
                 String defendantString = officerReport.getForeignKey("defendant").toString();
                 String partString = officerReport.getForeignKey("part").toString();
                 int routeString = officerReport.getForeignKey("route");
-                officerReport.setRoute(new Route(routeString));
+                officerReport.setRoute(new Route(routeString,new Date()));
                 String orderNumString = officerReport.getForeignKey("orderNum").toString();
 
                 //get the partnership
@@ -751,8 +751,15 @@ class Database implements DataAccess {
         List<Route> routes = new ArrayList<>();
         try {
             List<Map<String,Object>> data = get("SELECT * FROM TblRoutes");
-            for(Map<String, Object> map: data)
-                routes.add(new Route(map));
+            for(Map<String, Object> map: data) {
+                Route r = new Route(map);
+                List<Landmark> landmarks = new ArrayList<>();
+                get("SELECT * FROM TblLandmarks WHERE route = ?",r.getSerialNum()).forEach(
+                        stringObjectMap -> landmarks.add(new Landmark(stringObjectMap))
+                );
+                r.setLandmarks(landmarks);
+                routes.add(r);
+            }
             return routes;
         } catch (SQLException e) {
             throw new DSFormatException(e.getMessage());
@@ -894,6 +901,16 @@ class Database implements DataAccess {
             );
             return accounts;
         }catch (SQLException e){
+            throw new DSFormatException(e.getMessage());
+        }
+    }
+
+    @Override
+    public void createRoute(AuthContext context) throws DSException {
+        isContextValidFor(context, roleId -> { if(roleId == -1) throw new DSAuthException("Invalid Context"); }, 1);
+        try {
+            insert(new Route(null,new Date()));
+        } catch (SQLException e) {
             throw new DSFormatException(e.getMessage());
         }
     }

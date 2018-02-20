@@ -141,7 +141,7 @@ public interface DataAccess extends AutoCloseable,Serializable{
      * @return
      * @throws DSException
      */
-    default boolean createPartnership(AuthContext context, Partnership partnership) throws DSException {throw new DSUnimplementedException();}
+    default boolean createPartnership(AuthContext context) throws DSException {throw new DSUnimplementedException();}
 
     /**
      *
@@ -285,7 +285,9 @@ public interface DataAccess extends AutoCloseable,Serializable{
 
     default void testJasper (Date from, Date to,OutputStream os) throws DSException {throw new DSUnimplementedException(); }
 
+    default void createRoute(AuthContext context) throws DSException {throw new DSUnimplementedException();}
     default void testJasperAppeal (OutputStream os) throws DSException {throw new DSUnimplementedException(); }
+
 
     abstract class DSException extends RuntimeException {
         DSException(){}

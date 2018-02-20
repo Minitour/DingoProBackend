@@ -35,8 +35,10 @@ public class Main {
         make("/assignOfficerToPartnership",new AssignOfficersToPartnershipsController());
         make("/assignPartnershipToShift",new AssignPartnershipToShiftController());
         make("/assignRouteToShift",new AssignRouteToShiftController());
+        make("/addLandmarkToRoute",new AddLandmarksToRoutesController());
         make("/createDefendant",new CreateDefendantController());
         make("/createPartnership",new CreatePartnershipController());
+        make("/createRoute",new CreateRouteController());
         make("/getAllReports",new GetAllReportsController());
         make("/exportReports",new ExportReportsByDateController());
         make("/getDefendants",new GetDefendantsController());
@@ -88,7 +90,7 @@ public class Main {
            response.header("Content-Type", "application/json");
            try(DataAccess db = DataAccess.getInstance()) {
                AuthContext context = db.signIn("root@system.net", "password");
-               Route route = new Route(1);
+               Route route = new Route(1,null);
                Landmark landmark = new Landmark(route, 1, null, "34", "34");
                return db.addLandmarksToRoutes(context, landmark);
            } catch (DataAccess.DSException e) {
@@ -129,7 +131,7 @@ public class Main {
             response.header("Content-Type", "application/json");
             try(DataAccess db = DataAccess.getInstance()) {
                 AuthContext context = db.signIn("root@system.net", "password");
-                Route route = new Route(1);
+                Route route = new Route(1,null);
                 //int shiftCode, Date shiftDate, String type
                 Shift shift = new Shift(1, null, null);
                 return db.assignRouteToShift(context, route, shift);
@@ -144,7 +146,7 @@ public class Main {
             try(DataAccess db = DataAccess.getInstance()) {
                 AuthContext context = db.signIn("root@system.net", "password");
                 Partnership partnership = new Partnership(2, null, null);
-                return db.createPartnership(context, partnership);
+                return db.createPartnership(context);
             }catch (DataAccess.DSException e) {
                 return JSONResponse.FAILURE().message(e.getMessage());
             }

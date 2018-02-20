@@ -4,10 +4,7 @@ import com.google.gson.annotations.Expose;
 import mobi.newsound.database.Column;
 import mobi.newsound.database.DBObject;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Collections;
-import java.util.Map;
+import java.util.*;
 
 public class Partnership extends DBObject {
 
@@ -15,11 +12,18 @@ public class Partnership extends DBObject {
     private Integer ptshipNum;
 
     @Expose
-    private Collection<OperationalOfficer> officers;
+    private Date creationDate;
 
+    @Expose
+    private Collection<OperationalOfficer> officers;
 
     public Partnership(Integer ptshipNum, OperationalOfficer officerABadge, OperationalOfficer officerBBadge) {
         setPtshipNum(ptshipNum);
+    }
+
+    public Partnership(Integer ptshipNum, Date creationDate) {
+        this.ptshipNum = ptshipNum;
+        this.creationDate = creationDate;
     }
 
     public Partnership(Map<String,Object> map) {
@@ -54,7 +58,8 @@ public class Partnership extends DBObject {
     @Override
     public Column[] db_columns() {
         return new Column[]{
-                new Column("ptshipNum",ptshipNum)
+                new Column("ptshipNum",ptshipNum),
+                new Column("creationDate",creationDate)
         };
     }
 }
