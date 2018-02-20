@@ -257,7 +257,15 @@ class Database implements DataAccess {
     public Report createReport(AuthContext context, Report report) throws  DSException {
         isContextValidFor(context, roleId -> { if(roleId == -1) throw new DSAuthException("Invalid Context"); }, 2);
         String id = ObjectId.generate();
-        Report generalReport = new Report(id, report.getViolationDate(), report.getDescription(), null, report.getViolationType(), null, null, null);
+        Report generalReport = new Report(
+                id,
+                report.getViolationDate(),
+                report.getDescription(),
+                null,
+                report.getViolationType(),
+                null,
+                null,
+                null);
 
         generalReport.setViolationDate(report.getViolationDate());
         generalReport.setDescription(report.getDescription());
@@ -265,13 +273,25 @@ class Database implements DataAccess {
 
         try {
 
-            if (report.getDefendant() != null) {
-                generalReport.setDefendant(report.getDefendant());
+            Defendant defendant = report.getDefendant();
+
+            if (defendant != null) {
+
+                if(get("SELECT ID FROM TblDefendants WHERE ID = ?",defendant.getID()).size()==0){
+                    defendant.setID(null);
+                    int key = insert(defendant);
+                    defendant.setID(key);
+                }
+                generalReport.setDefendant(defendant);
             }
 
-            if (report.getVehicle() != null) {
-                VehicleModel vm = new VehicleModel(report.getVehicle().getModel().getModelNum(), report.getVehicle().getModel().getName());
-                Vehicle vehicle = new Vehicle(report.getVehicle().getLicensePlate(), report.getVehicle().getColorHEX(), vm);
+            Vehicle vehicle = report.getVehicle();
+
+            if (vehicle != null) {
+
+                if(get("SELECT licensePlate FROM TblVehicles WHERE licensePlate = ?",vehicle.getLicensePlate()).size()==0){
+                    insert(vehicle);
+                }
                 generalReport.setVehicle(vehicle);
             }
 

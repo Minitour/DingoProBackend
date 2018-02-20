@@ -57,7 +57,7 @@ public class Vehicle extends DBObject {
         return new Column[]{
                 new Column("licensePlate",licensePlate),
                 new Column("colorHEX",colorHEX),
-                new Column<>("modleNum", Optional.ofNullable(model), VehicleModel::getModelNum) //FK
+                new Column<>("model", Optional.ofNullable(model), VehicleModel::getModelNum) //FK
         };
     }
 }
