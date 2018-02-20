@@ -154,20 +154,6 @@ public class Main {
         }, new JSONTransformer());
 
 
-
-        //test add appeal to report - OK!
-        get("/test4", "application/json", (request, response) -> {
-            response.header("Content-Type", "application/json");
-            try (DataAccess db = DataAccess.getInstance()) {
-                AuthContext context = db.signIn("root@system.net", "password");
-                Appeal appeal = new Appeal(1,  null, null);
-                Report report = new Report("1", null, null, null, null, null, null, null);
-                return db.addAppealToReport(context, appeal, report);
-            }catch (DataAccess.DSException e) {
-                return JSONResponse.FAILURE().message(e.getMessage());
-            }
-        });
-
         //test get defendants - OK!
         //test get shifts - OK!
         //test get partnerships - OK!

@@ -168,7 +168,7 @@ class Database implements DataAccess {
     public boolean addLandmarksToRoutes(AuthContext context, Landmark landmark) throws DSException {
         //context: 1
 
-        isContextValidFor(context, roleId -> { if(roleId == -1) throw new DSAuthException("Invalid Context"); }, 1);
+        isContextValidFor(context, roleId -> { if(roleId == -1) throw new DSAuthException("Invalid Context"); }, 1,3);
         try {
             insert(landmark);
             return true;
@@ -181,7 +181,7 @@ class Database implements DataAccess {
     public boolean assignOfficersToPartnerships(AuthContext context, OperationalOfficer officer, Partnership partnership) throws DSException {
         //context: 1
 
-        isContextValidFor(context, roleId -> { if(roleId == -1) throw new DSAuthException("Invalid Context"); }, 1);
+        isContextValidFor(context, roleId -> { if(roleId == -1) throw new DSAuthException("Invalid Context"); }, 1,3);
         try {
 
             if(get("SELECT pin FROM TblOperationalOfficers WHERE ptship = ?",partnership.getPtshipNum()).size() < 2){
@@ -201,7 +201,7 @@ class Database implements DataAccess {
     public boolean assignPartnershipToShift(AuthContext context, Partnership partnership, Shift shift) throws DSException {
         //context: 1
 
-        isContextValidFor(context, roleId -> { if(roleId == -1) throw new DSAuthException("Invalid Context"); }, 1);
+        isContextValidFor(context, roleId -> { if(roleId == -1) throw new DSAuthException("Invalid Context"); }, 1,3);
         try {
             update("TblShiftsPartnerships",
                     new Where("shift = ?", shift.getShiftCode()),
@@ -216,7 +216,7 @@ class Database implements DataAccess {
     public boolean assignRouteToShift(AuthContext context, Route route, Shift shift) throws DSException {
         //context: 1
 
-        isContextValidFor(context, roleId -> { if(roleId == -1) throw new DSAuthException("Invalid Context"); }, 1);
+        isContextValidFor(context, roleId -> { if(roleId == -1) throw new DSAuthException("Invalid Context"); }, 1,3);
         try {
             update("TblShiftsPartnerships",
                     new Where("shift = ?", shift.getShiftCode()),
@@ -244,6 +244,7 @@ class Database implements DataAccess {
     public boolean createOfficerReport(AuthContext context, Report report) throws DSException {
 
         //check context
+        isContextValidFor(context, roleId -> { if(roleId == -1) throw new DSAuthException("Invalid Context"); }, 1,2);
 
         try {
             Report createGeneralReportValidator = createGeneralReport(context, report);
@@ -295,7 +296,7 @@ class Database implements DataAccess {
     public boolean createPartnership(AuthContext context) throws DSException {
         //context: HighRankOfficer (assumption: HighRankOfficer roleId = 1)
 
-        isContextValidFor(context, roleId -> { if(roleId == -1) throw new DSAuthException("Invalid Context"); }, 1);
+        isContextValidFor(context, roleId -> { if(roleId == -1) throw new DSAuthException("Invalid Context"); }, 1,3);
         try {
             insert("TblPartnerships", new Partnership(null,new Date()));
             return true;
@@ -529,7 +530,7 @@ class Database implements DataAccess {
 
     public List<OperationalOfficer> getAllOfficers(AuthContext context) throws DSException {
 
-        isContextValidFor(context, roleId -> { if(roleId == -1) throw new DSAuthException("Invalid Context"); }, 1);
+        isContextValidFor(context, roleId -> { if(roleId == -1) throw new DSAuthException("Invalid Context"); }, 1,3);
 
         List<OperationalOfficer> officers = new ArrayList<>();
         try {
@@ -547,7 +548,7 @@ class Database implements DataAccess {
     @Override
     public List<Report> getAllReports(AuthContext context) throws DSException {
         //Todo: check context
-
+        isContextValidFor(context, roleId -> { if(roleId == -1) throw new DSAuthException("Invalid Context"); }, 1,3);
         List<Report> reports = new ArrayList<>();
         try {
 
@@ -635,7 +636,7 @@ class Database implements DataAccess {
     public List<Appeal> getAllAppeals(AuthContext context) throws DSException {
         //context: HighRankOfficer (assumption: HighRankOfficer roleId = 1)
 
-        isContextValidFor(context, roleId -> { if(roleId == -1) throw new DSAuthException("Invalid Context"); }, 1);
+        isContextValidFor(context, roleId -> { if(roleId == -1) throw new DSAuthException("Invalid Context"); }, 1,3);
         List<Appeal> appeals = new ArrayList<>();
         try {
             //List<Map<String,Object>> data = get("SELECT * FROM TblAppeals");
@@ -661,7 +662,7 @@ class Database implements DataAccess {
     public List<Defendant> getAllDefendants(AuthContext context) throws DSException {
         //context: HighRankOfficer (assumption: HighRankOfficer roleId = 1)
 
-        isContextValidFor(context, roleId -> { if(roleId == -1) throw new DSAuthException("Invalid Context"); }, 1);
+        isContextValidFor(context, roleId -> { if(roleId == -1) throw new DSAuthException("Invalid Context"); }, 1,3);
         List<Defendant> defendants = new ArrayList<>();
         try {
             List<Map<String,Object>> data = get("SELECT * FROM TblDefendants");
@@ -677,7 +678,7 @@ class Database implements DataAccess {
     public List<Landmark> getLandmarks(AuthContext context) throws DSException {
         //context: HighRankOfficer (assumption: HighRankOfficer roleId = 1)
 
-        isContextValidFor(context, roleId -> { if(roleId == -1) throw new DSAuthException("Invalid Context"); }, 1);
+        isContextValidFor(context, roleId -> { if(roleId == -1) throw new DSAuthException("Invalid Context"); }, 1,3);
         List<Landmark> landmarks = new ArrayList<>();
         try  {
             List<Map<String,Object>> data = get("SELECT * FROM TblAppeals");
@@ -693,7 +694,7 @@ class Database implements DataAccess {
     public List<Partnership> getPartnerships(AuthContext context) throws DSException {
         //context: HighRankOfficer (assumption: HighRankOfficer roleId = 1)
 
-        isContextValidFor(context, roleId -> { if(roleId == -1) throw new DSAuthException("Invalid Context"); }, 1);
+        isContextValidFor(context, roleId -> { if(roleId == -1) throw new DSAuthException("Invalid Context"); }, 1,3);
         List<Partnership> partnerships = new ArrayList<>();
         try {
             List<Map<String,Object>> data = get("SELECT * FROM TblPartnerships");
@@ -721,7 +722,7 @@ class Database implements DataAccess {
     public List<Route> getRoutes(AuthContext context) throws DSException {
         //context: HighRankOfficer (assumption: HighRankOfficer roleId = 1)
 
-        isContextValidFor(context, roleId -> { if(roleId == -1) throw new DSAuthException("Invalid Context"); }, 1);
+        isContextValidFor(context, roleId -> { if(roleId == -1) throw new DSAuthException("Invalid Context"); }, 1,3);
         List<Route> routes = new ArrayList<>();
         try {
             List<Map<String,Object>> data = get("SELECT * FROM TblRoutes");
@@ -744,7 +745,7 @@ class Database implements DataAccess {
     public List<Shift> getShifts(AuthContext context) throws DSException {
         //context: HighRankOfficer (assumption: HighRankOfficer roleId = 1)
 
-        isContextValidFor(context, roleId -> { if(roleId == -1) throw new DSAuthException("Invalid Context"); }, 1);
+        isContextValidFor(context, roleId -> { if(roleId == -1) throw new DSAuthException("Invalid Context"); }, 1,3);
         List<Shift> shifts = new ArrayList<>();
         try {
             List<Map<String,Object>> data = get("SELECT * FROM TblShifts");
@@ -761,7 +762,7 @@ class Database implements DataAccess {
     public List<VehicleModel> getVehicleModels(AuthContext context) throws DSException {
         //context: HighRankOfficer (assumption: HighRankOfficer roleId = 1)
 
-        isContextValidFor(context, roleId -> { if(roleId == -1) throw new DSAuthException("Invalid Context"); }, 1);
+        isContextValidFor(context, roleId -> { if(roleId == -1) throw new DSAuthException("Invalid Context"); }, 1,3);
         List<VehicleModel> vehicleModels = new ArrayList<>();
         try {
             List<Map<String, Object>> data = get("SELECT * FROM TblVehicleModel");
@@ -777,7 +778,7 @@ class Database implements DataAccess {
     public List<Vehicle> getVehicles(AuthContext context) throws DSException {
         //context: HighRankOfficer (assumption: HighRankOfficer roleId = 1)
 
-        isContextValidFor(context, roleId -> { if(roleId == -1) throw new DSAuthException("Invalid Context"); }, 1);
+        isContextValidFor(context, roleId -> { if(roleId == -1) throw new DSAuthException("Invalid Context"); }, 1,3);
 
         //get the vehicles - > for each vehicle, with the vehicle model field (String model = vehicle.getForeignKey("model"))
         List<Vehicle> vehicles = new ArrayList<>();
@@ -807,6 +808,8 @@ class Database implements DataAccess {
     @Override
     public boolean submitAppeal(AuthContext context, Appeal appeal, Report report) throws DSException {
         //check context
+
+        isContextValidFor(context, roleId -> { if(roleId == -1) throw new DSAuthException("Invalid Context"); }, 4);
 
         try {
             //checking for existence of appeal
@@ -878,7 +881,7 @@ class Database implements DataAccess {
 
     @Override
     public void createRoute(AuthContext context) throws DSException {
-        isContextValidFor(context, roleId -> { if(roleId == -1) throw new DSAuthException("Invalid Context"); }, 1);
+        isContextValidFor(context, roleId -> { if(roleId == -1) throw new DSAuthException("Invalid Context"); }, 1,3);
         try {
             insert(new Route(null,new Date()));
         } catch (SQLException e) {
@@ -888,7 +891,7 @@ class Database implements DataAccess {
 
     @Override
     public void createShift(AuthContext context, Shift shift) throws DSException {
-        isContextValidFor(context, roleId -> { if(roleId == -1) throw new DSAuthException("Invalid Context"); }, 1);
+        isContextValidFor(context, roleId -> { if(roleId == -1) throw new DSAuthException("Invalid Context"); }, 1,3);
         try {
             shift.setShiftCode(null);
             insert(shift);
