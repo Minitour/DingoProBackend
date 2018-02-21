@@ -378,39 +378,27 @@ class Database implements DataAccess {
                 reports.add(report);
 
                 //checking for the vehicle
-                String vehicleQuery = "SELECT licensePlate FROM TblVehicles WHERE licensePlate = ?";
-                vehicleExists = get(vehicleQuery, report.getVehicle().getLicensePlate()).get(0);
+                String vehicleQuery = "SELECT * FROM TblVehicles WHERE licensePlate = ?";
+                vehicleExists = get(vehicleQuery, report.getForeignKey("vehicle").toString()).get(0);
                 Vehicle vehicle = new Vehicle(vehicleExists);
 
                 //checking for the defendant
-                String defendantQuery = "SELECT ID FROM TblDefendants WHERE ID = ?";
-                defendantExists = get(defendantQuery, report.getDefendant().getID()).get(0);
+                String defendantQuery = "SELECT * FROM TblDefendants WHERE ID = ?";
+                defendantExists = get(defendantQuery, (int) report.getForeignKey("defendant")).get(0);
                 Defendant defendant = new Defendant(defendantExists);
 
                 //checking for the appeal
-                String appealQuery = "SELECT serialNum FROM TblAppeals WHERE serialNum = ?";
-                appealExist = get(appealQuery, report.getAppeal().getSerialNum()).get(0);
-                Appeal appeal = new Appeal(appealExist);
-
-                //inserting the object if they don't exists in Tbl
-                if (vehicleExists != null) {
-
-                    //checking if the model exists -> else insert to Tbl
-                    VehicleModel vehicleModel = report.getVehicle().getForeignKey("model");
-                    String vehicleModelQuery = "SELECT modelNum FROM TblVehicleModel WHERE modelNum = ?";
-                    Map<String,Object> vehicleModelExists = get(vehicleModelQuery, vehicleModel.getModelNum()).get(0);
-                    if (vehicleModelExists != null)
-                        insert(vehicleModel);
-
-                    //insert the vehicle to Tbl
-                    insert(vehicle);
+                String appealQuery = "SELECT * FROM TblAppeals WHERE serialNum = ?";
+                Appeal appeal;
+                if(report.getForeignKeys().containsKey("appeal")){
+                    appealExist = get(appealQuery, (int) report.getForeignKey("appeal")).get(0);
+                    appeal = new Appeal(appealExist);
+                }else {
+                    appeal = null;
                 }
 
-                if (defendantExists != null)
-                    insert(defendant);
 
-                if (appealExist != null)
-                    insert(appeal);
+                //inserting the object if they don't exists in Tbl
 
                 report.setDefendant(defendant);
                 report.setAppeal(appeal);
