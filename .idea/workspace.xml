@@ -2,18 +2,13 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="35f7506e-b61a-4884-b878-de9409f8b527" name="Default" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change beforePath="$PROJECT_DIR$/DingoPro.accdb" afterPath="$PROJECT_DIR$/DingoPro.accdb" />
-      <change beforePath="$PROJECT_DIR$/src/mobi/newsound/controllers/ExportAppealsForOfficersReportsController.java" afterPath="$PROJECT_DIR$/src/mobi/newsound/controllers/ExportAppealsForOfficersReportsController.java" />
-      <change beforePath="$PROJECT_DIR$/src/mobi/newsound/controllers/ExportReportsByDateController.java" afterPath="$PROJECT_DIR$/src/mobi/newsound/controllers/ExportReportsByDateController.java" />
-      <change beforePath="$PROJECT_DIR$/src/mobi/newsound/controllers/SubmitAppealController.java" afterPath="$PROJECT_DIR$/src/mobi/newsound/controllers/SubmitAppealController.java" />
-      <change beforePath="$PROJECT_DIR$/src/mobi/newsound/database/DataAccess.java" afterPath="$PROJECT_DIR$/src/mobi/newsound/database/DataAccess.java" />
-      <change beforePath="$PROJECT_DIR$/src/mobi/newsound/database/Database.java" afterPath="$PROJECT_DIR$/src/mobi/newsound/database/Database.java" />
-      <change beforePath="$PROJECT_DIR$/src/mobi/newsound/main/Main.java" afterPath="$PROJECT_DIR$/src/mobi/newsound/main/Main.java" />
-      <change beforePath="$PROJECT_DIR$/supporting-files/appeal.jasper" afterPath="$PROJECT_DIR$/supporting-files/appeal.jasper" />
-      <change beforePath="$PROJECT_DIR$/supporting-files/appeal.jrxml" afterPath="$PROJECT_DIR$/supporting-files/appeal.jrxml" />
-      <change beforePath="$PROJECT_DIR$/supporting-files/report.jasper" afterPath="$PROJECT_DIR$/supporting-files/report.jasper" />
-      <change beforePath="$PROJECT_DIR$/supporting-files/report.jrxml" afterPath="$PROJECT_DIR$/supporting-files/report.jrxml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/supporting-files/appeal.jasper" afterPath="$PROJECT_DIR$/supporting-files/appeal.jasper" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/supporting-files/report.jasper" afterPath="$PROJECT_DIR$/supporting-files/report.jasper" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/DingoPro.accdb" afterPath="$PROJECT_DIR$/DingoPro.accdb" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/mobi/newsound/database/Database.java" afterPath="$PROJECT_DIR$/src/mobi/newsound/database/Database.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/supporting-files/appeal.jrxml" afterPath="$PROJECT_DIR$/supporting-files/appeal.jrxml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/supporting-files/report.jrxml" afterPath="$PROJECT_DIR$/supporting-files/report.jrxml" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -28,7 +23,7 @@
       <file leaf-file-name="Main.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/mobi/newsound/main/Main.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="452">
+            <state relative-caret-position="0">
               <caret line="65" column="29" lean-forward="false" selection-start-line="65" selection-start-column="29" selection-end-line="65" selection-end-column="29" />
               <folding />
             </state>
@@ -38,8 +33,8 @@
       <file leaf-file-name="GetAllReportsController.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/mobi/newsound/controllers/GetAllReportsController.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="170">
-              <caret line="19" column="34" lean-forward="false" selection-start-line="19" selection-start-column="34" selection-end-line="19" selection-end-column="34" />
+            <state relative-caret-position="150">
+              <caret line="19" column="0" lean-forward="false" selection-start-line="19" selection-start-column="0" selection-end-line="19" selection-end-column="0" />
               <folding />
             </state>
           </provider>
@@ -48,42 +43,10 @@
       <file leaf-file-name="Database.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/mobi/newsound/database/Database.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="290">
-              <caret line="720" column="52" lean-forward="false" selection-start-line="720" selection-start-column="52" selection-end-line="720" selection-end-column="52" />
+            <state relative-caret-position="237">
+              <caret line="326" column="0" lean-forward="true" selection-start-line="326" selection-start-column="0" selection-end-line="326" selection-end-column="0" />
               <folding>
                 <element signature="imports" expanded="true" />
-                <element signature="method#signIn#0;class#Database#0" expanded="false" />
-                <element signature="method#updatePassword#0;class#Database#0" expanded="false" />
-                <element signature="method#createDefendant#0;class#Database#0" expanded="false" />
-                <element signature="method#createPartnership#0;class#Database#0" expanded="false" />
-                <element signature="method#getAllOfficerReportsExportToDingoReport#0;class#Database#0" expanded="false" />
-                <element signature="method#getAllOfficers#0;class#Database#0" expanded="false" />
-                <element signature="method#getAllAppeals#0;class#Database#0" expanded="false" />
-                <element signature="method#getAllDefendants#0;class#Database#0" expanded="false" />
-                <element signature="method#getLandmarks#0;class#Database#0" expanded="false" />
-                <element signature="method#getPartnerships#0;class#Database#0" expanded="false" />
-                <element signature="method#importReportsFromDingoReport#0;class#Database#0" expanded="false" />
-                <element signature="method#getRoutes#0;class#Database#0" expanded="false" />
-                <element signature="method#getShifts#0;class#Database#0" expanded="false" />
-                <element signature="method#getVehicleModels#0;class#Database#0" expanded="false" />
-                <element signature="method#getVehicles#0;class#Database#0" expanded="false" />
-                <element signature="method#createUser#0;class#Database#0" expanded="false" />
-                <element signature="method#getAccounts#0;class#Database#0" expanded="false" />
-                <element signature="method#createRoute#0;class#Database#0" expanded="false" />
-                <element signature="method#createShift#0;class#Database#0" expanded="false" />
-                <element signature="method#isContextValid#0;class#Database#0" expanded="false" />
-                <element signature="method#isContextValidFor#0;class#Database#0" expanded="false" />
-                <element signature="method#delete#0;class#Database#0" expanded="false" />
-                <element signature="method#deleteMany#0;class#Database#0" expanded="false" />
-                <element signature="method#insert#0;class#Database#0" expanded="false" />
-                <element signature="method#insert#2;class#Database#0" expanded="false" />
-                <element signature="method#get#0;class#Database#0" expanded="false" />
-                <element signature="method#update#0;class#Database#0" expanded="false" />
-                <element signature="method#validateFileUrl#0;class#Database#0" expanded="false" />
-                <element signature="class#ContextValidator#0;class#Database#0" expanded="false" />
-                <element signature="class#Where#0;class#Database#0" expanded="false" />
-                <element signature="method#serialize#0;class#Database#0" expanded="false" />
-                <element signature="method#deserialize#0;class#Database#0" expanded="false" />
               </folding>
             </state>
           </provider>
@@ -92,7 +55,7 @@
       <file leaf-file-name="SubmitAppealController.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/mobi/newsound/controllers/SubmitAppealController.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="238">
+            <state relative-caret-position="210">
               <caret line="23" column="21" lean-forward="false" selection-start-line="23" selection-start-column="21" selection-end-line="23" selection-end-column="21" />
               <folding />
             </state>
@@ -102,8 +65,8 @@
       <file leaf-file-name="appeal.jrxml" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/supporting-files/appeal.jrxml">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="147">
-              <caret line="31" column="103" lean-forward="false" selection-start-line="31" selection-start-column="103" selection-end-line="31" selection-end-column="103" />
+            <state relative-caret-position="240">
+              <caret line="16" column="12" lean-forward="true" selection-start-line="16" selection-start-column="12" selection-end-line="16" selection-end-column="12" />
               <folding />
             </state>
           </provider>
@@ -112,8 +75,8 @@
       <file leaf-file-name="report.jrxml" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/supporting-files/report.jrxml">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="147">
-              <caret line="35" column="96" lean-forward="false" selection-start-line="35" selection-start-column="96" selection-end-line="35" selection-end-column="103" />
+            <state relative-caret-position="165">
+              <caret line="12" column="103" lean-forward="false" selection-start-line="12" selection-start-column="48" selection-end-line="12" selection-end-column="103" />
               <folding />
             </state>
           </provider>
@@ -122,8 +85,8 @@
       <file leaf-file-name="ExportReportsByDateController.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/mobi/newsound/controllers/ExportReportsByDateController.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="423">
-              <caret line="48" column="0" lean-forward="false" selection-start-line="48" selection-start-column="0" selection-end-line="48" selection-end-column="0" />
+            <state relative-caret-position="272">
+              <caret line="45" column="0" lean-forward="false" selection-start-line="45" selection-start-column="0" selection-end-line="45" selection-end-column="0" />
               <folding />
             </state>
           </provider>
@@ -132,21 +95,9 @@
       <file leaf-file-name="ExportAppealsForOfficersReportsController.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/mobi/newsound/controllers/ExportAppealsForOfficersReportsController.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="226">
+            <state relative-caret-position="255">
               <caret line="31" column="59" lean-forward="false" selection-start-line="31" selection-start-column="59" selection-end-line="31" selection-end-column="59" />
               <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="AssignPartnershipToShiftOnRouteController.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/mobi/newsound/controllers/AssignPartnershipToShiftOnRouteController.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="442">
-              <caret line="26" column="36" lean-forward="false" selection-start-line="26" selection-start-column="36" selection-end-line="26" selection-end-column="36" />
-              <folding>
-                <element signature="imports" expanded="true" />
-              </folding>
             </state>
           </provider>
         </entry>
@@ -154,9 +105,28 @@
       <file leaf-file-name="DataAccess.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/mobi/newsound/database/DataAccess.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="62">
-              <caret line="246" column="7" lean-forward="false" selection-start-line="246" selection-start-column="7" selection-end-line="246" selection-end-column="7" />
-              <folding />
+            <state relative-caret-position="3390">
+              <caret line="242" column="7" lean-forward="false" selection-start-line="242" selection-start-column="7" selection-end-line="242" selection-end-column="7" />
+              <folding>
+                <marker date="1519220923464" expanded="true" signature="7532:7572" ph="{...}" />
+                <marker date="1519220923464" expanded="true" signature="7656:7695" ph="{...}" />
+                <marker date="1519220923464" expanded="true" signature="7754:7860" ph="{...}" />
+                <marker date="1519220923464" expanded="false" signature="7815:7829" ph=" { " />
+                <marker date="1519220923464" expanded="false" signature="7844:7854" ph=" }" />
+                <marker date="1519220923464" expanded="true" signature="7916:8103" ph="{...}" />
+                <marker date="1519220923464" expanded="false" signature="7959:7974" ph=" { " />
+                <marker date="1519220923464" expanded="false" signature="7997:8007" ph=" }" />
+                <marker date="1519220923464" expanded="false" signature="8057:8072" ph=" { " />
+                <marker date="1519220923464" expanded="false" signature="8087:8097" ph=" }" />
+                <marker date="1519220923464" expanded="true" signature="8153:8290" ph="{...}" />
+                <marker date="1519220923464" expanded="true" signature="8190:8201" ph="{}" />
+                <marker date="1519220923464" expanded="false" signature="8244:8259" ph=" { " />
+                <marker date="1519220923464" expanded="false" signature="8274:8284" ph=" }" />
+                <marker date="1519220923464" expanded="true" signature="8337:8470" ph="{...}" />
+                <marker date="1519220923464" expanded="true" signature="8372:8383" ph="{}" />
+                <marker date="1519220923464" expanded="false" signature="8424:8439" ph=" { " />
+                <marker date="1519220923464" expanded="false" signature="8454:8464" ph=" }" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -194,7 +164,6 @@
       <find>create</find>
       <find>assignRouteToShift</find>
       <find>assignPartnershipToShift</find>
-      <find>export</find>
       <find>testJasperAppeal</find>
       <find>cdata</find>
       <find>#2ECC</find>
@@ -203,6 +172,7 @@
       <find>getAllReports</find>
       <find>getall</find>
       <find>submitAppeal</find>
+      <find>export</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -261,20 +231,19 @@
         <option value="$PROJECT_DIR$/src/mobi/newsound/controllers/AssignPartnershipToShiftOnRouteController.java" />
         <option value="$PROJECT_DIR$/src/mobi/newsound/controllers/ExportReportsByDateController.java" />
         <option value="$PROJECT_DIR$/src/mobi/newsound/controllers/ExportAppealsForOfficersReportsController.java" />
-        <option value="$PROJECT_DIR$/supporting-files/report.jrxml" />
-        <option value="$PROJECT_DIR$/supporting-files/appeal.jrxml" />
         <option value="$PROJECT_DIR$/src/mobi/newsound/controllers/SubmitAppealController.java" />
         <option value="$PROJECT_DIR$/src/mobi/newsound/database/DataAccess.java" />
         <option value="$PROJECT_DIR$/src/mobi/newsound/main/Main.java" />
+        <option value="$PROJECT_DIR$/supporting-files/report.jrxml" />
+        <option value="$PROJECT_DIR$/supporting-files/appeal.jrxml" />
         <option value="$PROJECT_DIR$/src/mobi/newsound/database/Database.java" />
       </list>
     </option>
   </component>
-  <component name="ProjectFrameBounds" extendedState="6">
-    <option name="x" value="1912" />
-    <option name="y" value="32" />
-    <option name="width" value="1936" />
-    <option name="height" value="1056" />
+  <component name="ProjectFrameBounds">
+    <option name="y" value="23" />
+    <option name="width" value="1440" />
+    <option name="height" value="825" />
   </component>
   <component name="ProjectLevelVcsManager">
     <ConfirmationsSetting value="1" id="Add" />
@@ -294,8 +263,6 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="Scope" />
-      <pane id="AndroidView" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -326,6 +293,20 @@
               <item name="DingoProBackend" type="462c0819:PsiDirectoryNode" />
               <item name="src" type="462c0819:PsiDirectoryNode" />
               <item name="newsound" type="462c0819:PsiDirectoryNode" />
+              <item name="database" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="DingoProBackend" type="b2602c69:ProjectViewProjectNode" />
+              <item name="DingoProBackend" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="newsound" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="DingoProBackend" type="b2602c69:ProjectViewProjectNode" />
+              <item name="DingoProBackend" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="newsound" type="462c0819:PsiDirectoryNode" />
               <item name="utils" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
@@ -339,6 +320,8 @@
       </pane>
       <pane id="PackagesPane" />
       <pane id="Scratches" />
+      <pane id="Scope" />
+      <pane id="AndroidView" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -382,7 +365,7 @@
       </list>
     </option>
   </component>
-  <component name="RunManager">
+  <component name="RunManager" selected="Application.Main">
     <configuration name="Main" type="Application" factoryName="Application" temporary="true">
       <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea" />
       <option name="MAIN_CLASS_NAME" value="mobi.newsound.main.Main" />
@@ -446,28 +429,28 @@
     </todo-panel>
   </component>
   <component name="ToolWindowManager">
-    <frame x="1912" y="32" width="1936" height="1056" extended-state="6" />
+    <frame x="0" y="23" width="1440" height="825" extended-state="6" />
     <editor active="true" />
     <layout>
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="13" side_tool="false" content_ui="tabs" />
-      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32608697" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
+      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3260274" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Palette&#9;" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="11" side_tool="false" content_ui="tabs" />
       <window_info id="Image Layers" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="12" side_tool="false" content_ui="tabs" />
       <window_info id="Capture Analysis" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="12" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="14" side_tool="true" content_ui="tabs" />
       <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.43586957" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.43561643" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="15" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="16" side_tool="false" content_ui="tabs" />
       <window_info id="Capture Tool" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
       <window_info id="Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.2510661" sideWeight="0.5" order="5" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.2546495" sideWeight="0.5" order="5" side_tool="false" content_ui="combo" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="UI Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="11" side_tool="false" content_ui="tabs" />
       <window_info id="Theme Preview" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="13" side_tool="false" content_ui="tabs" />
-      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.35652173" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3561644" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="13" side_tool="true" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="11" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
@@ -484,12 +467,6 @@
     <breakpoint-manager>
       <breakpoints>
         <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/mobi/newsound/controllers/ExportReportsByDateController.java</url>
-          <line>33</line>
-          <properties />
-          <option name="timeStamp" value="37" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/mobi/newsound/controllers/ExportAppealsForOfficersReportsController.java</url>
           <line>34</line>
           <properties />
@@ -501,19 +478,18 @@
           <properties />
           <option name="timeStamp" value="48" />
         </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/mobi/newsound/controllers/GetAllReportsController.java</url>
+          <line>21</line>
+          <properties />
+          <option name="timeStamp" value="50" />
+        </line-breakpoint>
       </breakpoints>
-      <option name="time" value="50" />
+      <option name="time" value="53" />
     </breakpoint-manager>
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/src/mobi/newsound/controllers/UpdatePasswordController.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-32">
-          <caret line="13" column="60" lean-forward="true" selection-start-line="13" selection-start-column="60" selection-end-line="13" selection-end-column="60" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/mobi/newsound/controllers/ValidateContextController.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="60">
@@ -806,7 +782,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/mobi/newsound/controllers/AssignPartnershipToShiftOnRouteController.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="442">
+        <state relative-caret-position="240">
           <caret line="26" column="36" lean-forward="false" selection-start-line="26" selection-start-column="36" selection-end-line="26" selection-end-column="36" />
           <folding>
             <element signature="imports" expanded="true" />
@@ -816,106 +792,101 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/mobi/newsound/controllers/ExportAppealsForOfficersReportsController.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="226">
+        <state relative-caret-position="255">
           <caret line="31" column="59" lean-forward="false" selection-start-line="31" selection-start-column="59" selection-end-line="31" selection-end-column="59" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/mobi/newsound/controllers/ExportReportsByDateController.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="423">
-          <caret line="48" column="0" lean-forward="false" selection-start-line="48" selection-start-column="0" selection-end-line="48" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/supporting-files/report.jrxml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="147">
-          <caret line="35" column="96" lean-forward="false" selection-start-line="35" selection-start-column="96" selection-end-line="35" selection-end-column="103" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/supporting-files/appeal.jrxml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="147">
-          <caret line="31" column="103" lean-forward="false" selection-start-line="31" selection-start-column="103" selection-end-line="31" selection-end-column="103" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/mobi/newsound/database/DataAccess.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="62">
-          <caret line="246" column="7" lean-forward="false" selection-start-line="246" selection-start-column="7" selection-end-line="246" selection-end-column="7" />
-          <folding />
+        <state relative-caret-position="3390">
+          <caret line="242" column="7" lean-forward="false" selection-start-line="242" selection-start-column="7" selection-end-line="242" selection-end-column="7" />
+          <folding>
+            <marker date="1519220923464" expanded="true" signature="7532:7572" ph="{...}" />
+            <marker date="1519220923464" expanded="true" signature="7656:7695" ph="{...}" />
+            <marker date="1519220923464" expanded="true" signature="7754:7860" ph="{...}" />
+            <marker date="1519220923464" expanded="false" signature="7815:7829" ph=" { " />
+            <marker date="1519220923464" expanded="false" signature="7844:7854" ph=" }" />
+            <marker date="1519220923464" expanded="true" signature="7916:8103" ph="{...}" />
+            <marker date="1519220923464" expanded="false" signature="7959:7974" ph=" { " />
+            <marker date="1519220923464" expanded="false" signature="7997:8007" ph=" }" />
+            <marker date="1519220923464" expanded="false" signature="8057:8072" ph=" { " />
+            <marker date="1519220923464" expanded="false" signature="8087:8097" ph=" }" />
+            <marker date="1519220923464" expanded="true" signature="8153:8290" ph="{...}" />
+            <marker date="1519220923464" expanded="true" signature="8190:8201" ph="{}" />
+            <marker date="1519220923464" expanded="false" signature="8244:8259" ph=" { " />
+            <marker date="1519220923464" expanded="false" signature="8274:8284" ph=" }" />
+            <marker date="1519220923464" expanded="true" signature="8337:8470" ph="{...}" />
+            <marker date="1519220923464" expanded="true" signature="8372:8383" ph="{}" />
+            <marker date="1519220923464" expanded="false" signature="8424:8439" ph=" { " />
+            <marker date="1519220923464" expanded="false" signature="8454:8464" ph=" }" />
+          </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/mobi/newsound/controllers/SubmitAppealController.java">
+    <entry file="file://$PROJECT_DIR$/src/mobi/newsound/main/Main.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="238">
-          <caret line="23" column="21" lean-forward="false" selection-start-line="23" selection-start-column="21" selection-end-line="23" selection-end-column="21" />
+        <state relative-caret-position="0">
+          <caret line="65" column="29" lean-forward="false" selection-start-line="65" selection-start-column="29" selection-end-line="65" selection-end-column="29" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/mobi/newsound/controllers/GetAllReportsController.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="170">
-          <caret line="19" column="34" lean-forward="false" selection-start-line="19" selection-start-column="34" selection-end-line="19" selection-end-column="34" />
+        <state relative-caret-position="150">
+          <caret line="19" column="0" lean-forward="false" selection-start-line="19" selection-start-column="0" selection-end-line="19" selection-end-column="0" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/mobi/newsound/main/Main.java">
+    <entry file="jar:///Library/Java/JavaVirtualMachines/jdk1.8.0_121.jdk/Contents/Home/src.zip!/java/sql/Date.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="452">
-          <caret line="65" column="29" lean-forward="false" selection-start-line="65" selection-start-column="29" selection-end-line="65" selection-end-column="29" />
+        <state relative-caret-position="-47">
+          <caret line="110" column="29" lean-forward="false" selection-start-line="110" selection-start-column="21" selection-end-line="110" selection-end-column="29" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/mobi/newsound/controllers/SubmitAppealController.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="210">
+          <caret line="23" column="21" lean-forward="false" selection-start-line="23" selection-start-column="21" selection-end-line="23" selection-end-column="21" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/mobi/newsound/controllers/ExportReportsByDateController.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="272">
+          <caret line="45" column="0" lean-forward="false" selection-start-line="45" selection-start-column="0" selection-end-line="45" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/supporting-files/report.jrxml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="165">
+          <caret line="12" column="103" lean-forward="false" selection-start-line="12" selection-start-column="48" selection-end-line="12" selection-end-column="103" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/supporting-files/appeal.jrxml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="240">
+          <caret line="16" column="12" lean-forward="true" selection-start-line="16" selection-start-column="12" selection-end-line="16" selection-end-column="12" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/mobi/newsound/database/Database.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="290">
-          <caret line="720" column="52" lean-forward="false" selection-start-line="720" selection-start-column="52" selection-end-line="720" selection-end-column="52" />
+        <state relative-caret-position="237">
+          <caret line="326" column="0" lean-forward="true" selection-start-line="326" selection-start-column="0" selection-end-line="326" selection-end-column="0" />
           <folding>
             <element signature="imports" expanded="true" />
-            <element signature="method#signIn#0;class#Database#0" expanded="false" />
-            <element signature="method#updatePassword#0;class#Database#0" expanded="false" />
-            <element signature="method#createDefendant#0;class#Database#0" expanded="false" />
-            <element signature="method#createPartnership#0;class#Database#0" expanded="false" />
-            <element signature="method#getAllOfficerReportsExportToDingoReport#0;class#Database#0" expanded="false" />
-            <element signature="method#getAllOfficers#0;class#Database#0" expanded="false" />
-            <element signature="method#getAllAppeals#0;class#Database#0" expanded="false" />
-            <element signature="method#getAllDefendants#0;class#Database#0" expanded="false" />
-            <element signature="method#getLandmarks#0;class#Database#0" expanded="false" />
-            <element signature="method#getPartnerships#0;class#Database#0" expanded="false" />
-            <element signature="method#importReportsFromDingoReport#0;class#Database#0" expanded="false" />
-            <element signature="method#getRoutes#0;class#Database#0" expanded="false" />
-            <element signature="method#getShifts#0;class#Database#0" expanded="false" />
-            <element signature="method#getVehicleModels#0;class#Database#0" expanded="false" />
-            <element signature="method#getVehicles#0;class#Database#0" expanded="false" />
-            <element signature="method#createUser#0;class#Database#0" expanded="false" />
-            <element signature="method#getAccounts#0;class#Database#0" expanded="false" />
-            <element signature="method#createRoute#0;class#Database#0" expanded="false" />
-            <element signature="method#createShift#0;class#Database#0" expanded="false" />
-            <element signature="method#isContextValid#0;class#Database#0" expanded="false" />
-            <element signature="method#isContextValidFor#0;class#Database#0" expanded="false" />
-            <element signature="method#delete#0;class#Database#0" expanded="false" />
-            <element signature="method#deleteMany#0;class#Database#0" expanded="false" />
-            <element signature="method#insert#0;class#Database#0" expanded="false" />
-            <element signature="method#insert#2;class#Database#0" expanded="false" />
-            <element signature="method#get#0;class#Database#0" expanded="false" />
-            <element signature="method#update#0;class#Database#0" expanded="false" />
-            <element signature="method#validateFileUrl#0;class#Database#0" expanded="false" />
-            <element signature="class#ContextValidator#0;class#Database#0" expanded="false" />
-            <element signature="class#Where#0;class#Database#0" expanded="false" />
-            <element signature="method#serialize#0;class#Database#0" expanded="false" />
-            <element signature="method#deserialize#0;class#Database#0" expanded="false" />
           </folding>
         </state>
       </provider>

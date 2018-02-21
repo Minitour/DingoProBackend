@@ -317,8 +317,8 @@ class Database implements DataAccess {
     @Override
     public void getAppealExport(AuthContext context,Date from, Date to, OutputStream os) throws DSException {
         isContextValidFor(context,roleId -> { if(roleId == -1) throw new DSAuthException("Invalid Context"); },1);
-        java.sql.Date sqlFromDate = new java.sql.Date(from.getDate());
-        java.sql.Date sqlToDate = new java.sql.Date(to.getDate());
+        java.sql.Date sqlFromDate = convertUtilToSql(from);
+        java.sql.Date sqlToDate = convertUtilToSql(to);
         String jasperFilePath = new File(JASPER_APPEAL_BIN).getPath();
 
         Map<String, Object> params = new HashMap<>();
@@ -337,12 +337,17 @@ class Database implements DataAccess {
 
     }
 
+    private static java.sql.Date convertUtilToSql(java.util.Date uDate) {
+        java.sql.Date sDate = new java.sql.Date(uDate.getTime());
+        return sDate;
+    }
+
     @Override
     public void getReportsExportByDate(AuthContext context, Date from, Date to, OutputStream os) throws DSException {
         isContextValidFor(context,roleId -> { if(roleId == -1) throw new DSAuthException("Invalid Context"); },1);
 
-        java.sql.Date sqlFromDate = new java.sql.Date(from.getDate());
-        java.sql.Date sqlToDate = new java.sql.Date(to.getDate());
+        java.sql.Date sqlFromDate = convertUtilToSql(from);
+        java.sql.Date sqlToDate = convertUtilToSql(to);
         String jasperFilePath = new File(JASPER_BIN).getPath();
 
         Map<String, Object> params = new HashMap<>();
@@ -447,7 +452,7 @@ class Database implements DataAccess {
                 Report officerReport  = new Report(map);
 
                 String vehicleString = officerReport.getForeignKey("vehicle");
-                String appealString = officerReport.getForeignKey("appeal");
+                Integer appealId = officerReport.getForeignKey("appeal");
                 Integer defendantId = officerReport.getForeignKey("defendant");
                 Integer partId = officerReport.getForeignKey("part");
                 Integer routeId = officerReport.getForeignKey("route");
@@ -474,11 +479,12 @@ class Database implements DataAccess {
                 officerReport.setDefendant(defendant);
 
                 //get the appeal
-
-                List<Map<String,Object>> appealData = get("SELECT * FROM TblAppeals WHERE serialNum = ?", appealString);
-                if(appealData.size() > 0){
-                    Appeal appeal = new Appeal(appealData.get(0));
-                    officerReport.setAppeal(appeal);
+                if(appealId != null) {
+                    List<Map<String, Object>> appealData = get("SELECT * FROM TblAppeals WHERE serialNum = ?", appealId);
+                    if (appealData.size() > 0) {
+                        Appeal appeal = new Appeal(appealData.get(0));
+                        officerReport.setAppeal(appeal);
+                    }
                 }
 
 

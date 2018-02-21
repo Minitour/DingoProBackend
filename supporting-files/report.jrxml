@@ -6,16 +6,17 @@
 YFJlcG9ydFRibGAgLDE1LDI4LDI4ZTU1N2FhLTljNGYtNGEyMi04OTBkLWZhMzEwYjQxOWNhODs=]]>
 	</property>
 	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="MSAccess.xml"/>
-	<parameter name="fromDate" class="java.sql.Timestamp"/>
-	<parameter name="toDate" class="java.sql.Timestamp"/>
+	<parameter name="fromDate" class="java.sql.Date"/>
+	<parameter name="toDate" class="java.sql.Date"/>
 	<queryString language="SQL">
-		<![CDATA[SELECT * FROM TblOfficerReport]]>
+		<!--WHERE <your_table.column> BETWEEN $P{start_date} AND $P{end_date}</your_table.column>  WHERE (<TblOfficerReport.violationDate> BETWEEN $P!{fromDate} AND $P!{toDate}</TblOfficerReport.violationDate>) -->
+		<![CDATA[SELECT * FROM TblOfficerReport WHERE violationDate BETWEEN $P{fromDate} AND $P{toDate}]]>
 	</queryString>
 	<field name="alphaNum" class="java.lang.String">
 		<property name="com.jaspersoft.studio.field.label" value="alphaNum"/>
 		<property name="com.jaspersoft.studio.field.tree.path" value="TblOfficerReport"/>
 	</field>
-	<field name="violationDate" class="java.sql.Timestamp">
+	<field name="violationDate" class="java.sql.Date">
 		<property name="com.jaspersoft.studio.field.label" value="violationDate"/>
 		<property name="com.jaspersoft.studio.field.tree.path" value="TblOfficerReport"/>
 	</field>

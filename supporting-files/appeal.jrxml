@@ -9,7 +9,7 @@ YFJlcG9ydFRibGAgLDE1LDI4LDI4ZTU1N2FhLTljNGYtNGEyMi04OTBkLWZhMzEwYjQxOWNhODs=]]>
 	<parameter name="fromDate" class="java.sql.Date"/>
 	<parameter name="toDate" class="java.sql.Date"/>
 	<queryString language="SQL">
-		<![CDATA[SELECT * FROM TblAppeals]]>
+		<![CDATA[SELECT * FROM TblAppeals WHERE appealDate BETWEEN $P{fromDate} AND $P{toDate}]]>
 	</queryString>
 	<field name="serialNum" class="java.lang.String">
 		<property name="com.jaspersoft.studio.field.label" value="serialNum"/>
@@ -19,7 +19,7 @@ YFJlcG9ydFRibGAgLDE1LDI4LDI4ZTU1N2FhLTljNGYtNGEyMi04OTBkLWZhMzEwYjQxOWNhODs=]]>
 		<property name="com.jaspersoft.studio.field.label" value="reason"/>
 		<property name="com.jaspersoft.studio.field.tree.path" value="TblAppeals"/>
 	</field>
-	<field name="appealDate" class="java.sql.Timestamp">
+	<field name="appealDate" class="java.sql.Date">
 		<property name="com.jaspersoft.studio.field.label" value="appealDate"/>
 		<property name="com.jaspersoft.studio.field.tree.path" value="TblAppeals"/>
 	</field>
