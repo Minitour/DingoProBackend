@@ -504,9 +504,9 @@ class Database implements DataAccess {
             for (Map<String,Object> map: dataFromVolunteers) {
                 Report volunteerReport = new Report(map);
 
-                String defendantString = volunteerReport.getForeignKey("defendant");
+                Integer defendantString = volunteerReport.getForeignKey("defendant");
                 String vehicleString = volunteerReport.getForeignKey("vehicle");
-                String appealString = volunteerReport.getForeignKey("appeal");
+                Integer appealString = volunteerReport.getForeignKey("appeal");
 
                 //get the defendant
                 Defendant defendant = new Defendant(get("SELECT * FROM TblDefendants WHERE ID = ?", defendantString).get(0));
@@ -521,8 +521,10 @@ class Database implements DataAccess {
                 volunteerReport.setVehicle(vehicle);
 
                 //get the appeal
-                Appeal appeal = new Appeal(get("SELECT * FROM TblAppeals WHERE serialNum = ?", appealString).get(0));
-                volunteerReport.setAppeal(appeal);
+                try {
+                    Appeal appeal = new Appeal(get("SELECT * FROM TblAppeals WHERE serialNum = ?", appealString).get(0));
+                    volunteerReport.setAppeal(appeal);
+                }catch (Exception ignored){ }
 
                 reports.add(volunteerReport);
             }
@@ -723,7 +725,7 @@ class Database implements DataAccess {
             if(reportData.size() != 1)
                 throw new DSAuthException("Input parameters are incorrect");
 
-            if(reportData.get(0).containsKey("appeal"))
+            if(reportData.get(0).get("appeal") != null)
                 throw new DSAuthException("Already appealed for this report");
 
 
