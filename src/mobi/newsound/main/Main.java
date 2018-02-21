@@ -45,8 +45,6 @@ public class Main {
         make("/createShift",new CreateShiftController());
         make("/createReport",new CreateReportController());
         make("/getAllReports",new GetAllReportsController());
-        get("/exportReports",new ExportReportsByDateController());
-        get("/exportAppeals",new ExportAppealsForOfficersReportsController());
         make("/getDefendants",new GetDefendantsController());
         make("/getLandmarks",new GetLandmarksController());
         make("/getOfficers",new GetAllOfficersController());
@@ -58,18 +56,12 @@ public class Main {
         make("/submitAppeal",new SubmitAppealController());
         make("/exportReportToDingoReport", new ExportReportsToDingoReportController());
         make("/importReports",new ImportReportsFromDingoReportController());
-
-        //TODO: remove this later
-        initTests();
+        get("/exportReports",new ExportReportsByDateController());
+        get("/exportAppeals",new ExportAppealsForOfficersReportsController());
     }
 
     static void make(String route, RESTRoute controller){
         post(route, "application/json", controller,new JSONTransformer());
     }
 
-    static void initTests() {
-    }
 }
-
-
-//AuthContext context = db.signIn("root@system.net", "password");
