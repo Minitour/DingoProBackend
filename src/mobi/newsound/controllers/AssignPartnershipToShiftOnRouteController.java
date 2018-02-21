@@ -5,13 +5,14 @@ import com.google.gson.JsonObject;
 import mobi.newsound.database.AuthContext;
 import mobi.newsound.database.DataAccess;
 import mobi.newsound.model.Partnership;
+import mobi.newsound.model.Route;
 import mobi.newsound.model.Shift;
 import mobi.newsound.utils.JSONResponse;
 import mobi.newsound.utils.RESTRoute;
 import spark.Request;
 import spark.Response;
 
-public class AssignPartnershipToShiftController implements RESTRoute{
+public class AssignPartnershipToShiftOnRouteController implements RESTRoute{
 
     private static final Gson gson = new Gson();
 
@@ -21,10 +22,11 @@ public class AssignPartnershipToShiftController implements RESTRoute{
         AuthContext context = extractFromBody(body);
         Partnership partnership = gson.fromJson(body.get("partnership"), Partnership.class);
         Shift shift = gson.fromJson(body.get("shift"), Shift.class);
+        Route route = gson.fromJson(body.get("route"), Route.class);
 
         try(DataAccess db = DataAccess.getInstance()) {
             assert db != null;
-            db.assignPartnershipToShift(context, partnership, shift);
+            db.assignPartnershipToShift(context, partnership, shift,route);
 
             return JSONResponse.SUCCESS();
         } catch (Exception e) {

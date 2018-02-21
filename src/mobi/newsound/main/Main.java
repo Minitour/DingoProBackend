@@ -33,7 +33,7 @@ public class Main {
         make("/getAccounts",new GetAccountsController());
         make("/getAppeals",new GetAppealsController());
         make("/assignOfficerToPartnership",new AssignOfficersToPartnershipsController());
-        make("/assignPartnershipToShift",new AssignPartnershipToShiftController());
+        make("/assignPartnershipToShiftToRoute",new AssignPartnershipToShiftOnRouteController());
         make("/assignRouteToShift",new AssignRouteToShiftController());
         make("/addLandmarkToRoute",new AddLandmarksToRoutesController());
         make("/createDefendant",new CreateDefendantController());
@@ -115,19 +115,6 @@ public class Main {
             }
         });
 
-        //test assign partnership to shift - OK!
-        get("/test7", "application/json", (request, response) -> {
-            response.header("Content-Type", "application/json");
-            try(DataAccess db = DataAccess.getInstance()) {
-                AuthContext context = db.signIn("root@system.net", "password");
-                Partnership partnership = new Partnership(2, null, null);
-                //int shiftCode, Date shiftDate, String type
-                Shift shift = new Shift(1, null, null);
-                return db.assignPartnershipToShift(context, partnership, shift);
-            }catch (DataAccess.DSException e) {
-                return JSONResponse.FAILURE().message(e.getMessage());
-            }
-        }, new JSONTransformer());
 
         //assign route to shift - OK!
         get("/test9", "application/json", (request, response) -> {
