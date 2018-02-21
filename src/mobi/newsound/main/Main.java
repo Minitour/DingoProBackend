@@ -57,6 +57,7 @@ public class Main {
         make("/getVehicles",new GetVehiclesController());
         make("/submitAppeal",new SubmitAppealController());
         make("/exportReportToDingoReport", new ExportReportsToDingoReportController());
+        make("/importReports",new ImportReportsFromDingoReportController());
 
         //TODO: remove this later
         initTests();

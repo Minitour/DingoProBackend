@@ -256,7 +256,7 @@ class Database implements DataAccess {
 
     @Override
     public Report createReport(AuthContext context, Report report) throws  DSException {
-        isContextValidFor(context, roleId -> { if(roleId == -1) throw new DSAuthException("Invalid Context"); }, 2);
+        int role = isContextValidFor(context, roleId -> { if(roleId == -1) throw new DSAuthException("Invalid Context"); }, 2);
         String id = ObjectId.generate();
         Report generalReport = new Report(
                 id,
@@ -273,7 +273,7 @@ class Database implements DataAccess {
         generalReport.setViolationDate(report.getViolationDate());
         generalReport.setDescription(report.getDescription());
         generalReport.setViolationType(report.getViolationType());
-        generalReport.setReport_type(1); //officer report = 1, volunteer is 0
+        //officer report = 1, volunteer is 0
 
         try {
 
@@ -291,18 +291,30 @@ class Database implements DataAccess {
 
             if (vehicle != null) {
 
-                if(get("SELECT licensePlate FROM TblVehicles WHERE licensePlate = ?", vehicle.getLicensePlate()).size()==0)
-                    insert(vehicle);
+                VehicleModel model = vehicle.getModel();
+                if(model != null){
+                    if(get("SELECT modelNum FROM TblVehicleModel WHERE modelNum = ?",model.getModelNum()).size() == 0)
+                        insert(model);
 
-                generalReport.setVehicle(vehicle);
+                    if(get("SELECT licensePlate FROM TblVehicles WHERE licensePlate = ?", vehicle.getLicensePlate()).size()==0)
+                        insert(vehicle);
+
+                    generalReport.setVehicle(vehicle);
+                }
             }
+            if(role == 2){
+                Integer ptship = (Integer)
+                        get("SELECT ptship FROM TblOperationalOfficers WHERE account_id = ?",context.id)
+                                .get(0)
+                                .get("ptship");
 
-            Integer ptship = (Integer)
-                    get("SELECT ptship FROM TblOperationalOfficers WHERE account_id = ?",context.id)
-                    .get(0)
-                    .get("ptship");
-
-            generalReport.setPart(new Partnership(ptship,null,null));
+                generalReport.setPart(new Partnership(ptship,null,null));
+                generalReport.setReport_type(1);
+            }else{
+                String evidenceLink = report.getEvidenceLink();
+                generalReport.setEvidenceLink(evidenceLink);
+                generalReport.setReport_type(0);
+            }
 
             //insert to the right Tbl
             insert(generalReport);
