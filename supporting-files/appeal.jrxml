@@ -6,8 +6,10 @@
 YFJlcG9ydFRibGAgLDE1LDI4LDI4ZTU1N2FhLTljNGYtNGEyMi04OTBkLWZhMzEwYjQxOWNhODs=]]>
 	</property>
 	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="MSAccess.xml"/>
+	<parameter name="fromDate" class="java.sql.Date"/>
+	<parameter name="toDate" class="java.sql.Date"/>
 	<queryString language="SQL">
-		<![CDATA[SELECT * FROM TblAppeals ]]>
+		<![CDATA[SELECT * FROM TblAppeals WHERE ($P{fromDate} <= appealDate AND $P{toDate} >= appealDate)]]>
 	</queryString>
 	<field name="serialNum" class="java.lang.String">
 		<property name="com.jaspersoft.studio.field.label" value="serialNum"/>

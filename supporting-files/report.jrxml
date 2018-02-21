@@ -6,10 +6,10 @@
 YFJlcG9ydFRibGAgLDE1LDI4LDI4ZTU1N2FhLTljNGYtNGEyMi04OTBkLWZhMzEwYjQxOWNhODs=]]>
 	</property>
 	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="MSAccess.xml"/>
-	<parameter name="fromDate" class="java.sql.Date"/>
-	<parameter name="toDate" class="java.sql.Date"/>
+	<parameter name="fromDate" class="java.sql.Timestamp"/>
+	<parameter name="toDate" class="java.sql.Timestamp"/>
 	<queryString language="SQL">
-		<![CDATA[SELECT * FROM TblOfficerReport ]]>
+		<![CDATA[SELECT * FROM TblOfficerReport WHERE ($P{fromDate} <= violationDate AND $P{toDate} >= violationDate)]]>
 	</queryString>
 	<field name="alphaNum" class="java.lang.String">
 		<property name="com.jaspersoft.studio.field.label" value="alphaNum"/>
