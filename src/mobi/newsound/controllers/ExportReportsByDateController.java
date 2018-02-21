@@ -8,6 +8,7 @@ import net.sf.jasperreports.engine.JRException;
 import net.sf.jasperreports.engine.JasperCompileManager;
 import spark.Request;
 import spark.Response;
+import spark.Route;
 
 import java.io.File;
 import java.io.OutputStream;
@@ -15,7 +16,7 @@ import java.util.Date;
 
 import static mobi.newsound.utils.Config.config;
 
-public class ExportReportsByDateController implements RESTRoute {
+public class ExportReportsByDateController implements Route {
 
     static {
         String src = config.get("RF_REPORT_SOURCE").getAsString();
@@ -28,7 +29,7 @@ public class ExportReportsByDateController implements RESTRoute {
     }
 
     @Override
-    public Object handle(Request request, Response response, JsonObject body) throws Exception {
+    public Object handle(Request request, Response response) throws Exception {
         try {
             String id = request.headers("id");
             String sessionToken = request.headers("sessionToken");

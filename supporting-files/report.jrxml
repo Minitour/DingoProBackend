@@ -9,7 +9,7 @@ YFJlcG9ydFRibGAgLDE1LDI4LDI4ZTU1N2FhLTljNGYtNGEyMi04OTBkLWZhMzEwYjQxOWNhODs=]]>
 	<parameter name="fromDate" class="java.sql.Timestamp"/>
 	<parameter name="toDate" class="java.sql.Timestamp"/>
 	<queryString language="SQL">
-		<![CDATA[SELECT * FROM TblOfficerReport WHERE ($P{fromDate} <= violationDate AND $P{toDate} >= violationDate)]]>
+		<![CDATA[SELECT * FROM TblOfficerReport]]>
 	</queryString>
 	<field name="alphaNum" class="java.lang.String">
 		<property name="com.jaspersoft.studio.field.label" value="alphaNum"/>
@@ -33,7 +33,7 @@ YFJlcG9ydFRibGAgLDE1LDI4LDI4ZTU1N2FhLTljNGYtNGEyMi04OTBkLWZhMzEwYjQxOWNhODs=]]>
 	<title>
 		<band height="72">
 			<frame>
-				<reportElement mode="Opaque" x="-20" y="-20" width="595" height="92" backcolor="#2ECC71" uuid="7c6511c6-5419-44ec-b4e5-de708d51fe5d"/>
+				<reportElement mode="Opaque" x="-20" y="-20" width="595" height="92" backcolor="#40739e" uuid="7c6511c6-5419-44ec-b4e5-de708d51fe5d"/>
 				<staticText>
 					<reportElement x="20" y="20" width="234" height="43" forecolor="#FFFFFF" uuid="4002c207-ab40-40d1-8619-f3fbb97e46dd"/>
 					<textElement textAlignment="Left" verticalAlignment="Middle">

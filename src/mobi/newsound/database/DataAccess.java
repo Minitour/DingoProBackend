@@ -138,7 +138,7 @@ public interface DataAccess extends AutoCloseable,Serializable{
      * @param os
      * @throws DSException
      */
-    default void getAppealExport(AuthContext context, OutputStream os) throws DSException {throw new DSUnimplementedException();}
+    default void getAppealExport(AuthContext context,Date from, Date to, OutputStream os) throws DSException {throw new DSUnimplementedException();}
 
     /**
      * @param from
@@ -245,13 +245,11 @@ public interface DataAccess extends AutoCloseable,Serializable{
     default List<Vehicle> getVehicles(AuthContext context) throws DSException {throw new DSUnimplementedException();}
 
     /**
-     *
-     * @param context
      * @param appeal
      * @return
      * @throws DSException
      */
-    default boolean submitAppeal(AuthContext context, Appeal appeal, Report report) throws DSException {throw new DSUnimplementedException();}
+    default boolean submitAppeal( Appeal appeal) throws DSException {throw new DSUnimplementedException();}
 
 
     default void testJasper (Date from, Date to,OutputStream os) throws DSException {throw new DSUnimplementedException(); }

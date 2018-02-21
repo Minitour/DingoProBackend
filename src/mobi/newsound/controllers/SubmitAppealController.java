@@ -17,14 +17,11 @@ public class SubmitAppealController implements RESTRoute {
 
     @Override
     public Object handle(Request request, Response response, JsonObject body) throws Exception {
-        AuthContext context = extractFromBody(body);
-
-        Report report = gson.fromJson(body.get("report"), Report.class);
         Appeal appeal = gson.fromJson(body.get("appeal"), Appeal.class);
 
         try(DataAccess db = DataAccess.getInstance()) {
 
-            db.submitAppeal(context, appeal, report);
+            db.submitAppeal(appeal);
 
             return JSONResponse.SUCCESS();
         } catch (Exception e) {

@@ -268,6 +268,8 @@ class Database implements DataAccess {
                 null,
                 null);
 
+        generalReport.setRoute(report.getRoute());
+        generalReport.setOrderNum(report.getOrderNum());
         generalReport.setViolationDate(report.getViolationDate());
         generalReport.setDescription(report.getDescription());
         generalReport.setViolationType(report.getViolationType());
@@ -313,13 +315,19 @@ class Database implements DataAccess {
     }
 
     @Override
-    public void getAppealExport(AuthContext context, OutputStream os) throws DSException {
+    public void getAppealExport(AuthContext context,Date from, Date to, OutputStream os) throws DSException {
         isContextValidFor(context,roleId -> { if(roleId == -1) throw new DSAuthException("Invalid Context"); },1);
+        java.sql.Date sqlFromDate = new java.sql.Date(from.getDate());
+        java.sql.Date sqlToDate = new java.sql.Date(to.getDate());
         String jasperFilePath = new File(JASPER_APPEAL_BIN).getPath();
+
+        Map<String, Object> params = new HashMap<>();
+        params.put("fromDate", sqlFromDate);
+        params.put("toDate", sqlToDate);
 
         try {
 
-            JasperPrint print = JasperFillManager.fillReport(jasperFilePath, null,connection);
+            JasperPrint print = JasperFillManager.fillReport(jasperFilePath, params,connection);
             byte[] arr = serialize(print);
             os.write(arr);
 
@@ -439,35 +447,40 @@ class Database implements DataAccess {
                 Report officerReport  = new Report(map);
 
                 String vehicleString = officerReport.getForeignKey("vehicle");
-                String appealString = officerReport.getForeignKey("appeal").toString();
-                String defendantString = officerReport.getForeignKey("defendant").toString();
-                String partString = officerReport.getForeignKey("part").toString();
-                int routeString = officerReport.getForeignKey("route");
-                officerReport.setRoute(new Route(routeString,new Date()));
-                String orderNumString = officerReport.getForeignKey("orderNum").toString();
+                String appealString = officerReport.getForeignKey("appeal");
+                Integer defendantId = officerReport.getForeignKey("defendant");
+                Integer partId = officerReport.getForeignKey("part");
+                Integer routeId = officerReport.getForeignKey("route");
+                officerReport.setRoute(new Route(routeId,new Date()));
+                Integer orderNum = officerReport.getForeignKey("orderNum");
 
                 //get the partnership
-                Partnership partnership = new Partnership(get("SELECT * FROM TblPartnerships WHERE ptshipNum = ?", partString).get(0));
+                Partnership partnership = new Partnership(get("SELECT * FROM TblPartnerships WHERE ptshipNum = ?", partId).get(0));
 
                 //get the officers in the partnership and add them
-                List<Map<String,Object>> officersFromTbl = get("SELECT * FROM TblOperationalOfficers WHERE ptship = ?", partString);
+                List<Map<String,Object>> officersFromTbl = get("SELECT * FROM TblOperationalOfficers WHERE ptship = ?", partId);
                 for (Map<String,Object> mapOfficers: officersFromTbl) {
                     partnership.addOfficerToPartnership(new OperationalOfficer(mapOfficers));
                 }
                 officerReport.setPart(partnership);
 
                 //get the landmark
-                Landmark landmark = new Landmark(get("SELECT * FROM TblLandmarks WHERE (route = ? AND orderNum = ?)", String.valueOf(routeString), orderNumString).get(0));
+                Landmark landmark = new Landmark(get("SELECT * FROM TblLandmarks WHERE (route = ? AND orderNum = ?)", routeId, orderNum).get(0));
                 landmark.setRoute(new Route(landmark.getForeignKey("route"),null));
                 officerReport.setOrderNum(landmark);
 
                 //get the defendant
-                Defendant defendant = new Defendant(get("SELECT * FROM TblDefendants WHERE ID = ?", defendantString).get(0));
+                Defendant defendant = new Defendant(get("SELECT * FROM TblDefendants WHERE ID = ?", defendantId).get(0));
                 officerReport.setDefendant(defendant);
 
                 //get the appeal
-                Appeal appeal = new Appeal(get("SELECT * FROM TblAppeals WHERE serialNum = ?", appealString).get(0));
-                officerReport.setAppeal(appeal);
+
+                List<Map<String,Object>> appealData = get("SELECT * FROM TblAppeals WHERE serialNum = ?", appealString);
+                if(appealData.size() > 0){
+                    Appeal appeal = new Appeal(appealData.get(0));
+                    officerReport.setAppeal(appeal);
+                }
+
 
                 //get the vehicle
                 Vehicle vehicle = new Vehicle(get("SELECT * FROM TblVehicles WHERE licensePlate = ?", vehicleString).get(0));
@@ -691,36 +704,32 @@ class Database implements DataAccess {
     }
 
     @Override
-    public boolean submitAppeal(AuthContext context, Appeal appeal, Report report) throws DSException {
+    public boolean submitAppeal( Appeal appeal) throws DSException {
         //check context
 
-        isContextValidFor(context, roleId -> { if(roleId == -1) throw new DSAuthException("Invalid Context"); }, 4);
-
         try {
-            //checking for existence of appeal
-            int appealSerialNumString = appeal.getSerialNum();
-            String appealQueryForVolunteersReports = "SELECT serialNum FROM TblAppeals WHERE serialNum = ?";
-            boolean appealValidator = get(appealQueryForVolunteersReports, String.valueOf(appealSerialNumString)).size() == 0;
 
-            //checking for existence of report
-            String reportIdString = report.getAlphaNum();
-            String reportQuery = "SELECT alphaNum FROM " + report.db_table() + " WHERE alphaNum = ?";
-            boolean checkReport = get(reportQuery, reportIdString).size() == 1;
+            //check that defendant exists
+            Defendant defendant = appeal.getDefendant();
+            Report report = appeal.getReport();
+            List<Map<String,Object>> reportData = get("SELECT appeal FROM TblOfficerReport WHERE alphaNum= ? AND defendant = ?",report.getAlphaNum(),defendant.getID());
 
-            //if the appeal does not exists -> insert to the right Tbl and update the report
-            if (appealValidator && checkReport) {
-                int key = insert(appeal);
-                appeal.setSerialNum(key);
+            if(reportData.size() != 1)
+                throw new DSAuthException("Input parameters are incorrect");
 
-                update("TblOfficerReport",
-                        new Where("alphaNum = ?", reportIdString),
-                        new Column("appeal", appeal.getSerialNum()));
-                return true;
-            }
+            if(reportData.get(0).containsKey("appeal"))
+                throw new DSAuthException("Already appealed for this report");
+
+
+            int key = insert(appeal);
+
+            update("TblOfficerReport",
+                    new Where("alphaNum = ?", report.getAlphaNum()),
+                    new Column("appeal", key));
+            return true;
         }catch (SQLException e) {
             throw new DSFormatException(e.getMessage());
         }
-        return false;
     }
 
     @Override
